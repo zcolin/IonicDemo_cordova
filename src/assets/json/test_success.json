@@ -1,0 +1,10 @@
+{
+    "code": 200,
+    "msg": "",
+    "data": {
+        "userid": "1",
+        "username": "xiehan",
+        "role": "24",
+        "message": "测试json文件读取"
+    }
+}

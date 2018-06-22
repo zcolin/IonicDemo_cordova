@@ -1,0 +1,14 @@
+page-select {
+    .th-buttonGroup {
+        display: flex;
+    }
+    .th-button {
+        display: flex;
+        flex-grow: 1;
+        margin-left: 10px;
+        margin-right: 10px;
+    }
+    .th-root {
+        margin-bottom: 0px;
+    }
+}
