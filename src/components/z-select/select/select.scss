@@ -1,14 +1,21 @@
 page-select {
     .th-buttonGroup {
         display: flex;
+        border-top: 1px solid #dedede;
+        justify-content: flex-end;
     }
     .th-button {
         display: flex;
-        flex-grow: 1;
-        margin-left: 10px;
-        margin-right: 10px;
+    }
+    .th-button-right {
+        display: flex;
+        margin-right: 15px;
     }
     .th-root {
         margin-bottom: 0px;
+        z-index: 100002;
+    }
+    .th-list {
+        max-height: 320px;
     }
 }

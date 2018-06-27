@@ -57,7 +57,6 @@ export class ZSelectComponent {
     showPopover(event) {
         if (this.multi) {
             this.uiService.showMultiSelect(
-                event,
                 this.arrText,
                 typeof this.selectedPos == 'number' ? [this.selectedPos] : this.selectedPos,
                 (selectedValue, selectedText, allSelected) => {
@@ -68,7 +67,6 @@ export class ZSelectComponent {
             );
         } else {
             this.uiService.showSelect(
-                event,
                 this.arrText,
                 typeof this.selectedPos == 'number' ? this.selectedPos : 0,
                 (selectedValue, selectedText) => {

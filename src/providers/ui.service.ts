@@ -8,7 +8,8 @@ import {
     LoadingController,
     ToastController,
     AlertOptions,
-    PopoverController
+    PopoverController,
+    Label
 } from "ionic-angular";
 import { Injectable } from "@angular/core";
 import { AlertInputOptions } from "ionic-angular/components/alert/alert-options";
@@ -79,6 +80,7 @@ export class UiService {
         for (let i = 0; i < arrText.length; i++) {
             let optionButton = {} as ActionSheetButton;
             optionButton.text = arrText[i];
+            optionButton.cssClass = 'z-actionsheet-button';
             optionButton.handler = () => {
                 if (callback) {
                     callback(i, arrText[i]);
@@ -160,8 +162,8 @@ export class UiService {
      * @param OkBtnText         确定按钮文字
      * @param cancelBtnText     取消按钮文字
      */
-    public showCheckboxDialog(title?: string, arrText?: string[], selectedPos?: number[], okCallback?: ([]) => void, cancelCallback?: () => void, OkBtnText?: string, cancelBtnText?: string): Alert {
-        let checkedValue = [];
+    public showCheckboxDialog(title?: string, arrText?: string[], selectedPos?: number[], okCallback?: (sel: Array<{ index: number, label: string }>) => void, cancelCallback?: () => void, OkBtnText?: string, cancelBtnText?: string): Alert {
+        let checkedValue: Array<{ index: number, label: string }> = [];
         let option = {} as AlertOptions;
         option.inputs = [];
         option.title = title;
@@ -266,16 +268,14 @@ export class UiService {
      * @param selectedPos   默认选中项
      * @param okCallback    选中回调
      */
-    public showSelect(event?, arrText?: string[], selectedPos?: number, okCallback?: (number, string) => void) {
+    public showSelect(arrText?: string[], selectedPos?: number, okCallback?: (number, string) => void) {
         let popover = this.popoverCtrl.create('SelectPage', { texts: arrText, selectPos: [selectedPos] });
         popover.onDidDismiss(data => {
             if (data) {
                 okCallback(data.selectedPos, data.selectedText);
             }
         });
-        popover.present({
-            ev: event
-        });
+        popover.present();
     }
 
     /**
@@ -288,15 +288,13 @@ export class UiService {
      * @param isAllSelected 是否选中‘全部’
      * @param allText       ‘全部’按钮的文字描述
      */
-    public showMultiSelect(event?, arrText?: string[], selectedPos?: number[], okCallback?: (selectedPos: number[], selectedText: string[], isAllSelected: boolean) => void, isAddAll?: boolean, isAllSelected?: boolean, allText?: string) {
+    public showMultiSelect(arrText?: string[], selectedPos?: number[], okCallback?: (selectedPos: number[], selectedText: string[], isAllSelected: boolean) => void, isAddAll?: boolean, isAllSelected?: boolean, allText?: string) {
         let popover = this.popoverCtrl.create('SelectPage', { texts: arrText, selectPos: selectedPos, isMulti: true, isAddAll: isAddAll, isAllSelected: isAllSelected, allText: allText });
         popover.onDidDismiss(data => {
             if (data) {
                 okCallback(data.selectedPos, data.selectedText, isAllSelected);
             }
         });
-        popover.present({
-            ev: event
-        });
+        popover.present();
     }
 }

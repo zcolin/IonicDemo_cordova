@@ -2,3 +2,20 @@
 .button {
     text-transform: capitalize;
 }
+
+//ActionSheet item居中样式
+.z-actionsheet-button {
+    .button-inner {
+        justify-content: center !important;
+    }
+}
+
+//弹出框标题文字大小
+.alert-md .alert-title {
+    font-size: 18px;
+}
+
+//弹出框标题文字padding
+.alert-md .alert-head {
+    padding: 18px 18px 18px;
+}

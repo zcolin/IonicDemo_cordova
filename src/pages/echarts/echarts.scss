@@ -1,68 +1,50 @@
 page-echarts {
-    #one{
-        position: relative;
-        width: 100%; 
-        height: 200px; 
-    }
-    #two{
-        position: relative;
-        width: 100%; 
-        height: 200px; 
-    }
-    #three{
-        position: relative;
+    #one {
         width: 100%;
-        height: 200px;
+        height: 300px;
     }
-    #barEcharts { 
-        position: relative;
-        height: 200px; 
-        float: left
+    #two {
+        width: 100%;
+        height: 300px;
     }
-    #pieEcharts{
-        position: relative;
-        height: 200px;
-        float:left; 
+    #three {
+        width: 100%;
+        height: 300px;
     }
-    #groupBarEcharts{
-        position: relative;
-        height: 200px;
-        float:left;
+    #barEcharts {
+        height: 300px;
+        width: 100%;
     }
-    #stackBarEcharts{
-        position: relative;
-        height: 200px;
-        float:left;
+    #pieEcharts {
+        height: 300px;
+        width: 100%;
     }
-    #lineEcharts{
-        position: relative;
-        width: 400px; 
-        height: 200px;
-        float:left;
+    #groupBarEcharts {
+        height: 300px;
+        width: 100%;
     }
-    #stackLineEcharts{
-        position: relative;
-        width: 400px; 
-        height: 200px;
-        float:left;
+    #stackBarEcharts {
+        height: 300px;
+        width: 100%;
     }
-    #gradientLineEcharts{
-        position: relative;
-        width: 200px; 
-        height: 200px;
-        float:left;
+    #lineEcharts {
+        height: 300px;
+        width: 100%;
     }
-    #combinedEcharts{
-        position: relative;
-        width: 200px; 
-        height: 200px;
-        float:left;
+    #stackLineEcharts {
+        height: 300px;
+        width: 100%;
     }
-    #radarEcharts{
-        position: relative;
-        width: 15%; 
-        height: 200px;
-        float:left;
+    #gradientLineEcharts {
+        height: 300px;
+        width: 100%;
     }
-    
+    #combinedEcharts {
+        height: 300px;
+        width: 100%;
+    }
+    #radarEcharts {
+        height: 300px;
+        width: 100%;
+    }
 }
