@@ -4,6 +4,8 @@ import { BrowserModule } from "@angular/platform-browser";
 import { IonicApp, IonicErrorHandler, IonicModule, Config } from "ionic-angular";
 import { MyApp } from "./app.component";
 import { ProviderModule } from "../providers/provider.module";
+import * as ionicGalleryModal from 'ionic-gallery-modal';
+import { HAMMER_GESTURE_CONFIG } from '@angular/platform-browser';
 @NgModule({
     declarations: [
         MyApp
@@ -11,8 +13,10 @@ import { ProviderModule } from "../providers/provider.module";
     imports: [
         BrowserModule,
         ProviderModule,
+        ionicGalleryModal.GalleryModalModule,
         IonicModule.forRoot(MyApp, {
-            backButtonText: '返回'
+            backButtonText: '返回',
+            tabsHideOnSubPages: true,
         })
     ],
     bootstrap: [IonicApp],
@@ -21,6 +25,7 @@ import { ProviderModule } from "../providers/provider.module";
     ],
     providers: [
         { provide: ErrorHandler, useClass: IonicErrorHandler },
+        { provide: HAMMER_GESTURE_CONFIG, useClass: ionicGalleryModal.GalleryModalHammerConfig, }
     ]
 })
 export class AppModule {

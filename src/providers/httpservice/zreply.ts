@@ -3,7 +3,7 @@
  */
 export interface ZReply {
     isSuccess: (code) => boolean;       //自定义结果是否成功
-    msgKey: () => string;               //服务器返回信息字段
-    codeKey: () => string;              //服务器返回标识字段
-    dataKey: () => string;              //服务器返回标识字段
+    msgKey?: string;               //服务器返回信息字段
+    codeKey?: string;              //服务器返回标识字段
+    dataKey?: string;              //服务器返回标识字段
 }

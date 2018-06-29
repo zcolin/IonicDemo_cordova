@@ -4,12 +4,10 @@ import {
     ActionSheetController,
     Alert,
     AlertController,
-    Loading,
     LoadingController,
     ToastController,
     AlertOptions,
     PopoverController,
-    Label
 } from "ionic-angular";
 import { Injectable } from "@angular/core";
 import { AlertInputOptions } from "ionic-angular/components/alert/alert-options";
@@ -34,7 +32,7 @@ export class UiService {
      * @param message     进度条文字
      * @returns {Loading}
      */
-    public showLoading(message?: string): Loading {
+    public showLoading(message?: string) {
         let loading = this.loadingCtrl.create();
         loading.setContent(message).present();
         return loading;

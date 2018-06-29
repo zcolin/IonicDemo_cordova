@@ -13,7 +13,8 @@ import { ZInfiniteScrollContentComponent } from './z-infinite-scroll-content/z-i
         ZSelectComponent,
         ZRefresherContentComponent,
         ZInfiniteScrollContentComponent,
-        ZPageComponent],
+        ZPageComponent,
+    ],
     imports: [
         DirectivesModule,
         CommonModule,
@@ -23,7 +24,7 @@ import { ZInfiniteScrollContentComponent } from './z-infinite-scroll-content/z-i
         ZSelectComponent,
         ZRefresherContentComponent,
         ZInfiniteScrollContentComponent,
-        ZPageComponent
+        ZPageComponent,
     ]
 })
 export class ComponentsModule { }

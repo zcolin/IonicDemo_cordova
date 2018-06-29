@@ -1,10 +1,25 @@
 <z-page title="全局样式更改">
     <ion-content padding>
-        <button ion-button block (click)='showAlert()'>Alert</button>
-        <button ion-button block (click)='showConfirm()'>Confirm</button>
-        <button ion-button block (click)='showActionSheet()'>ActionSheet</button>
-        <button ion-button block (click)='showSelect($event)'>Select</button>
-        <button ion-button block (click)='showRadioAlert()'>RadioAlert</button>
-        <button ion-button block (click)='showCheckboxAlert()'>CheckboxAlert</button>
+        <ion-refresher (ionRefresh)="doRefresh($event)">
+            <z-refresher-content></z-refresher-content>
+        </ion-refresher>
+        <ion-list>
+            <button ion-button block (click)='showAlert()'>Alert</button>
+            <button ion-button block (click)='showConfirm()'>Confirm</button>
+            <button ion-button block (click)='showActionSheet()'>ActionSheet</button>
+
+            <ion-row nowrap>
+                <button ion-button col-6 (click)='showSelect()'>Select</button>
+                <button ion-button col-6 (click)='showMultiSelect()'>MultiSelect</button>
+            </ion-row>
+            <button ion-button block (click)='showRadioAlert()'>RadioAlert</button>
+            <button ion-button block (click)='showCheckboxAlert()'>CheckboxAlert</button>
+            <button ion-button block (click)='showProgressDialog()'>ProgressDialog</button>
+            <button ion-button block (click)='startItemPage()'>ItemPage</button>
+            <button ion-button block (click)='startVitualScrollPage()'>VitualScroll</button>
+        </ion-list>
+        <ion-infinite-scroll (ionInfinite)="doInfinite($event)">
+            <z-infinite-scroll-content></z-infinite-scroll-content>
+        </ion-infinite-scroll>
     </ion-content>
 </z-page>

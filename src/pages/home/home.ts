@@ -1,6 +1,9 @@
 import { Component } from '@angular/core';
-import { NavController, IonicPage } from 'ionic-angular';
+import { NavController, IonicPage, Refresher, InfiniteScroll } from 'ionic-angular';
 import { UiService } from '../../providers/ui.service';
+import { BrowserUtil } from '../../providers/utils/browser.util';
+import { DateUtil } from '../../providers/utils/date.util';
+import { PageUtil } from '../../providers/utils/page.util';
 
 @IonicPage()
 @Component({
@@ -13,13 +16,29 @@ export class HomePage {
 
     }
 
+    doRefresh(refresher?: Refresher) {
+        setTimeout(() => {
+            refresher.complete();
+        }, 1000);
+    }
+    doInfinite(infiniteScroll?: InfiniteScroll) {
+        setTimeout(() => {
+            infiniteScroll.complete();
+        }, 1000);
+    }
     showAlert() {
-        this.uiService.showAlert('提示', '这是一个普通的提示框\n这是一个普通的提示框\n这是一个普通的提示框', () => {
+        let str = 'WindowWidth: ' + BrowserUtil.getWindowWidth() + '<br/>';
+        str += 'WindowHeight: ' + BrowserUtil.getWindowHeight() + '<br/>';
+        str += 'Resolution: ' + BrowserUtil.getResolution() + '<br/>';
+        this.uiService.showAlert('提示', str, () => {
             this.uiService.showToast('点击了确定');
         });
     }
     showConfirm() {
-        this.uiService.showConfirm('提示', '这是一个普通的提示框\n这是一个普通的提示框\n这是一个普通的提示框', () => {
+        let str = DateUtil.getDate(new Date(), 'yyyy-MM-dd') + '<br/>';
+        str += DateUtil.getTimeAgo(new Date('2018-06-22')) + '<br/>';
+
+        this.uiService.showConfirm('提示', str, () => {
             this.uiService.showToast('点击了确定');
         });
     }
@@ -29,13 +48,19 @@ export class HomePage {
             this.uiService.showToast(`点击了${arrStr}[${pos}]`);
         });
     }
-    showSelect(event) {
+
+    showSelect() {
+        let arrStr = ['拍照', '录视频', '发朋友圈', '拍照', '录视频', '发朋友圈', '拍照', '录视频', '发朋友圈', '拍照', '录视频', '发朋友圈', '拍照', '录视频', '发朋友圈', '拍照', '录视频', '发朋友圈'];
+        this.uiService.showSelect(arrStr, 0, (pos, arrStr) => {
+            this.uiService.showToast(`点击了${arrStr}[${pos}]`);
+        });
+    }
+    showMultiSelect() {
         let arrStr = ['拍照', '录视频', '发朋友圈', '拍照', '录视频', '发朋友圈', '拍照', '录视频', '发朋友圈', '拍照', '录视频', '发朋友圈', '拍照', '录视频', '发朋友圈', '拍照', '录视频', '发朋友圈'];
         this.uiService.showMultiSelect(arrStr, [0, 1], (pos, arrStr) => {
             this.uiService.showToast(`点击了${arrStr}[${pos}]`);
         });
     }
-
     showRadioAlert() {
         let arrStr = ['拍照', '录视频', '发朋友圈'];
         this.uiService.showRadioboxDialog("请选择", arrStr, 0, (pos, arrStr) => {
@@ -49,5 +74,17 @@ export class HomePage {
             let label: string[] = sel.map((value) => value.label);
             this.uiService.showToast(`${label.toString()}`);
         });
+    }
+    showProgressDialog() {
+        let loading = this.uiService.showLoading();
+        setTimeout(() => {
+            loading.dismiss();
+        }, 2000);
+    }
+    startItemPage() {
+        PageUtil.startNewPage(this.navCtrl, 'ItemPage');
+    }
+    startVitualScrollPage() {
+        PageUtil.startNewPage(this.navCtrl, 'VitualScrollPage');
     }
 }

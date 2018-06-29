@@ -11,7 +11,6 @@ import "rxjs/add/operator/distinctUntilChanged";
 import "rxjs/add/operator/map";
 import "rxjs/add/operator/switchMap";
 import "rxjs/add/observable/throw";
-import { MyApp } from "../../app/app.component";
 import { Loading } from "ionic-angular";
 import { HttpClient, HttpErrorResponse, HttpHeaders, HttpParams } from "@angular/common/http";
 import { ZHttpOption } from './zhttp-option';
@@ -19,16 +18,14 @@ import { ZHttpError } from './zhttp-error';
 import { UiService } from "../ui.service";
 import { JsBridgeUtil } from "../utils/jsbridge.util";
 import { Util } from "../utils/util";
+import { ZReplyDefault } from "./zreply-default";
 
 /**
  * http 服务类
  */
 @Injectable()
 export class HttpService {
-    private defSuccessCode = 200;//http成功状态码
-
     constructor(private http: HttpClient, private uiService: UiService) {
-
     }
 
 
@@ -41,9 +38,10 @@ export class HttpService {
      */
     public get<T>(url: string, zoption: ZHttpOption, result: HttpResult<T>): Subscription {
         zoption = zoption || {};
+        zoption.zrepley = zoption.zrepley || new ZReplyDefault();
         result = result || {};
         let loading = zoption.isHideLoading ? null : this.uiService.showLoading(zoption.loadingMsg);
-        let option = { params: this.getParams(zoption.body), headers: this.getDefGetfHeader() };
+        let option = { params: this.getParams(zoption.body), headers: zoption.header || this.getDefHeader() };
 
         return this.http
             .get<T>(url, option)
@@ -82,9 +80,11 @@ export class HttpService {
      */
     public post<T>(url: string, zoption: ZHttpOption, result: HttpResult<T>): Subscription {
         zoption = zoption || {};
+        zoption.zrepley = zoption.zrepley || new ZReplyDefault();
+        result = result || {};
         let loading = zoption.isHideLoading ? null : this.uiService.showLoading(zoption.loadingMsg);
         return this.http
-            .post(url, this.getParams(zoption.body), { headers: this.getDefPostHeader() })
+            .post(url, this.getParams(zoption.body), { headers: zoption.header || this.getDefHeader() })
             .timeout(5000)
             .map(res => this.processResponse(zoption.zrepley, res, loading))
             .catch(error => this.processCatch(loading, zoption.isHideToastError, error))
@@ -133,22 +133,11 @@ export class HttpService {
     /**
      * 获取默认的Header信息
      */
-    private getDefGetfHeader(): HttpHeaders {
-        return new HttpHeaders({
-            "X-TH-TOKEN": MyApp.TOKEN
-        });
-    }
-
-    /**
-     * 获取默认的Header信息
-     */
-    private getDefPostHeader(): HttpHeaders {
+    private getDefHeader(): HttpHeaders {
         return new HttpHeaders({
             "Content-Type": "application/x-www-form-urlencoded; charset=UTF-8",
-            "X-TH-TOKEN": MyApp.TOKEN
         });
     }
-
 
     /**
      * 处理返回信息
@@ -159,43 +148,23 @@ export class HttpService {
     private processResponse(zreply: ZReply, res: any, loading: Loading) {
         let jsonObj = res; //此处jsonObj一定有值，如果转换错误，会再processCatch中处理
         console.log(JSON.stringify(jsonObj));
-
-        if (!zreply) {
-            if (jsonObj.code == this.defSuccessCode) {
-                if (loading) {
-                    loading.dismiss();
-                }
-
-                if (jsonObj['data']) {
-                    return jsonObj['data'];
-                } else {
-                    return jsonObj;
-                }
+        
+        if (zreply.isSuccess(jsonObj[zreply.codeKey])) {
+            if (loading) {
+                loading.dismiss();
             }
 
-            if (jsonObj.code != this.defSuccessCode && (jsonObj.msg || jsonObj.code)) {
-                throw new ZHttpError(jsonObj.code, jsonObj.msg);
-            } else {                                                                    //是json对象，但是不是约定中的数据
-                throw new ZHttpError(1001, "数据不符合规范：\n" + JSON.stringify(res));   //解析的json数据不符合规范
+            if (jsonObj[zreply.dataKey]) {
+                return jsonObj[zreply.dataKey];
+            } else {
+                return jsonObj;
             }
-        } else {
-            if (zreply.isSuccess(jsonObj[zreply.codeKey()])) {
-                if (loading) {
-                    loading.dismiss();
-                }
+        }
 
-                if (jsonObj[zreply.dataKey()]) {
-                    return jsonObj[zreply.dataKey()];
-                } else {
-                    return jsonObj;
-                }
-            }
-
-            if (!zreply.isSuccess(jsonObj[zreply.codeKey()] && (jsonObj[zreply.codeKey()] || jsonObj[zreply.msgKey()]))) {
-                throw new ZHttpError(jsonObj.code, jsonObj.msg);
-            } else {                                                                    //是json对象，但是不是约定中的数据
-                throw new ZHttpError(1001, "数据不符合规范：\n" + JSON.stringify(res));   //解析的json数据不符合规范
-            }
+        if (!zreply.isSuccess(jsonObj[zreply.codeKey] && (jsonObj[zreply.codeKey] || jsonObj[zreply.msgKey]))) {
+            throw new ZHttpError(jsonObj.code, jsonObj.msg);
+        } else {                                                                    //是json对象，但是不是约定中的数据
+            throw new ZHttpError(1001, "数据不符合规范：\n" + JSON.stringify(res));   //解析的json数据不符合规范
         }
     }
 

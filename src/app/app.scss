@@ -19,3 +19,12 @@
 .alert-md .alert-head {
     padding: 18px 18px 18px;
 }
+//弹出框宽度
+.alert-md .alert-wrapper {
+    max-width: 300px;
+    min-width: 300px;
+}
+//popover弹出框宽度
+.popover-md .popover-content{
+    width: 300px;
+}

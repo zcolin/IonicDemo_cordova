@@ -2,6 +2,10 @@
  * URL常量类
  */
 export class HttpUrl {
+    public static URL_NEWS = "http://restapi.amap.com/v3/place/text?key=ac472e992680b96b54a41edcfbd9325b&keywords=北京大学&types=高等院校&city=北京&children=1&offset=20&extensions=all&page=";
+
+
+
     public static URL_BASE = "http://10.10.61.29:8080/gxnn/platform/mobile/"; //默认
     public static URL_LOGIN = HttpUrl.URL_BASE + "login/doLogin";
     public static URL_CHAR_TYPE_DATA = HttpUrl.URL_BASE + "economic/getCategoryList";
