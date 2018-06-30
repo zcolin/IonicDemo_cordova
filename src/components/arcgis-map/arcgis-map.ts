@@ -14,13 +14,12 @@ import { GoogleBaseLayer } from './layer/GoogleBaseLayer';
     templateUrl: 'arcgis-map.html'
 })
 export class ArcgisMapComponent implements AfterContentInit {
-    _mapView;
-    _baseMap: any[];                     //底图图层集合
-    _center?: number[] = [108.443, 74]; //初始中心点
-    _zoom?: number = 8;                 //初始缩放
-    _baseMapTrade?: 'tianditu' | 'baidu' | 'gaode' | 'google' = 'tianditu';//底图提供厂商类型，天地图 、百度、高德
-    _baseMapType?: 'vec' | 'img' = 'vec';//地图类型，矢量图、影像图
-
+    private _mapView;
+    private _baseMap: any[];                     //底图图层集合
+    private _center?: number[] = [108.443, 74]; //初始中心点
+    private _zoom?: number = 8;                 //初始缩放
+    private _baseMapTrade?: 'tianditu' | 'baidu' | 'gaode' | 'google' = 'tianditu';//底图提供厂商类型，天地图 、百度、高德
+    private _baseMapType?: 'vec' | 'img' = 'vec';//地图类型，矢量图、影像图
 
     constructor() {
     }
@@ -29,11 +28,59 @@ export class ArcgisMapComponent implements AfterContentInit {
         this.initMap();
     }
 
-    get mapView() {
+    public initMap() {
+        let baseLayer = this.getBaseLayer();
+        baseLayer.getBaseMaps()
+            .then((basemap: any[]) => {
+                this._baseMap = basemap;
+            }).then(() => {
+                return loadModules([
+                    "esri/Map",
+                    "esri/views/MapView",
+                    "esri/geometry/Extent",
+                    "esri/geometry/SpatialReference",
+                    "esri/widgets/BasemapToggle",
+                    "dojo/domReady!"
+                ])
+            }).then(([Map, MapView, Extent, SpatialReference, BasemapToggle]) => {
+                let baseLayer = this.getBaseLayer();
+                let map = new Map({
+                    basemap: this._baseMap[0],
+                });
+
+                //设置mapview
+                this._mapView = new MapView({
+                    container: "th-arcgis-map-div",
+                    map: map,
+                    logo: false,
+                    constraints: {
+                        minZoom: baseLayer.getMinZoom(),
+                        maxZoom: baseLayer.getMaxZoom(),
+                        // rotationEnabled: false,//地图是否可以旋转画布
+                    },
+                    center: this._center,
+                    zoom: this._zoom,
+                });
+                this._mapView.ui.move("zoom", "bottom-right");//放大缩小移动到右上角
+                this._mapView.ui.remove(["attribution"]);//移除esri的logo
+                // view.ui.remove("zoom");      //去除放大缩小键
+
+                /*禁用手机端双指旋转 */
+                this._mapView.watch("rotation", (newValue, oldValue, propertyName) => {
+                    if (this._mapView.rotation !== 0) {
+                        this._mapView.rotation = 0;
+                    }
+                });
+            }).catch(err => {
+                console.log("ArcGISMap: " + err);
+            });
+    }
+
+    getMapView() {
         return this._mapView;
     }
 
-    get baseMap() {
+    get baseMap(): any[] {
         return this._baseMap;
     }
 
@@ -88,54 +135,6 @@ export class ArcgisMapComponent implements AfterContentInit {
                 this._mapView.map.basemap = this._baseMap[0];
             }
         }
-    }
-
-    public initMap() {
-        let baseLayer = this.getBaseLayer();
-        baseLayer.getBaseMaps()
-            .then((basemap: any[]) => {
-                this._baseMap = basemap;
-            }).then(() => {
-                return loadModules([
-                    "esri/Map",
-                    "esri/views/MapView",
-                    "esri/geometry/Extent",
-                    "esri/geometry/SpatialReference",
-                    "esri/widgets/BasemapToggle",
-                    "dojo/domReady!"
-                ])
-            }).then(([Map, MapView, Extent, SpatialReference, BasemapToggle]) => {
-                let baseLayer = this.getBaseLayer();
-                let map = new Map({
-                    basemap: this._baseMap[0],
-                });
-
-                //设置mapview
-                this._mapView = new MapView({
-                    container: "th-arcgis-map-div",
-                    map: map,
-                    logo: false,
-                    constraints: {
-                        minZoom: baseLayer.getMinZoom(),
-                        maxZoom: baseLayer.getMaxZoom(),
-                        // rotationEnabled: false,//地图是否可以旋转画布
-                    },
-                    center: this._center,
-                    zoom: this._zoom,
-                });
-                this._mapView.ui.move("zoom", "bottom-right");//放大缩小移动到右上角
-                this._mapView.ui.remove(["attribution"]);//移除esri的logo
-                // view.ui.remove("zoom");      //去除放大缩小键
-
-                /*禁用手机端双指旋转 */
-                this._mapView.watch("rotation", (newValue, oldValue, propertyName) => {
-                    if (this._mapView.rotation !== 0) {
-                        this._mapView.rotation = 0;
-                    }
-                });
-            }).catch(err => {
-                console.log("ArcGISMap: " + err);
-            });
     }
 
     /**

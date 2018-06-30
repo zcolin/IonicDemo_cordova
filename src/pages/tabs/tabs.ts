@@ -12,11 +12,13 @@ export class TabsPage {
     tab2Root: any = 'EchartsPage';
     tab3Root: any = 'CordovaPage';
     tab4Root: any = 'ArcgisPage';
+    tab5Root: any = 'AMapPage';
 
     tab1Title = "Home";
     tab2Title = "Echarts";
     tab3Title = "Cordova";
     tab4Title = "Arcgis";
+    tab5Title: any = 'AMap';
 
     constructor(public navCtrl: NavController) {
 

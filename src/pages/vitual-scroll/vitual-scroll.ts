@@ -5,7 +5,9 @@ import { GalleryModal } from 'ionic-gallery-modal';
 import { HttpService } from '../../providers/httpservice/http.service';
 import { HttpUrl } from '../../providers/consts/http-url';
 import { ZHttpOption } from '../../providers/httpservice/zhttp-option';
-import { PoiItem } from '../../models/poi-item';
+import { PoiItem, PoisReply } from '../../models/pois-reply';
+import { UiService } from '../../providers/ui.service';
+import { Util } from '../../providers/utils/util';
 
 @IonicPage()
 @Component({
@@ -13,9 +15,10 @@ import { PoiItem } from '../../models/poi-item';
     templateUrl: 'vitual-scroll.html',
 })
 export class VitualScrollPage {
+    totalCount: number;
     listPoi: PoiItem[] = [];
     page: number = 1;
-    constructor(public navCtrl: NavController, public navParams: NavParams, private modalCtrl: ModalController, private http: HttpService) {
+    constructor(public navCtrl: NavController, public navParams: NavParams, private modalCtrl: ModalController, private http: HttpService, private uiService: UiService) {
     }
 
     ionViewDidLoad() {
@@ -27,7 +30,12 @@ export class VitualScrollPage {
         this.requestData(refresher);
     }
     doInfinite(infiniteScroll?: InfiniteScroll) {
-        this.requestData(null, infiniteScroll);
+        if (Util.isValid(this.totalCount) && this.listPoi.length >= this.totalCount) {
+            this.uiService.showToast('已加载全部');
+            infiniteScroll.complete();
+        } else {
+            this.requestData(null, infiniteScroll);
+        }
     }
 
     requestData(refresher?: Refresher, infiniteScroll?: InfiniteScroll) {
@@ -36,18 +44,19 @@ export class VitualScrollPage {
                 isSuccess: (code) => code == "1",
                 msgKey: 'info',
                 codeKey: 'status',
-                dataKey: 'pois',              //服务器返回信息字段
+                // dataKey: 'pois',              //服务器返回信息字段
             },
             isHideLoading: true,
         }
 
-        this.http.get<PoiItem[]>(HttpUrl.URL_NEWS + this.page, option, {
-            success: (list) => {
-                if (list && list.length > 0) {
+        this.http.get<PoisReply>(HttpUrl.URL_NEWS + this.page, option, {
+            success: (reply) => {
+                this.totalCount = reply.count;
+                if (reply.pois && reply.pois.length > 0) {
                     if (this.page == 1) {
-                        this.listPoi = list;
+                        this.listPoi = reply.pois;
                     } else {
-                        this.listPoi.push(...this.listPoi);
+                        this.listPoi.push(...reply.pois);
                     }
                     this.listPoi.forEach((item) => item.picUrl = 'https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1530199012840&di=f170d4e6699af3ae778d89b190af9880&imgtype=0&src=http%3A%2F%2Fpic.lvmama.com%2Fuploads%2Fpc%2Fplace2%2F2015-09-10%2F5179c540-f333-40c4-a95a-c36732d623d8_1280_.jpg');
                 }
