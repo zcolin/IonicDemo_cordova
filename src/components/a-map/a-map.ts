@@ -1,6 +1,6 @@
-import { Component, ViewChild, ElementRef, Input } from '@angular/core';
+import { Component, ViewChild, ElementRef } from '@angular/core';
 import { Observable } from 'rxjs';
-import { ControlBarPluginOption, MapTypePluginOption, ToolBarPluginOption, LocationPluginOption, MakerOption, LineOption, CircleMakerOption, AdvancedInfoWindowOption, SearchNearOption, PolygonOption, ScalePluginOption } from './a-map.option';
+import { ControlBarPluginOption, MapTypePluginOption, ToolBarPluginOption, LocationPluginOption, MakerOption, LineOption, AdvancedInfoWindowOption, SearchNearOption, PolygonOption, ScalePluginOption, IconOption, CircleOption } from './a-map.option';
 
 @Component({
     selector: 'a-map',
@@ -8,8 +8,6 @@ import { ControlBarPluginOption, MapTypePluginOption, ToolBarPluginOption, Locat
 })
 export class AMapComponent {
     private _mapView;
-    private _center?: number[]; //初始中心点
-    private _zoom?: number = 13;                         //初始缩放
 
     @ViewChild('panel') panel: ElementRef
     constructor() {
@@ -22,29 +20,28 @@ export class AMapComponent {
 
     loadMap() {
         this._mapView = new AMap.Map('amap-container', {
-            center: this._center,
             resizeEnable: true,
-            zoom: this._zoom,
         });
     }
 
-    get mapView() {
+    getMap() {
         return this._mapView;
     }
 
-
-    @Input() set zoom(zoom: number) {
-        this._zoom = zoom;
-        if (this._mapView) {
-            this._mapView.zoom = zoom;
-        }
+    setZoom(zoom: number) {
+        this._mapView.setZoom(zoom);
     }
 
-    @Input() set center(center) {
-        this._center = center;
-        if (this._mapView) {
-            this._mapView.goTo(center);
-        }
+    setCity(cityName: string) {
+        this._mapView.setCity(cityName);
+    }
+
+    setCenter(center: number[]) {
+        this._mapView.setCenter(center);
+    }
+
+    setZoomAndCenter(zoom: number, center: number[]) {
+        this._mapView.setZoomAndCenter(zoom, center);
     }
 
     /**
@@ -60,6 +57,7 @@ export class AMapComponent {
 
     /**
      * 增加周边搜索插件
+     * 
      * @param option 
      */
     addSearchNearPlugin(option: SearchNearOption) {
@@ -83,8 +81,8 @@ export class AMapComponent {
 
     /**
      * 增加地图控件组件
-     * @param showTraffic 
-     * @param showRoad 
+     * 
+     * @param option 
      */
     addControlBarPlugin(option?: ControlBarPluginOption): Observable<any> {
         return new Observable(observer => {
@@ -100,10 +98,11 @@ export class AMapComponent {
             })
         });
     }
+
     /**
      * 增加地图图层切换组件
-     * @param showTraffic 
-     * @param showRoad 
+     * 
+     * @param option       
      */
     addMapTypePlugin(option?: MapTypePluginOption): Observable<any> {
         return new Observable(observer => {
@@ -122,8 +121,8 @@ export class AMapComponent {
 
     /**
      * 增加地图比例尺组件
-     * @param showTraffic
-     * @param showRoad
+     * 
+     * @param option
      */
     addScalePlugin(option?: ScalePluginOption): Observable<any> {
         return new Observable(observer => {
@@ -141,8 +140,8 @@ export class AMapComponent {
 
     /**
      * 增加地图工具条组件
-     * @param showTraffic
-     * @param showRoad
+     * 
+     * @param option
      */
     addToolBarPlugin(option?: ToolBarPluginOption): Observable<any> {
         return new Observable(observer => {
@@ -155,7 +154,7 @@ export class AMapComponent {
                     noIpLocate: option.noIpLocate || false,
                     locate: option.locate || false,
                     liteStyle: option.liteStyle || false,
-                    direction: option.direction || true,
+                    direction: option.direction || false,
                     autoPosition: option.autoPosition || false,
                     locationMarker: option.locationMarker,
                     useNative: option.useNative || true,
@@ -167,11 +166,9 @@ export class AMapComponent {
     }
 
     /**
-     * 增加地图插件
-     * @param buttonPosition 
-     * @param offset 
-     * @param onComplete 
-     * @param onError 
+     * 增加定位插件
+     * 
+     * @param option 
      */
     addLocationPlugin(option?: LocationPluginOption): Observable<any> {
         return new Observable(observer => {
@@ -212,6 +209,7 @@ export class AMapComponent {
     }
     /**
      * 使用该方法后，地图图层会被重置。
+     * 
      * @param layers  图层数组
      */
     setLayers(layers) {
@@ -220,6 +218,7 @@ export class AMapComponent {
 
     /**
      * 增加覆盖物
+     * 
      * @param obj 
      */
     add(obj: any) {
@@ -228,6 +227,7 @@ export class AMapComponent {
 
     /**
      * 移除覆盖物
+     * 
      * @param obj 
      */
     remove(obj: any) {
@@ -236,6 +236,7 @@ export class AMapComponent {
 
     /**
      * 清除覆盖物
+     * 
      * @param obj 
      */
     cleanMap() {
@@ -244,19 +245,24 @@ export class AMapComponent {
 
     /**
      * 增加标记物
-     * @param position      位置
+     * 
+     * @param option      
      * @param clickCallBack 点击回调
-     * @param iconUri       图片对象
-     * @param content       点标记内容可以是自定义html，显示的情况下，icon属性被覆盖
      */
-    getMaker(option: MakerOption, clickCallBack: (e) => void) {
+    getMaker(option: MakerOption, clickCallBack?: (e) => void) {
+        let icon = option.icon && option.icon instanceof IconOption ? new AMap.Icon({
+            size: option.icon.size,
+            imageOffset: option.icon.imageOffset,
+            image: option.icon.image,
+            imageSize: option.icon.imageSize,
+        }) : option.icon;
         let marker = new AMap.Marker({
             position: option.position,
             extData: option.extData,
-            offset: option.offset || [-20, -62],
-            icon: option.icon,
+            offset: option.offset || new AMap.Pixel(-20, -62),
+            icon: icon,
             content: option.content,
-            clickable: clickCallBack,
+            clickable: clickCallBack ? true : false,
             draggable: option.draggable,
             zIndex: option.zIndex,
             angle: option.angle,
@@ -280,22 +286,36 @@ export class AMapComponent {
     }
 
     /**
-     * 添加线
-     * @param path 
-     * @param borderWeight  线条宽度
-     * @param strokeColor   线条颜色
-     * @param lineJoin      折线拐点连接处样式
+    * 添加单个点
+    * @param option 
+    * @param clickCallBack 
+    */
+    addMaker(option: MakerOption, clickCallBack?: (e) => void) {
+        this.add(this.getMaker(option, clickCallBack))
+    }
+
+    /**
+     * 获取线实例
+     * 
+     * @param option      
+     * @param clickCallBack 点击回调
      */
-    getLine(option: LineOption, clickCallBack: (e) => void) {
+    getLine(option: LineOption, clickCallBack?: (e) => void) {
         let polyline = new AMap.Polyline({
             path: option.path,
             extData: option.extData,
-            borderWeight: option.borderWeight || 2,
-            strokeColor: option.strokeColor || '#fff',
-            strokeWeight: option.strokeWeight || 2,
+            isOutline: option.isOutline,
+            borderWeight: option.borderWeight || 1,
+            outlineColor: option.outlineColor || '#fff',
+            strokeColor: option.strokeColor || '#4875c1',
+            strokeWeight: option.strokeWeight || 5,
             strokeOpacity: option.strokeOpacity || 0.5,
+            strokeStyle: option.strokeStyle,
+            strokeDasharray: option.strokeDasharray,
             lineJoin: option.lineJoin || 'round',
-            clickable: clickCallBack,
+            lineCap: option.lineCap,
+            draggable: option.draggable,
+            clickable: clickCallBack ? true : false,
         });
 
         if (clickCallBack) {
@@ -304,26 +324,35 @@ export class AMapComponent {
         return polyline;
     }
 
+    /**
+     * 添加线
+     * @param option 
+     * @param clickCallBack 
+     */
+    addLine(option: LineOption, clickCallBack?: (e) => void) {
+        this.add(this.getLine(option, clickCallBack))
+    }
 
     /**
-     * 增加多边形
-     * @param path 
-     * @param fillColor     填充颜色
-     * @param borderWeight  线条宽度
-     * @param strokeColor   线条颜色
+     * 获取多边形实例
+     * 
+     * @param option      
+     * @param clickCallBack 点击回调
      */
     getPolygon(option: PolygonOption, clickCallBack?: (e) => void) {
-        let polygon = new AMap.Polyline({
+        let polygon = new AMap.Polygon({
             path: option.path,
-            extData: option.extData,
-            borderWeight: option.borderWeight || 2,
+            zIndex: option.zIndex,
+            strokeWeight: option.strokeWeight || 2,
             strokeColor: option.strokeColor || "#fff",
             strokeOpacity: option.strokeOpacity || 0.5,
-            strokeWeight: option.strokeWeight || 2,
+            strokeStyle: option.strokeStyle,
+            extData: option.extData,
+            strokeDasharray: option.strokeDasharray,
             fillColor: option.fillColor || "#7a72e5",
             fillOpacity: option.fillOpacity || 0.5,
-            zIndex: option.zIndex,
-            clickable: clickCallBack,
+            draggable: option.draggable,
+            clickable: clickCallBack ? true : false,
         });
 
         if (clickCallBack) {
@@ -333,33 +362,49 @@ export class AMapComponent {
     }
 
     /**
-     * 添加矢量圆形
-     * @param center            圆心位置
-     * @param radius            半径
-     * @param strokeColor       线颜色
-     * @param fillColor         线透明度
-     * @param strokeOpacity     填充颜色
-     * @param fillOpacity       填充透明度
-     * @param strokeWeight      线粗细度
+     * 添加多边形
+     * @param option 
+     * @param clickCallBack 
      */
-    getCircleMaker(option: CircleMakerOption, clickCallBack?: (e) => void) {
-        let circleMarker = new AMap.CircleMarker({
+    addPolygon(option: PolygonOption, clickCallBack?: (e) => void) {
+        this.add(this.getPolygon(option, clickCallBack))
+    }
+
+    /**
+     * 获取矢量圆形实例
+     * 
+     * @param option      
+     * @param clickCallBack 点击回调
+     */
+    getCircle(option: CircleOption, clickCallBack?: (e) => void) {
+        let circle = new AMap.Circle({
             center: option.center,
+            zIndex: option.zIndex,
             extData: option.extData,
             radius: option.radius || 500,
             strokeColor: option.strokeColor || '#fff',
-            strokeOpacity: option.strokeOpacity || 0.5,
             strokeWeight: option.strokeWeight || 2,
-            fillColor: option.fillColor || '#7a72e5',
+            strokeOpacity: option.strokeOpacity || 0.5,
+            strokeStyle: option.strokeStyle,
+            strokeDasharray: option.strokeDasharray,
+            fillColor: option.fillColor || '#f7ae9e',
             fillOpacity: option.fillOpacity || 0.5,
-            zIndex: option.zIndex,
-            clickable: clickCallBack,
+            clickable: clickCallBack ? true : false,
         });
 
         if (clickCallBack) {
-            circleMarker.on("click", clickCallBack);
+            circle.on("click", clickCallBack);
         }
-        return circleMarker;
+        return circle;
+    }
+
+    /**
+     * 添加矢量圆形实例
+     * @param option 
+     * @param clickCallBack 
+     */
+    addCircle(option: CircleOption, clickCallBack?: (e) => void) {
+        this.add(this.getCircle(option, clickCallBack))
     }
 
     /**
@@ -378,7 +423,7 @@ export class AMapComponent {
      *       var pixel = ev.pixel;// 触发事件的像素坐标，AMap.Pixel 类型
      *       var type = ev.type; // 触发事件类型
      *   });
-     * @param callback 
+     * @param clickCallBack 点击回调
      */
     onMapFieldChanged(callback: (e) => void) {
         this._mapView.on('zoomend', callback);
@@ -388,11 +433,12 @@ export class AMapComponent {
 
     /**
      * 显示窗体
+     * 
      * @param content   传入 dom 对象，或者 html 字符串    
      * @param isCustom  用自定义窗体
-     * @param offset    偏移
+     * @param offset    偏移 AMap.Pixel
      */
-    showInfoWindow(content: string | object, isCustom?: boolean, offset?: number[]) {
+    showInfoWindow(content: string | object, isCustom?: boolean, offset?) {
         let infoWindow = new AMap.InfoWindow({
             isCustom: isCustom || true,
             content: content,
@@ -404,6 +450,7 @@ export class AMapComponent {
 
     /**
      * 显示带有导航 路径规划等信息的窗体
+     * 
      * @param option 
      */
     showAdvancedInfoWindow(option: AdvancedInfoWindowOption) {
@@ -425,10 +472,11 @@ export class AMapComponent {
 
     /**
      * 其他坐标系转高德坐标,最多支持40对坐标。
+     * 
      * @param position 
      * @param type 
      */
-    transferLnglat(position: number[] | number[][], type?: 'gps|baidu|mapbar') {//支持原始坐标，百度经纬度，图吧经纬度
+    convertFrom(position: number[] | number[][], type?: 'gps|baidu|mapbar') {//支持原始坐标，百度经纬度，图吧经纬度
         return new Observable(observer => {
             AMap.convertFrom(position, type || 'gps', (status, result) => {
                 if (status === 'complete' && result.info === 'ok') {
