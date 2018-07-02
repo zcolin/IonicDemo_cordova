@@ -476,15 +476,49 @@ export class AMapComponent {
      * @param position 
      * @param type 
      */
-    convertFrom(position: number[] | number[][], type?: 'gps|baidu|mapbar') {//支持原始坐标，百度经纬度，图吧经纬度
+    convertFrom(position: number[] | number[][], type?: 'gps' | 'baidu' | 'mapbar') {//支持原始坐标，百度经纬度，图吧经纬度
         return new Observable(observer => {
-            AMap.convertFrom(position, type || 'gps', (status, result) => {
+            if (position.length <= 40) {
+                AMap.convertFrom(position, type || 'gps', (status, result) => {
+                    if (status === 'complete' && result.info === 'ok') {
+                        observer.next(result.locations);
+                    } else {
+                        console.log(result.info)
+                    }
+                });
+            } else {
+                let resultList: number[][] = [];
+                let pos = position as number[][];
+                this.covert(resultList, pos, 0, type, () => {
+                    observer.next(resultList);
+                });
+            }
+        });
+    }
+
+    /**
+     * 官方方法一次最多转换40个，在此递归调用
+     * 
+     * @param resultList        盛放转换结果的列表
+     * @param positionList      需要转换的列表
+     * @param index             当前转换的偏移
+     * @param type                  
+     * @param callback 
+     */
+    private covert(resultList: number[][], positionList: number[][], index: number, type: 'gps' | 'baidu' | 'mapbar', callback: () => void) {
+        let size = positionList.length - index > 40 ? 40 : positionList.length - index;
+        if (size > 0) {
+            let array = positionList.slice(index, index + size);
+            AMap.convertFrom(array, type || 'gps', (status, result) => {
                 if (status === 'complete' && result.info === 'ok') {
-                    observer.next(result.locations);
+                    resultList.push(result.locations)
+                    this.covert(resultList, positionList, index + array.length, type, callback);
                 } else {
-                    observer.error(result.info);
+                    console.log(result.info)
                 }
             });
-        });
+        } else {
+            callback();
+        }
     }
 }
