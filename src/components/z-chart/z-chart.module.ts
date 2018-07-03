@@ -9,4 +9,4 @@ import { ZChartComponent } from './z-chart';
         ZChartComponent,
     ]
 })
-export class ComponentsModule { }
+export class ZChartModule { }

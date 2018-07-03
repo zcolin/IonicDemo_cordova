@@ -17,6 +17,9 @@ import { HAMMER_GESTURE_CONFIG } from '@angular/platform-browser';
         IonicModule.forRoot(MyApp, {
             backButtonText: '返回',
             tabsHideOnSubPages: true,
+            modalEnter: 'modal-slide-in',
+            modalLeave: 'modal-slide-out',
+            pageTransition: 'ios-transition',
         })
     ],
     bootstrap: [IonicApp],

@@ -37,39 +37,8 @@ export class HttpService {
      * @param result                回调接口
      */
     public get<T>(url: string, zoption: ZHttpOption, result: HttpResult<T>): Subscription {
-        zoption = zoption || {};
-        zoption.zrepley = zoption.zrepley || new ZReplyDefault();
-        result = result || {};
-        let loading = zoption.isHideLoading ? null : this.uiService.showLoading(zoption.loadingMsg);
-        let option = { params: this.getParams(zoption.body), headers: zoption.header || this.getDefHeader() };
-
-        return this.http
-            .get<T>(url, option)
-            .timeout(5000)
-            .map(res => this.processResponse(zoption.zrepley, res, loading))
-            .catch(error => this.processCatch(loading, zoption.isHideToastError, error))
-            .subscribe(
-                obj => {
-                    if (result.success) {
-                        result.success(obj);
-                    }
-
-                    if (result.complete) {
-                        result.complete();
-                    }
-                },
-                error => {
-                    if (result.error) {
-                        result.error(error);
-                    }
-
-                    if (result.complete) {
-                        result.complete();
-                    }
-                }
-            );
+        return this.request('get', url, zoption, result);
     }
-
 
     /**
      * post请求
@@ -79,12 +48,17 @@ export class HttpService {
      * @param result                回调接口
      */
     public post<T>(url: string, zoption: ZHttpOption, result: HttpResult<T>): Subscription {
+        return this.request('post', url, zoption, result);
+    }
+
+    private request<T>(type: 'get' | 'post', url: string, zoption: ZHttpOption, result: HttpResult<T>): Subscription {
         zoption = zoption || {};
         zoption.zrepley = zoption.zrepley || new ZReplyDefault();
         result = result || {};
         let loading = zoption.isHideLoading ? null : this.uiService.showLoading(zoption.loadingMsg);
-        return this.http
-            .post(url, this.getParams(zoption.body), { headers: zoption.header || this.getDefHeader() })
+        let option = type === 'get' ? { params: this.getParams(zoption.body), headers: zoption.header || this.getDefHeader() } : { headers: zoption.header || this.getDefHeader() };
+        let observable = type === 'get' ? this.http.get<T>(url, option) : this.http.post<T>(url, this.getParams(zoption.body), option);
+        return observable
             .timeout(5000)
             .map(res => this.processResponse(zoption.zrepley, res, loading))
             .catch(error => this.processCatch(loading, zoption.isHideToastError, error))
@@ -148,7 +122,7 @@ export class HttpService {
     private processResponse(zreply: ZReply, res: any, loading: Loading) {
         let jsonObj = res; //此处jsonObj一定有值，如果转换错误，会再processCatch中处理
         console.log(JSON.stringify(jsonObj));
-        
+
         if (zreply.isSuccess(jsonObj[zreply.codeKey])) {
             if (loading) {
                 loading.dismiss();
@@ -222,6 +196,74 @@ export class HttpService {
         errorObj.code = code;               //自定义错误标识
         errorObj.msg = (message == null) ? "null" : message;
         return errorObj;
+    }
+
+
+    /**
+    * get请求
+    *
+    * @param url                   请求地址
+    * @param zoption               请求参数
+    * @param result                回调接口
+    */
+    public getText(url: string, zoption: ZHttpOption, result: HttpResult<string>): Subscription {
+        return this.requestText('get', url, zoption, result);
+    }
+
+    /**
+    * get请求
+    *
+    * @param url                   请求地址
+    * @param zoption               请求参数
+    * @param result                回调接口
+    */
+    public postText(url: string, zoption: ZHttpOption, result: HttpResult<string>): Subscription {
+        return this.requestText('post', url, zoption, result);
+    }
+
+    /**
+    * 请求字符串数据
+    *
+    * @param url                   请求地址
+    * @param zoption               请求参数
+    * @param result                回调接口
+    */
+    private requestText(type: 'get' | 'post', url: string, zoption: ZHttpOption, result: HttpResult<string>): Subscription {
+        zoption = zoption || {};
+        zoption.zrepley = zoption.zrepley || new ZReplyDefault();
+        result = result || {};
+        let loading = zoption.isHideLoading ? null : this.uiService.showLoading(zoption.loadingMsg);
+        let restype: 'text' = 'text';
+        let option = { params: this.getParams(zoption.body), headers: zoption.header || this.getDefHeader(), responseType: restype };
+        let observable = type === 'get' ? this.http.get(url, option) : this.http.post(url, option);
+        return observable.timeout(5000)
+            .map((res) => {
+                if (loading) {
+                    loading.dismiss();
+                }
+                return res;
+            })
+            .catch(error => this.processCatch(loading, zoption.isHideToastError, error))
+            .subscribe(
+                obj => {
+                    if (result.success) {
+                        result.success(obj);
+                    }
+
+                    if (result.complete) {
+                        result.complete();
+                    }
+                },
+                error => {
+                    if (result.error) {
+                        result.error(error);
+                    }
+
+                    if (result.complete) {
+                        result.complete();
+                    }
+                }
+            );
     }
 }
 

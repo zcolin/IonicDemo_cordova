@@ -1,10 +1,11 @@
 <z-page title="Item示例">
-    <ion-content padding>
+    <ion-content>
         <ion-refresher (ionRefresh)="doRefresh($event)">
             <z-refresher-content></z-refresher-content>
         </ion-refresher>
+        <ion-searchbar placeholder="搜索"></ion-searchbar>
 
-        <ion-list>
+        <ion-list no-lines="true">
             <ion-list-header>
                 Header
             </ion-list-header>

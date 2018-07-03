@@ -34,7 +34,7 @@ export class PageUtil {
         if (MyApp.ISTELCHINA) {
             JsBridgeUtil.startWebPage(url, title, responseCallback);
         } else {
-
+            navCtrl.push('ExternalWebPage', { 'url': url, 'title': title });
         }
     }
 }

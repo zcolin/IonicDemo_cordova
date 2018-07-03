@@ -87,4 +87,7 @@ export class HomePage {
     startVitualScrollPage() {
         PageUtil.startPage(this.navCtrl, 'VitualScrollPage');
     }
+    startExternalWebPage() {
+        PageUtil.startWebPage(this.navCtrl, 'http://www.qq.com/', '腾讯');
+    }
 }
