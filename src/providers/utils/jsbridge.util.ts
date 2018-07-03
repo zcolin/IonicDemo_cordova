@@ -45,7 +45,8 @@ export class JsBridgeUtil {
     static startWebPage(url: string, title?: string, responseCallback?: (returnData: string) => void) {
         if (MyApp.ISTELCHINA) {
             let strTitle = title || null;
-            this.jsbridge.callHandler("startWebPage", '', responseCallback);
+            let strParam = JSON.stringify({url: url, title: strTitle});
+            this.jsbridge.callHandler("startWebPage", strParam, responseCallback);
         }
     }
 
