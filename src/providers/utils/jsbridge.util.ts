@@ -36,31 +36,16 @@ export class JsBridgeUtil {
 
 
     /**
-     * 打开原生页面
+     * 使用原生webview打开网页
      * @param url               网址
      * @param title             页面名称，如果不传，则不显示原生标题
      * @param params            参数
      * @param responseCallback  关闭页面回调
      */
-    static startWebPage(url: string, title?: string, params?: any, responseCallback?: (returnData: string) => void) {
+    static startWebPage(url: string, title?: string, responseCallback?: (returnData: string) => void) {
         if (MyApp.ISTELCHINA) {
             let strTitle = title || null;
-            params = params ? encodeURIComponent(JSON.stringify(params)) : params;
-            let strParam = params ? JSON.stringify({ url: url, title: strTitle, params: params }) : JSON.stringify({ url: url, title: strTitle, params: null });
-            this.jsbridge.callHandler("startWebPage", strParam, responseCallback);
-        }
-    }
-
-    /**
-      * 启动原生页面
-      * @param pageName
-      * @param params            参数
-      * @param responseCallback  关闭页面回调
-      */
-    static startNativePage(pageName: string, params?: any, responseCallback?: (returnData: string) => void) {
-        if (MyApp.ISTELCHINA) {
-            let strParam = params ? JSON.stringify({ pageName: pageName, params: params }) : JSON.stringify({ pageName: pageName, params: null });
-            this.jsbridge.callHandler("startNativePage", strParam, responseCallback);
+            this.jsbridge.callHandler("startWebPage", '', responseCallback);
         }
     }
 
