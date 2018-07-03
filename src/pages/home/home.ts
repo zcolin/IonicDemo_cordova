@@ -82,9 +82,9 @@ export class HomePage {
         }, 2000);
     }
     startItemPage() {
-        PageUtil.startNewPage(this.navCtrl, 'ItemPage');
+        PageUtil.startPage(this.navCtrl, 'ItemPage');
     }
     startVitualScrollPage() {
-        PageUtil.startNewPage(this.navCtrl, 'VitualScrollPage');
+        PageUtil.startPage(this.navCtrl, 'VitualScrollPage');
     }
 }
