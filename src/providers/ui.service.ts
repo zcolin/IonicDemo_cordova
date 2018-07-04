@@ -4,10 +4,10 @@ import {
     ActionSheetController,
     Alert,
     AlertController,
+    Loading,
     LoadingController,
     ToastController,
     AlertOptions,
-    PopoverController,
     ModalController,
 } from "ionic-angular";
 import { Injectable } from "@angular/core";
@@ -25,7 +25,7 @@ export class UiService {
         private toastCtrl: ToastController,
         private actionSheetCtrl: ActionSheetController,
         private alertCtrl: AlertController,
-        private popoverCtrl: ModalController) {
+        private modalCtrl: ModalController) {
     }
 
     /**
@@ -33,7 +33,7 @@ export class UiService {
      * @param message     进度条文字
      * @returns {Loading}
      */
-    public showLoading(message?: string) {
+    public showLoading(message?: string): Loading {
         let loading = this.loadingCtrl.create();
         loading.setContent(message).present();
         return loading;
@@ -268,7 +268,7 @@ export class UiService {
      * @param okCallback    选中回调
      */
     public showSelect(arrText?: string[], selectedPos?: number, okCallback?: (number, string) => void) {
-        let popover = this.popoverCtrl.create('SelectPage', { texts: arrText, selectPos: [selectedPos] },
+        let popover = this.modalCtrl.create('SelectPage', { texts: arrText, selectPos: [selectedPos] },
             { enterAnimation: 'modal-alert-enter', leaveAnimation: 'modal-alert-leave' });
         popover.onDidDismiss(data => {
             if (data) {
@@ -289,14 +289,14 @@ export class UiService {
      * @param allText       ‘全部’按钮的文字描述
      */
     public showMultiSelect(arrText?: string[], selectedPos?: number[], okCallback?: (selectedPos: number[], selectedText: string[], isAllSelected: boolean) => void, isAddAll?: boolean, isAllSelected?: boolean, allText?: string) {
-        let popover = this.popoverCtrl.create('SelectPage',
+        let modal = this.modalCtrl.create('SelectPage',
             { texts: arrText, selectPos: selectedPos, isMulti: true, isAddAll: isAddAll, isAllSelected: isAllSelected, allText: allText },
             { enterAnimation: 'modal-alert-enter', leaveAnimation: 'modal-alert-leave' });
-        popover.onDidDismiss(data => {
+        modal.onDidDismiss(data => {
             if (data) {
                 okCallback(data.selectedPos, data.selectedText, isAllSelected);
             }
         });
-        popover.present();
+        modal.present();
     }
 }

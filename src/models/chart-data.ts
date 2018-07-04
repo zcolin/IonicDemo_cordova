@@ -12,6 +12,6 @@ export class ChartData {
     scatterData: Array<Array<number>>;//柱状数据
     pieData: Array<Array<number>>;//饼状数据
     isHasCounty: string;//是否有区县下钻
-
+    radarData:Array<Array<number>>//雷达图
     lineDirection: string;//在协议中暂时没有此字段 取horizontal或者vertical
 }

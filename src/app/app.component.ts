@@ -2,7 +2,6 @@ import { IonicApp } from 'ionic-angular';
 import { Nav, Platform } from 'ionic-angular';
 import { Component, ViewChild } from '@angular/core';
 import { BrowserUtil } from '../providers/utils/browser.util';
-import { JsBridgeUtil } from '../providers/utils/jsbridge.util';
 import { HttpUrl } from '../providers/consts/http-url';
 import { UiService } from '../providers/ui.service';
 import { Util } from '../providers/utils/util';

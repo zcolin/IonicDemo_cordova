@@ -1,11 +1,23 @@
-import { MyApp } from "../../app/app.component";
-import { JsBridgeUtil } from "./jsbridge.util";
-import { NavController } from 'ionic-angular';
+import {MyApp} from "../../app/app.component";
+import {JsBridgeUtil} from "./jsbridge.util";
+import {NavController} from "ionic-angular";
+import {Page} from "ionic-angular/navigation/nav-util";
 
 /**
  * 页面相关的工具类
  */
 export class PageUtil {
+
+    /**
+     * 调用NavController的push方法将页面压入栈内
+     * @param navCtrl
+     * @param pageName          页面名称
+     * @param params            参数
+     */
+    static push(navCtrl: NavController, page: Page | string, params?: any) {
+        navCtrl.push(page, params);
+    }
+
     /**
      * 启动新页面，在手机浏览器会使用原生调用启动新页面
      * @param navCtrl
@@ -34,7 +46,7 @@ export class PageUtil {
         if (MyApp.ISTELCHINA) {
             JsBridgeUtil.startWebPage(url, title, responseCallback);
         } else {
-            navCtrl.push('ExternalWebPage', { 'url': url, 'title': title });
+            navCtrl.push('ExternalWebPage', {'url': url, 'title': title});
         }
     }
 }

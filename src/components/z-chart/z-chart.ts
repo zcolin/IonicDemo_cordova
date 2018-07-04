@@ -15,7 +15,9 @@ export class ZChartComponent {
     @Input() zdata: ChartData;
     @Input() notMerge: boolean = true;
     @Input() barColor = ["#4a33ab", "#5f69c3", "#8754df", "#a739f0"];
-    @Input() lineColor = ["#ff9800", "#03e324", "#5f69c3"];
+    @Input() radarColor=['#F65555','#F1A91C','#EA4BEA','#02EFFF','#1CEB4A']
+    @Input() radarSplitColor = ["#5070FB", "#799AFD", "#A5C0FD", "#D2E2FC"];
+    @Input() lineColor = ["#69C32D", "#816FE5", "#F88B30", "#279FFF"];
     @Input() combineColor = ["#4a33ab", "#ff9800", "#7050bf", "#03e324", "#5f69c3"];
     @Input() pieColor = ["#4a33ab", "#504cb9", "#6b55bf", "#7066c6", "#9077cd", "#a087cd", "#a097cd", "#afa5db", "#a093d4", "#bfb7e2", "#cfc8e9", "#eae5ff"];
     @Input() gradientLine = [{ "offset0": "rgba(238,103,35,0.5)", "offset1": "rgba(238,103,35,0.00)" }, { "offset0": "rgba(238,103,35,0.5)", "offset1": "rgba(238,103,35,0.00)" }, { "offset0": "rgba(238,103,35,0.5)", "offset1": "rgba(238,103,35,0.00)" }, { "offset0": "rgba(238,103,35,0.5)", "offset1": "rgba(238,103,35,0.00)" }, { "offset0": "rgba(238,103,35,0.5)", "offset1": "rgba(238,103,35,0.00)" }];
@@ -97,6 +99,8 @@ export class ZChartComponent {
             } else {
                 return this.createBarChart(chartData);
             }
+        } else if (chartData.radarData) {
+            return this.createRadarChart(chartData);
         }
     }
 
@@ -126,11 +130,13 @@ export class ZChartComponent {
                         hoverAnimation: true,//是否开启扇形区hover时放大动画
                         hoverOffset: 10,
                         radius: radiusData[i],//第一个数是内半径，第二个是外半径
+                        position: ['50%', '60%'],
                         roseType: false,//是否显示玫瑰图
                         label: i == chartData.pieData.length - 1 ? {//只显示最后一个圆的标签
                             position: 'outside',
                             fontSize: 12,
-                            color: '#000'
+                            color: '#000',
+                            formatter: ''
                         } : { show: false },
                         itemStyle: {
                             borderType: 'solid',//柱条的描边类型还可以是dashed和dotted
@@ -161,7 +167,7 @@ export class ZChartComponent {
             seriesdata.push({
                 'name': chartData.legendData ? chartData.legendData[i] : null,
                 'type': 'bar',
-                'stack': "堆叠",
+                'stack': "",
                 'barGap': '10%',
                 'barCategoryGap': '60%',
                 // 'label': { 'show': true, 'fontSize': 8, 'position': 'inside' },
@@ -175,7 +181,7 @@ export class ZChartComponent {
             yAxis: this.getYAxisParam(chartData.unit),
             tooltip: this.getToolTipParam(chartData.unit),
             color: this.barColor,
-            grid: { left: "12%" },
+            grid: { left: "15%" },
             series: seriesdata
         };
         return option;
@@ -190,34 +196,40 @@ export class ZChartComponent {
         if (chartData.lineData.length > 0) {
             for (let i = 0; i < chartData.lineData.length; i++) {
                 seriesdata.push({
+                    symbolSize: 0,
+                    smooth: true,
                     'name': chartData.legendData ? chartData.legendData[i] : null,
                     'type': 'line',
                     //'label': { 'show': true, 'fontSize': 8, 'position': 'top' },
 
                     'data': chartData.lineData[i],
-                    areaStyle: {
-                        normal: {
-                            color: new ECharts.graphic.LinearGradient(0, 0, 0, 1, [{
-                                offset: 0,
-                                color: this.gradientLine[i].offset0
-                            }, { offset: 1, color: this.gradientLine[i].offset1 }])
-                        }
-                    }
+                    // areaStyle: {
+                    //     normal: {
+                    //         show:false,
+                    //         color: new ECharts.graphic.LinearGradient(0, 0, 0, 1, [{
+                    //             offset: 0,
+                    //             color: this.gradientLine[i].offset0
+                    //         }, { offset: 1, color: this.gradientLine[i].offset1 }])
+                    //     }
+                    // }
                 })
             }
         } else {
             seriesdata.push({
+                symbolSize: 0,
+                smooth: true,
                 'type': 'line',
                 //'label': { 'show': true, 'fontSize': 8, 'position': 'top' },
                 'data': chartData.lineData[0],
-                areaStyle: {
-                    normal: {
-                        color: new ECharts.graphic.LinearGradient(0, 0, 0, 1, [{
-                            offset: 0,
-                            color: 'rgba(238,103,35,0.5)'
-                        }, { offset: 1, color: 'rgba(238,103,35,0.00)' }])
-                    }
-                }
+                // areaStyle: {
+                //     show:false,
+                //     normal: {
+                //         color: new ECharts.graphic.LinearGradient(0, 0, 0, 1, [{
+                //             offset: 0,
+                //             color: 'rgba(238,103,35,0.5)'
+                //         }, { offset: 1, color: 'rgba(238,103,35,0.00)' }])
+                //     }
+                // }
             })
         }
         let option = {
@@ -300,14 +312,84 @@ export class ZChartComponent {
             legend: this.getLegendParam(chartData.legendData),
             xAxis: this.getXAxisParam(chartData.xAxisData),
             yAxis: [this.getYAxisParam(chartData.unit), this.getYAxisParam('%', 'right')],
-            tooltip: this.getToolTipParam(chartData.unit,true),
+            tooltip: this.getToolTipParam(chartData.unit, true),
             color: this.combineColor,
             grid: { left: "12%" },
             series: seriesdata
         };
         return option;
     }
+    /**
+     * 创建radarchart
+     */
+    createRadarChart(chartData: ChartData): EChartOption {
+        let seriesData: Array<any> = [];
+        for (let index = 0; index < chartData.radarData.length; index++) {
+            seriesData.push({
+                name: chartData.legendData[index],
+                value: chartData.radarData[index]
+            })
+        }
+        let maxData: Array<Array<number>> = [];
+        for (let index = 0; index < chartData.radarData[0].length; index++) {
+            let max: Array<number> = [];
+            for (let i = 0; i < chartData.radarData.length; i++) {
+                max.push(chartData.radarData[i][index]);
+            }
+            maxData.push(max);
 
+        }
+        let indicator: Array<any> = [];
+        for (let index = 0; index < maxData.length; index++) {
+            indicator.push({
+                name: chartData.xAxisData[index],
+                max: Math.max.apply(Math, maxData[index]) + 2
+            });
+        }
+        let option = {
+            title: this.getTitleParam(chartData.title),
+            legend: this.getLegendParam(chartData.legendData),
+            //tooltip:this.getToolTipParam,
+            color: this.radarColor,
+            radar: {
+                name: { textStyle: { fontSize: 10 } ,
+                formatter: (param) => {
+                    if (param.length > 5) {
+                        let a = Math.floor(param.length / 5);
+                        let b = '';
+                        for (let i = 0; i < a; i++) {
+                            b += param.substring(i * 5, (i + 1) * 5) + "\n"
+                        }
+                        b = b + param.substring(a * 5)
+                        return b
+                    } else {
+                        return param
+                    }
+                }
+                },
+                splitArea: {
+                    show: true,
+                    areaStyle: {
+                        color: this.radarSplitColor
+                    }
+                },
+                radius: '55%',
+                splitNumber: 4,
+                indicator: indicator,
+
+            },
+            series: [{
+                type: 'radar', data: seriesData, lineStyle: { type: 'dotted' }, symbol: 0,
+                label: {
+                    normal:{
+                        
+                    }
+                }
+            }]
+
+        };
+        return option;
+    }
     /**
      * 获取公共Title配置
      * @param title
@@ -332,7 +414,7 @@ export class ZChartComponent {
             type: 'scroll',
             data: legendData,
             textStyle: {
-                fontSize: 12,
+                fontSize: 10,
                 color: '#333'
             },
             left: 'center',
