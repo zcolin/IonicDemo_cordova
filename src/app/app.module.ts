@@ -1,4 +1,4 @@
-import { ModalFromRightLeave, ModalFromRightEnter } from './modal-transitions';
+import { ModalFromRightLeave, ModalFromRightEnter } from './rightmenu-modal-transitions';
 import { ErrorHandler, NgModule } from "@angular/core";
 import { BrowserModule } from "@angular/platform-browser";
 import { IonicApp, IonicErrorHandler, IonicModule, Config } from "ionic-angular";
@@ -6,6 +6,7 @@ import { MyApp } from "./app.component";
 import { ProviderModule } from "../providers/provider.module";
 import * as ionicGalleryModal from 'ionic-gallery-modal';
 import { HAMMER_GESTURE_CONFIG } from '@angular/platform-browser';
+import { ModalAlertEnter, ModalAlertLeave } from './zselect-modal-transitions';
 @NgModule({
     declarations: [
         MyApp
@@ -39,5 +40,7 @@ export class AppModule {
     private setCustomTransitions() {
         this.config.setTransition('modal-from-right-enter', ModalFromRightEnter);
         this.config.setTransition('modal-from-right-leave', ModalFromRightLeave);
+        this.config.setTransition('modal-alert-enter', ModalAlertEnter);
+        this.config.setTransition('modal-alert-leave', ModalAlertLeave);
     }
 }

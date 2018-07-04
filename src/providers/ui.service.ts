@@ -8,6 +8,7 @@ import {
     ToastController,
     AlertOptions,
     PopoverController,
+    ModalController,
 } from "ionic-angular";
 import { Injectable } from "@angular/core";
 import { AlertInputOptions } from "ionic-angular/components/alert/alert-options";
@@ -24,7 +25,7 @@ export class UiService {
         private toastCtrl: ToastController,
         private actionSheetCtrl: ActionSheetController,
         private alertCtrl: AlertController,
-        private popoverCtrl: PopoverController) {
+        private popoverCtrl: ModalController) {
     }
 
     /**
@@ -267,7 +268,8 @@ export class UiService {
      * @param okCallback    选中回调
      */
     public showSelect(arrText?: string[], selectedPos?: number, okCallback?: (number, string) => void) {
-        let popover = this.popoverCtrl.create('SelectPage', { texts: arrText, selectPos: [selectedPos] });
+        let popover = this.popoverCtrl.create('SelectPage', { texts: arrText, selectPos: [selectedPos] },
+            { enterAnimation: 'modal-alert-enter', leaveAnimation: 'modal-alert-leave' });
         popover.onDidDismiss(data => {
             if (data) {
                 okCallback(data.selectedPos, data.selectedText);
@@ -287,7 +289,9 @@ export class UiService {
      * @param allText       ‘全部’按钮的文字描述
      */
     public showMultiSelect(arrText?: string[], selectedPos?: number[], okCallback?: (selectedPos: number[], selectedText: string[], isAllSelected: boolean) => void, isAddAll?: boolean, isAllSelected?: boolean, allText?: string) {
-        let popover = this.popoverCtrl.create('SelectPage', { texts: arrText, selectPos: selectedPos, isMulti: true, isAddAll: isAddAll, isAllSelected: isAllSelected, allText: allText });
+        let popover = this.popoverCtrl.create('SelectPage',
+            { texts: arrText, selectPos: selectedPos, isMulti: true, isAddAll: isAddAll, isAllSelected: isAllSelected, allText: allText },
+            { enterAnimation: 'modal-alert-enter', leaveAnimation: 'modal-alert-leave' });
         popover.onDidDismiss(data => {
             if (data) {
                 okCallback(data.selectedPos, data.selectedText, isAllSelected);

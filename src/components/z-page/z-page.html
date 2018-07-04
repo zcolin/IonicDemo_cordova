@@ -1,13 +1,16 @@
 <ion-header *ngIf="!isMobile && title">
-    <ion-toolbar>
+    <ion-toolbar color='{{barColor}}'>
         <ion-buttons left *ngIf="leftButtonIconName">
             <button ion-button icon-only (click.stop)="onLeftButtonClick($event)">
                 <ion-icon [name]="leftButtonIconName"></ion-icon>
             </button>
         </ion-buttons>
-        <ion-title text-center [ngStyle]="{'margin-right': rightButtonIconName ? '0px':'35px', 'margin-left': leftButtonIconName ? '0px':'35px'}">{{title}}</ion-title>
-        <ion-buttons right *ngIf="rightButtonIconName">
-            <button ion-button icon-only (click.stop)="onRightButtonClick($event)">
+        <ion-title>{{title}}</ion-title>
+        <ion-buttons right *ngIf="rightButtonIconName || rightButtonIconName2">
+            <button ion-button icon-only (click.stop)="onRightButton2Click($event)" *ngIf="rightButtonIconName2">
+                <ion-icon [name]="rightButtonIconName2?rightButtonIconName2:'menu'"></ion-icon>
+            </button>
+            <button ion-button icon-only (click.stop)="onRightButtonClick($event)" *ngIf="rightButtonIconName">
                 <ion-icon [name]="rightButtonIconName?rightButtonIconName:'menu'"></ion-icon>
             </button>
         </ion-buttons>
