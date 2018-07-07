@@ -25,33 +25,27 @@
 }
 
 //--------------------------ActionSheet item居中样式-----------------------
-
-
 //--------------------------搜索框样式自定义--------------------------------
 .searchbar-md {
     background-color: #F2F4F7;
     height: 50px;
     padding: 4px 8px 4px 8px;
-
     .searchbar-input {
         box-shadow: none;
         border: #F2F4F7 solid 1px;
         border-radius: 5px;
         height: 34px;
     }
-
     .searchbar-search-icon {
         left: 8px;
         top: 8px;
     }
-
     .searchbar-input {
         padding: 6px 35px;
     }
 }
+
 //--------------------------搜索框样式自定义------------------------------
-
-
 //弹出框标题文字大小
 .alert-md .alert-title {
     font-size: 18px;

@@ -12,6 +12,8 @@ import { PageUtil } from '../../providers/utils/page.util';
 })
 
 export class HomePage {
+    imgsrc: string[] = [];
+
     constructor(public navCtrl: NavController, private uiService: UiService) {
 
     }
@@ -90,4 +92,9 @@ export class HomePage {
     startExternalWebPage() {
         PageUtil.startWebPage(this.navCtrl, 'http://www.qq.com/', '腾讯');
     }
+
+    onFileSelected(src) {
+        this.imgsrc = src;
+    }
+
 }

@@ -44,6 +44,10 @@ export class AMapComponent {
         this._mapView.setZoomAndCenter(zoom, center);
     }
 
+    click(callback: (ev) => void) {
+        this._mapView.on('click', callback);
+    }
+
     /**
      * 增加地理/反地理编码插件
      */

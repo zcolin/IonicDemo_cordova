@@ -26,7 +26,7 @@ export class ItemPage {
             infiniteScroll.complete();
         }, 1000);
     }
-    
+
     buttonClick() {
 
     }

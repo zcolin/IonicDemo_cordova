@@ -14,7 +14,8 @@ export class ZPageComponent {
     @Input() rightButtonIconName: string;
     @Input() rightButtonIconName2: string;
     @Input() title: string;
-    @Input() barColor: string = 'light';
+    @Input() barColor: string;
+    @Input() overrideBack;              //重写返回按钮逻辑，即返回按钮不是关闭当前页面
 
     @Output() leftButtonClick: EventEmitter<Event> = new EventEmitter();
     @Output() rightButtonClick: EventEmitter<Event> = new EventEmitter();
@@ -30,7 +31,7 @@ export class ZPageComponent {
     }
 
     onLeftButtonClick(event: Event) {
-        if (this.leftButtonIconName == "arrow-back") {
+        if (!this.overrideBack) {
             if (this.navCtrl.canGoBack()) {
                 this.navCtrl.pop();
             }

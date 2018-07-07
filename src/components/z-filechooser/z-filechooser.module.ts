@@ -1,15 +1,15 @@
 import { NgModule } from '@angular/core';
-import { ZChartComponent } from './z-chart';
+import { ZFilechooserComponent } from './z-filechooser';
 import { CommonModule } from '@angular/common';
 @NgModule({
     declarations: [
-        ZChartComponent,
+        ZFilechooserComponent,
     ],
     imports: [
         CommonModule,
     ],
     exports: [
-        ZChartComponent,
+        ZFilechooserComponent,
     ]
 })
-export class ZChartModule { }
+export class ZFilechooserModule { }

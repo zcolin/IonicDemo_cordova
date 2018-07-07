@@ -42,6 +42,11 @@ export class ExternalWebPage {
         window.removeEventListener('message', this.microAppCall);
     }
 
+    back() {
+        this.navCtrl.pop();//TODO 此处可能有问题，可测试下边的方法
+        //this.navCtrl.setRoot('TabsPage', { tabindex: 1 });
+    }
+
     /**
      *  加载页面
      */

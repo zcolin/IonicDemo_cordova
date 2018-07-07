@@ -1,5 +1,5 @@
-import {Platform} from "ionic-angular";
-import {Injectable} from "@angular/core";
+import { Platform } from "ionic-angular";
+import { Injectable } from "@angular/core";
 
 
 /**
@@ -20,7 +20,7 @@ export class BrowserUtil {
      * @return {boolean}
      */
     static isMobile(platform: Platform): boolean {
-        return platform.is('mobile');
+        return platform.is('mobile') || platform.is('mobileweb');
     }
 
     /**
