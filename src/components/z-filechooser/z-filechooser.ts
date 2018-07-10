@@ -1,9 +1,9 @@
 import { Component, Input, ViewChild, ElementRef, Renderer2, Output, EventEmitter } from '@angular/core';
 import { UiService } from '../../providers/ui.service';
-import { Loading } from 'ionic-angular/umd';
 import { Util } from '../../providers/utils/util';
 import { Observable } from 'rxjs';
 import { ImageUtil } from '../../providers/utils/image.util';
+import {Loading} from "ionic-angular";
 
 @Component({
     selector: 'z-filechooser',
