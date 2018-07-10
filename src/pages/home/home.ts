@@ -13,9 +13,16 @@ import { PageUtil } from '../../providers/utils/page.util';
 
 export class HomePage {
     imgsrc: string[] = [];
+    isReload = false;
 
     constructor(public navCtrl: NavController, private uiService: UiService) {
+        setTimeout(() => {
+            this.isReload = true;
+        }, 1000);
+    }
 
+    reload(){
+        this.isReload = false;
     }
 
     doRefresh(refresher?: Refresher) {

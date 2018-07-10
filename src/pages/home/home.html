@@ -1,4 +1,4 @@
-<z-page title="全局样式更改">
+<z-page title="全局样式更改" [isReload]=isReload (reload)="reload()">
     <ion-content padding>
         <ion-refresher (ionRefresh)="doRefresh($event)">
             <z-refresher-content></z-refresher-content>

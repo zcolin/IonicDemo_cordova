@@ -16,4 +16,5 @@
         </ion-buttons>
     </ion-toolbar>
 </ion-header>
-<ng-content></ng-content>
+<ng-content *ngIf="!isReload"></ng-content>
+<z-reload style="width:100%; height:100%;" *ngIf="isReload" (reload)='onReload()'></z-reload>

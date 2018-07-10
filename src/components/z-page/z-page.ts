@@ -16,7 +16,9 @@ export class ZPageComponent {
     @Input() title: string;
     @Input() barColor: string;
     @Input() overrideBack;              //重写返回按钮逻辑，即返回按钮不是关闭当前页面
+    @Input() isReload;
 
+    @Output() reload: EventEmitter<any> = new EventEmitter();;
     @Output() leftButtonClick: EventEmitter<Event> = new EventEmitter();
     @Output() rightButtonClick: EventEmitter<Event> = new EventEmitter();
     @Output() rightButton2Click: EventEmitter<Event> = new EventEmitter();
@@ -46,5 +48,9 @@ export class ZPageComponent {
 
     onRightButton2Click(event: Event) {
         this.rightButton2Click.emit(event);
+    }
+
+    onReload() {
+        this.reload.emit()
     }
 }
