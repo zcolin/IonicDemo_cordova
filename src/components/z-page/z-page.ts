@@ -18,7 +18,7 @@ export class ZPageComponent {
     @Input() overrideBack;              //重写返回按钮逻辑，即返回按钮不是关闭当前页面
     @Input() isReload;
 
-    @Output() reload: EventEmitter<any> = new EventEmitter();;
+    @Output() reload: EventEmitter<any> = new EventEmitter();
     @Output() leftButtonClick: EventEmitter<Event> = new EventEmitter();
     @Output() rightButtonClick: EventEmitter<Event> = new EventEmitter();
     @Output() rightButton2Click: EventEmitter<Event> = new EventEmitter();
