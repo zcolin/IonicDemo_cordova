@@ -13,6 +13,8 @@ export class MyApp {
     @ViewChild(Nav) nav: Nav;
     public static TOKEN: string;//客户端请求的token
     public static ISTELCHINA: boolean;//是否是原生浏览器
+    public static ISANDROID: boolean;//是否是安卓环境
+    public static ISIOS: boolean;//是否是IOS环境
     public static PLATFORM: string;
 
     isCanExit: boolean = false;  //用于判断返回键是否触发
@@ -20,7 +22,9 @@ export class MyApp {
         platform.ready().then(() => {
             try {
                 MyApp.ISTELCHINA = BrowserUtil.isTelchina(navigator.userAgent);
-                MyApp.PLATFORM = BrowserUtil.isAndroid(platform) ? 'android' : BrowserUtil.isIos ? 'ios' : null;
+                MyApp.ISANDROID = BrowserUtil.isAndroid(platform);
+                MyApp.ISIOS = BrowserUtil.isIos(platform);
+                MyApp.PLATFORM = MyApp.ISANDROID ? 'android' : MyApp.ISIOS ? 'ios' : null;
                 //MyApp.TOKEN = Util.getQueryParam("token");
                 MyApp.TOKEN = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE1MjY5NzcwOTQsImlhdCI6MTUyNjM3MjI5NH0.F7Xbb5MjQ1tiT7C0h5lOaKM8wRCcSyUkfAPy2MaJtc4';//暂时手动放入token，在pc端测试
                 let pageName = Util.getQueryParam("pageName");

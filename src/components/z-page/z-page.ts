@@ -9,6 +9,7 @@ import { NavController } from 'ionic-angular';
 export class ZPageComponent {
 
     isMobile = MyApp.ISTELCHINA;
+    toolbarHeight = MyApp.ISTELCHINA ? '0px' : MyApp.ISANDROID ? '48px' : '44px';
 
     @Input() leftButtonIconName: string;
     @Input() rightButtonIconName: string;
