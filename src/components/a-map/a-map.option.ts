@@ -55,6 +55,11 @@ export class MakerOption {
     label?: { content, offset };	    //添加文本标注，content为文本标注的内容，offset为偏移量，左上角为偏移量为（0, 0） AMap.Pixel
 }
 
+export class LabelOption {
+    content?: string | object;          //点标记显示内容，可以是HTML要素字符串或者HTML DOM对象。
+    offset?;                            //AMap.Pixel, 添加文本标注，content为文本标注的内容，offset为偏移量，左上角为偏移量为（0,0）
+}
+
 export class LineOption {
     path: number[][];
     zIndex?: number;                     //折线覆盖物的叠加顺序
