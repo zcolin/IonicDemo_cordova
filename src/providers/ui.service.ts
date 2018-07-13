@@ -13,7 +13,7 @@ import {
 import { Injectable } from "@angular/core";
 import { AlertInputOptions } from "ionic-angular/components/alert/alert-options";
 import { MyApp } from "../app/app.component";
-import { JsBridgeUtil } from "./utils/jsbridge.util";
+import { JsBridgeUtil } from "./jsbridge/jsbridge.util";
 
 /**
  * Ui相关服务类

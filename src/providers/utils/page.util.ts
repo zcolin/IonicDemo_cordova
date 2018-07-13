@@ -1,7 +1,8 @@
-import {MyApp} from "../../app/app.component";
-import {JsBridgeUtil} from "./jsbridge.util";
-import {NavController} from "ionic-angular";
-import {Page} from "ionic-angular/navigation/nav-util";
+import { MyApp } from "../../app/app.component";
+import { JsBridgeUtil } from "../jsbridge/jsbridge.util";
+import { NavController } from "ionic-angular";
+import { Page } from "ionic-angular/navigation/nav-util";
+import { JsStartPageReply } from "../jsbridge/jsbridge-option";
 
 /**
  * 页面相关的工具类
@@ -26,7 +27,7 @@ export class PageUtil {
      * @param params            参数
      * @param responseCallback  关闭页面回调
      */
-    static startPage(navCtrl: NavController, pageName: string, title?: string, params?: any, responseCallback?: (returnData: string) => void) {
+    static startPage(navCtrl: NavController, pageName: string, title?: string, params?: any, responseCallback?: (returnData: JsStartPageReply) => void) {
         if (MyApp.ISTELCHINA) {
             JsBridgeUtil.startPage(pageName, title, params, responseCallback);
         } else {
@@ -42,11 +43,11 @@ export class PageUtil {
      * @param params            参数
      * @param responseCallback  关闭页面回调
      */
-    static startWebPage(navCtrl: NavController, url: string, title?: string, responseCallback?: (returnData: string) => void) {
+    static startWebPage(navCtrl: NavController, url: string, title?: string, responseCallback?: (returnData: JsStartPageReply) => void) {
         if (MyApp.ISTELCHINA) {
             JsBridgeUtil.startWebPage(url, title, responseCallback);
         } else {
-            navCtrl.push('ExternalWebPage', {'url': url, 'title': title});
+            navCtrl.push('ExternalWebPage', { 'url': url, 'title': title });
         }
     }
 }

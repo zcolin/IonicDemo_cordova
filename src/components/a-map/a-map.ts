@@ -1,4 +1,4 @@
-import { Component, ViewChild, ElementRef } from '@angular/core';
+    import { Component, ViewChild, ElementRef } from '@angular/core';
 import { Observable } from 'rxjs';
 import { ControlBarPluginOption, MapTypePluginOption, ToolBarPluginOption, LocationPluginOption, MakerOption, LineOption, AdvancedInfoWindowOption, SearchNearOption, PolygonOption, ScalePluginOption, IconOption, CircleOption, LabelOption } from './a-map.option';
 
@@ -51,7 +51,7 @@ export class AMapComponent {
     /**
      * 增加地理/反地理编码插件
      */
-    addGeoCoderPlugin() {
+    addGeoCoderPlugin(): Observable<any> {
         return new Observable(observer => {
             AMap.service('AMap.Geocoder', () => {
                 observer.next(new AMap.Geocoder());
@@ -64,7 +64,7 @@ export class AMapComponent {
      *
      * @param option
      */
-    addSearchNearPlugin(option: SearchNearOption) {
+    addSearchNearPlugin(option: SearchNearOption): Observable<any> {
         return new Observable(observer => {
             this._mapView.plugin('AMap.PlaceSearch', () => {
                 let placeSearch = new AMap.PlaceSearch({
@@ -463,7 +463,7 @@ export class AMapComponent {
      *
      * @param option
      */
-    showAdvancedInfoWindow(option: AdvancedInfoWindowOption) {
+    showAdvancedInfoWindow(option: AdvancedInfoWindowOption): Observable<any> {
         return new Observable(observer => {
             this._mapView.plugin('AMap.AdvancedInfoWindow', () => {
                 let advancedInfoWindow = new AMap.AdvancedInfoWindow({
@@ -486,7 +486,7 @@ export class AMapComponent {
      * @param position
      * @param type
      */
-    convertFrom(position: number[] | number[][], type?: 'gps' | 'baidu' | 'mapbar') {//支持原始坐标，百度经纬度，图吧经纬度
+    convertFrom(position: number[] | number[][], type?: 'gps' | 'baidu' | 'mapbar'): Observable<number[][]> {//支持原始坐标，百度经纬度，图吧经纬度
         return new Observable(observer => {
             if (position.length <= 40) {
                 AMap.convertFrom(position, type || 'gps', (status, result) => {

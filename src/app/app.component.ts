@@ -5,6 +5,7 @@ import { BrowserUtil } from '../providers/utils/browser.util';
 import { HttpUrl } from '../providers/consts/http-url';
 import { UiService } from '../providers/ui.service';
 import { Util } from '../providers/utils/util';
+import { JsBridgeUtil } from '../providers/jsbridge/jsbridge.util';
 
 @Component({
     templateUrl: 'app.html'
@@ -22,8 +23,8 @@ export class MyApp {
         platform.ready().then(() => {
             try {
                 MyApp.ISTELCHINA = BrowserUtil.isTelchina(navigator.userAgent);
-                MyApp.ISANDROID = BrowserUtil.isAndroid(platform);
-                MyApp.ISIOS = BrowserUtil.isIos(platform);
+                MyApp.ISANDROID = BrowserUtil.isAndroid(this.platform);
+                MyApp.ISIOS = BrowserUtil.isIos(this.platform);
                 MyApp.PLATFORM = MyApp.ISANDROID ? 'android' : MyApp.ISIOS ? 'ios' : null;
                 //MyApp.TOKEN = Util.getQueryParam("token");
                 MyApp.TOKEN = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE1MjY5NzcwOTQsImlhdCI6MTUyNjM3MjI5NH0.F7Xbb5MjQ1tiT7C0h5lOaKM8wRCcSyUkfAPy2MaJtc4';//暂时手动放入token，在pc端测试
@@ -45,23 +46,23 @@ export class MyApp {
     registerBackButtonAction() {
 
         //混合模式注册goback监听
-        // JsBridgeUtil.registerGoBack((data, responseCallback) => {
-        //     let result = this.goBack();
-        //     responseCallback(JSON.stringify({ result: result }));
-        // });
+        JsBridgeUtil.registerGoBack((data, responseCallback) => {
+            let result = this.goBack();
+            responseCallback(JSON.stringify({ result: result }));
+        });
 
         //Cordova模式注册goback监听
-        this.platform.registerBackButtonAction(() => {
-            if (!this.goBack()) {
-                if (this.isCanExit) { //当触发标志为true时，即2秒内双击返回按键则退出APP
-                    this.platform.exitApp();
-                } else {
-                    this.uiService.showToast('再按一次退出应用');
-                    this.isCanExit = true;
-                    setTimeout(() => this.isCanExit = false, 2000);//2秒内没有再次点击返回则将触发标志标记为false
-                }
-            }
-        }, 1);
+        // this.platform.registerBackButtonAction(() => {
+        //     if (!this.goBack()) {
+        //         if (this.isCanExit) { //当触发标志为true时，即2秒内双击返回按键则退出APP
+        //             this.platform.exitApp();
+        //         } else {
+        //             this.uiService.showToast('再按一次退出应用');
+        //             this.isCanExit = true;
+        //             setTimeout(() => this.isCanExit = false, 2000);//2秒内没有再次点击返回则将触发标志标记为false
+        //         }
+        //     }
+        // }, 1);
     }
 
     /**

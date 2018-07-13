@@ -16,7 +16,7 @@ import { HttpClient, HttpErrorResponse, HttpHeaders, HttpParams } from "@angular
 import { ZHttpOption } from './zhttp-option';
 import { ZHttpError } from './zhttp-error';
 import { UiService } from "../ui.service";
-import { JsBridgeUtil } from "../utils/jsbridge.util";
+import { JsBridgeUtil } from "../jsbridge/jsbridge.util";
 import { Util } from "../utils/util";
 import { ZReplyDefault } from "./zreply-default";
 
@@ -86,7 +86,7 @@ export class HttpService {
 
     /**
      * 根据传入的参数输出HttpParams对象
-     * @param param 
+     * @param param
      */
     private getParams(param: any): HttpParams {
         if (param) {
