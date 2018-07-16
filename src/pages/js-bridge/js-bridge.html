@@ -11,6 +11,8 @@
             <button ion-button block (click)='location()'>定位</button>
             <button ion-button block (click)='share()'>分享</button>
             <button ion-button block (click)='selectImage()'>选择图片</button>
+
+            
             <ion-list style="width: 100%" *ngFor="let img of imgsrc">
                 <img [src]='img'>
             </ion-list>
