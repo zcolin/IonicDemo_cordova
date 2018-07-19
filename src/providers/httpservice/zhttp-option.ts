@@ -10,6 +10,6 @@ export interface ZHttpOption {
     isHideLoading?: boolean;    //是否显示进度条
     loadingMsg?: string;        //进度条信息
     isHideToastError?: boolean; //是否显示错误toast
-    zrepley?: ZReply;           //返回值错误处理对象
+    zreply?: ZReply;           //返回值错误处理对象
 }
 

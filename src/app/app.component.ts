@@ -43,9 +43,8 @@ export class MyApp {
         });
     }
 
+     //混合模式注册goback监听
     registerBackButtonAction() {
-
-        //混合模式注册goback监听
         JsBridgeUtil.registerGoBack((data, responseCallback) => {
             let result = this.goBack();
             responseCallback(JSON.stringify({ result: result }));

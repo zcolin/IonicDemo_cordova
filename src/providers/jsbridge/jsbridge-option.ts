@@ -1,11 +1,8 @@
-import { Injectable } from '@angular/core';
-import { MyApp } from '../../app/app.component';
-
 /**
  * js通讯基类
  */
 export class JsBaseReply {
-    code: string;
+    code: number;
     msg?: string;
 }
 /**
@@ -50,7 +47,16 @@ export class JsLocationReply extends JsBaseReply {
  * 选择图片返回信息
  */
 export class JsImagesReply extends JsBaseReply {
-    images: string[];
+    images: ImageData[];
+}
+
+/**
+ * 图片信息
+ */
+export class ImageData {
+    name: string;
+    data: string;
+    path: string;
 }
 
 /**
@@ -58,4 +64,33 @@ export class JsImagesReply extends JsBaseReply {
  */
 export class JsScanQrCode extends JsBaseReply {
     result: string;
+}
+
+/**
+ * 选择文件返回信息
+ */
+export class JsFileReply extends JsBaseReply {
+    file: FileData;
+}
+
+/**
+ * 文件信息
+ */
+export class FileData {
+    name: string;
+    path: string;
+}
+/**
+ * http返回信息
+ */
+export class JsHttpReply extends JsBaseReply {
+    result: object;
+}
+
+
+/**
+ * 获取store返回信息
+ */
+export class JsGetStorateReply extends JsBaseReply {
+    result: object;
 }

@@ -53,14 +53,14 @@ export class HttpService {
 
     private request<T>(type: 'get' | 'post', url: string, zoption: ZHttpOption, result: HttpResult<T>): Subscription {
         zoption = zoption || {};
-        zoption.zrepley = zoption.zrepley || new ZReplyDefault();
+        zoption.zreply = zoption.zreply || new ZReplyDefault();
         result = result || {};
         let loading = zoption.isHideLoading ? null : this.uiService.showLoading(zoption.loadingMsg);
         let option = type === 'get' ? { params: this.getParams(zoption.body), headers: zoption.header || this.getDefHeader() } : { headers: zoption.header || this.getDefHeader() };
         let observable = type === 'get' ? this.http.get<T>(url, option) : this.http.post<T>(url, this.getParams(zoption.body), option);
         return observable
             .timeout(5000)
-            .map(res => this.processResponse(zoption.zrepley, res, loading))
+            .map(res => this.processResponse(zoption.zreply, res, loading))
             .catch(error => this.processCatch(loading, zoption.isHideToastError, error))
             .subscribe(
                 obj => {
@@ -135,7 +135,7 @@ export class HttpService {
             }
         }
 
-        if (!zreply.isSuccess(jsonObj[zreply.codeKey] && (jsonObj[zreply.codeKey] || jsonObj[zreply.msgKey]))) {
+        if (!zreply.isSuccess(jsonObj[zreply.codeKey]) && (jsonObj[zreply.codeKey] || jsonObj[zreply.msgKey])) {
             throw new ZHttpError(jsonObj.code, jsonObj.msg);
         } else {                                                                    //是json对象，但是不是约定中的数据
             throw new ZHttpError(1001, "数据不符合规范：\n" + JSON.stringify(res));   //解析的json数据不符合规范
@@ -168,7 +168,7 @@ export class HttpService {
             if (error.code === 403) {
                 errorObj = this.getErrorReply('登录凭证已过期，请重新登录!');//服务器返回的错误
                 setTimeout(() => {
-                    JsBridgeUtil.reLogin();
+                    // JsBridgeUtil.reLogin();
                 }, 1000);
             } else {
                 errorObj = this.getErrorReply(error.message, error.code);//服务器返回的错误
@@ -230,7 +230,7 @@ export class HttpService {
     */
     private requestText(type: 'get' | 'post', url: string, zoption: ZHttpOption, result: HttpResult<string>): Subscription {
         zoption = zoption || {};
-        zoption.zrepley = zoption.zrepley || new ZReplyDefault();
+        zoption.zreply = zoption.zreply || new ZReplyDefault();
         result = result || {};
         let loading = zoption.isHideLoading ? null : this.uiService.showLoading(zoption.loadingMsg);
         let restype: 'text' = 'text';

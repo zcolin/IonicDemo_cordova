@@ -40,7 +40,7 @@ export class VitualScrollPage {
 
     requestData(refresher?: Refresher, infiniteScroll?: InfiniteScroll) {
         let option: ZHttpOption = {
-            zrepley: {
+            zreply: {
                 isSuccess: (code) => code == "1",
                 msgKey: 'info',
                 codeKey: 'status',

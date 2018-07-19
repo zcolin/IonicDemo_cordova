@@ -11,9 +11,13 @@
             <button ion-button block (click)='location()'>定位</button>
             <button ion-button block (click)='share()'>分享</button>
             <button ion-button block (click)='selectImage()'>选择图片</button>
+            <button ion-button block (click)='selectFile()'>选择文件</button>
+            <button ion-button block (click)='http()'>Http</button>
+            <button ion-button block (click)='putStorage()'>存储键值</button>
+            <button ion-button block (click)='getStorage()'>获取键值</button>
 
-            
-            <ion-list style="width: 100%" *ngFor="let img of imgsrc">
+
+            <ion-list style="width: 100px" *ngFor="let img of imgsrc">
                 <img [src]='img'>
             </ion-list>
         </ion-list>
