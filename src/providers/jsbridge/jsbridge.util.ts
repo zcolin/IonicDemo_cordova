@@ -14,7 +14,7 @@ export class JsBridgeUtil {
      * @param methodName    注册接口方法名称
      * @param data          传输数据
      * @param callback      被调用后执行回调，可携带参数返回原生端
-     * 
+     *
      * 返回参数：
      * {
      *     "result":true      //true表示网页端拦截（原生不需要处理），false表示网页端未拦截（原生可自己处理）
@@ -32,12 +32,12 @@ export class JsBridgeUtil {
      * @param title             页面名称，如果不传，则不显示原生标题
      * @param params            参数
      * @param responseCallback  关闭页面回调
-     * 
+     *
      * 返回参数：
      *  {
      *       "cdoe":200,             //成功=200，失败为其他
      *       "msg":"xxx",            //成功可为空，失败填写失败原因
-     *       "params":"xxx"          //根据业务制定 
+     *       "params":"xxx"          //根据业务制定
      *   }
      */
     static startPage(pageName: string, title?: string, params?: any, responseCallback?: (returnData: JsStartPageReply) => void) {
@@ -60,12 +60,12 @@ export class JsBridgeUtil {
      * @param title             页面名称，如果不传，则不显示原生标题
      * @param params            参数
      * @param responseCallback  关闭页面回调
-     * 
+     *
      * 返回参数：
      *  {
      *       "cdoe":200,             //成功=200，失败为其他
      *       "msg":"xxx",            //成功可为空，失败填写失败原因
-     *       "params":"xxx"          //根据业务制定 
+     *       "params":"xxx"          //根据业务制定
      *   }
      */
     static startWebPage(url: string, title?: string, responseCallback?: (returnData: JsStartPageReply) => void) {
@@ -82,8 +82,8 @@ export class JsBridgeUtil {
 
     /**
      * 关闭当前webveiw
-     * @param responseCallback 
-     * 
+     * @param responseCallback
+     *
      * 返回参数：
      *  {
      *       "cdoe":200,             //成功=200，失败为其他
@@ -102,7 +102,7 @@ export class JsBridgeUtil {
 
     /**
      * 原生Toast
-     * 
+     *
      * 返回参数：
      *  {
      *       "cdoe":200,             //成功=200，失败为其他
@@ -122,7 +122,7 @@ export class JsBridgeUtil {
 
     /**
      * 获取客户端版本号
-     * 
+     *
      * 返回参数：
      *  {
      *       "cdoe":200,             //成功=200，失败为其他
@@ -142,7 +142,7 @@ export class JsBridgeUtil {
 
     /**
      * 获取UUID
-     * 
+     *
      * 返回参数：
      *  {
      *       "cdoe":200,             //成功=200，失败为其他
@@ -161,10 +161,10 @@ export class JsBridgeUtil {
 
     /**
        * 分享
-       * @param responseCallback  
-       * @param mxaNumber         图片最大选择数量
+       * @param responseCallback
+       * @param maxNumber         图片最大选择数量
        * @param minPixel          最小像素
-       * 
+       *
        * 返回参数：
        *  {
        *       "cdoe":200,             //成功=200，失败为其他
@@ -184,8 +184,8 @@ export class JsBridgeUtil {
 
     /**
      * 扫描二维码
-     * @param responseCallback  
-     * 
+     * @param responseCallback
+     *
      * 返回参数：
      *  {
      *       "cdoe":200,             //成功=200，失败为其他
@@ -205,7 +205,7 @@ export class JsBridgeUtil {
 
     /**
      * 获取定位信息
-     * 
+     *
      * 返回参数：{
      *       "cdoe":200,             //成功=200，失败为其他
      *       "msg":"xxx",            //成功可为空，失败填写失败原因
@@ -235,26 +235,26 @@ export class JsBridgeUtil {
 
     /**
      * 选择图片
-     * @param responseCallback  
-     * @param mxaNumber         图片最大选择数量
+     * @param responseCallback
+     * @param maxNumber         图片最大选择数量
      * @param minPixel          最小像素
-     * 
+     *
      * 返回参数：{
      *       "cdoe":200,             //成功=200，失败为其他
      *       "msg":"xxx",            //成功可为空，失败填写失败原因
      *       "images":
      *       [                       //图片集合
-     *           {   
+     *           {
      *               "name":"xxx",  //文件名称
      *               "data":"xxx",  //base64数据
      *               "path":"xxx"   //在原生端的路径
      *           }
-     *       ]       
+     *       ]
      *   }
      */
-    static selectImage(mxaNumber?: number, minPixel?: number, responseCallback?: (returnData: JsImagesReply) => void) {
+    static selectImage(maxNumber?: number, minPixel?: number, responseCallback?: (returnData: JsImagesReply) => void) {
         if (MyApp.ISTELCHINA) {
-            let option = { mxaNumber: mxaNumber, minPixel: minPixel };
+            let option = { maxNumber: maxNumber, minPixel: minPixel };
             this.jsbridge.callHandler("native_selectImage", JSON.stringify(option), (returnData: string) => {
                 if (responseCallback) {
                     responseCallback(JSON.parse(returnData));
@@ -265,14 +265,14 @@ export class JsBridgeUtil {
 
     /**
      * 选择文件
-     * @param responseCallback  
+     * @param responseCallback
      * @param type         文件类型， 默认*\/*
-     * 
+     *
      * 返回参数：{
      *       "cdoe":200,             //成功=200，失败为其他
      *       "msg":"xxx",            //成功可为空，失败填写失败原因
      *        "file":
-     *       {   
+     *       {
      *           "name":"xxx",      //文件名称
      *           "path":"xxx"       //在原生端的路径
      *        }
@@ -292,9 +292,9 @@ export class JsBridgeUtil {
 
     /**
      * 使用http
-     * @param responseCallback  
+     * @param responseCallback
      * @param url                   请求地址
-     * 
+     *
      * 请求参数：{
      *        "method":"post",       //post或者get，默认post
      *        "url":"http://xxxx",   //请求地址
@@ -312,7 +312,7 @@ export class JsBridgeUtil {
      *           "fileName2":"path2"
      *        }
      *   }
-     * 
+     *
      * 返回参数：
      * {
      *       "cdoe":200,             //成功=200，失败为其他
@@ -368,9 +368,9 @@ export class JsBridgeUtil {
 
     /**
      * 本地存储
-     * @param params 
-     * @param responseCallback 
-     * 
+     * @param params
+     * @param responseCallback
+     *
      *  请求参数：{
      *       "key1":"value1",        //key-value
      *       "key2":"value2",        //key-value
@@ -393,9 +393,9 @@ export class JsBridgeUtil {
 
     /**
      * 获取本地存储
-     * @param params 
-     * @param responseCallback 
-     * 
+     * @param params
+     * @param responseCallback
+     *
      *  请求参数：{
      *       "key1":"value1",        //key-value
      *       "key2":"value2",        //key-value
@@ -423,9 +423,9 @@ export class JsBridgeUtil {
 
     /**
      * 获取本地存储,一次获取多个
-     * @param params 
-     * @param responseCallback 
-     * 
+     * @param params
+     * @param responseCallback
+     *
      *  请求参数：{
      *       "key1":"value1",        //key-value
      *       "key2":"value2",        //key-value
