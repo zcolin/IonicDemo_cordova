@@ -103,7 +103,7 @@ export class AMapPage {
                 })
             };
 
-            makers.push(this.aMap.getMaker(makerOption, null, (e) => {
+            makers.push(this.aMap.getMaker(makerOption, (e) => {
                 this.uiService.showAlert(e.target.getExtData());
             }));
         }

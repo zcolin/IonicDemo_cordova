@@ -1,9 +1,10 @@
-import { Component, Input, ViewChild, ElementRef, Renderer2, Output, EventEmitter } from '@angular/core';
-import { UiService } from '../../providers/ui.service';
-import { Util } from '../../providers/utils/util';
-import { Observable } from 'rxjs';
-import { ImageUtil } from '../../providers/utils/image.util';
+import {Component, ElementRef, EventEmitter, Input, Output, Renderer2, ViewChild} from '@angular/core';
+import {UiService} from '../../providers/ui.service';
+import {Util} from '../../providers/utils/util';
+import {Observable} from 'rxjs';
+import {ImageUtil} from '../../providers/utils/image.util';
 import {Loading} from "ionic-angular";
+import {ZFileEntity} from "./zfile.entity";
 
 @Component({
     selector: 'z-filechooser',
@@ -14,7 +15,7 @@ export class ZFilechooserComponent {
     @Input() height: string;
     @Input() toSize: number;
     @Input() showProgress;
-    @Output() fileSelected = new EventEmitter<string[]>();
+    @Output() fileSelected = new EventEmitter<ZFileEntity[]>();
 
     @ViewChild("input") input: ElementRef;
 
@@ -40,46 +41,57 @@ export class ZFilechooserComponent {
                 loading = this.uiService.showLoading();
             }
 
-            this.loadFiles(files).subscribe((imagesSrc) => {
+            this.loadFiles(files).subscribe((imageEntities) => {
                 if (this.toSize) {
-                    ImageUtil.compressImages(imagesSrc, this.toSize).subscribe((compressSrc) => {
-                        this.fileSelected.emit(compressSrc);
+                    ImageUtil.compressImages(imageEntities.map(value => value.content), this.toSize, imageEntities.map(value=>value.type)).subscribe((compressSrc) => {
+                        for (let i = 0; i < compressSrc.length; i++) {
+                            imageEntities[i].content = compressSrc[i];
+                        }
+                        this.fileSelected.emit(imageEntities);
                         if (loading) {
                             loading.dismiss();
                         }
                     });
                 } else {
-                    this.fileSelected.emit(imagesSrc);
+                    this.fileSelected.emit(imageEntities);
                     if (loading) {
                         loading.dismiss();
                     }
                 }
+                this.clear();
             });
         }
     }
 
-    private loadFiles(files): Observable<string[]> {
+    clear() {
+        this.input.nativeElement.value = '';
+    }
+
+    private loadFiles(files): Observable<ZFileEntity[]> {
         return new Observable(observer => {
-            let imagesSrc: string[] = [];
+            let imageEntities: ZFileEntity[] = [];
             for (let index = 0; index < files.length; index++) {
                 const file = files[index];
                 let fileReader = new FileReader();
                 fileReader.onload = (e: Event) => {
-                    let content = (e.target as any).result;
-                    imagesSrc.push(content);
+                    let entity = new ZFileEntity();
+                    entity.content = (e.target as any).result;
+                    entity.name = file.name;
+                    entity.type = file.type;
+                    imageEntities.push(entity);
 
                     /*最后一条加载完成后，回调完成*/
                     if (index == files.length - 1) {
-                        observer.next(imagesSrc)
+                        observer.next(imageEntities)
                     }
                 };
 
                 fileReader.onerror = ((ev: Event) => {
-                    observer.next(imagesSrc)
+                    observer.next(imageEntities)
                 });
 
                 fileReader.onabort = ((ev: Event) => {
-                    observer.next(imagesSrc)
+                    observer.next(imageEntities)
                 });
 
                 fileReader.readAsDataURL(file);

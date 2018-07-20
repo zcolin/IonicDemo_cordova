@@ -1,6 +1,6 @@
-    import { Component, ViewChild, ElementRef } from '@angular/core';
+import { Component, ViewChild, ElementRef } from '@angular/core';
 import { Observable } from 'rxjs';
-import { ControlBarPluginOption, MapTypePluginOption, ToolBarPluginOption, LocationPluginOption, MakerOption, LineOption, AdvancedInfoWindowOption, SearchNearOption, PolygonOption, ScalePluginOption, IconOption, CircleOption, LabelOption } from './a-map.option';
+import { ControlBarPluginOption, MapTypePluginOption, ToolBarPluginOption, LocationPluginOption, MakerOption, LineOption, AdvancedInfoWindowOption, SearchNearOption, PolygonOption, ScalePluginOption, IconOption, CircleOption } from './a-map.option';
 
 @Component({
     selector: 'a-map',
@@ -9,7 +9,7 @@ import { ControlBarPluginOption, MapTypePluginOption, ToolBarPluginOption, Locat
 export class AMapComponent {
     private _mapView;
 
-    @ViewChild('panel') panel: ElementRef
+    @ViewChild('panel') panel: ElementRef;
     constructor() {
 
     }
@@ -28,6 +28,16 @@ export class AMapComponent {
         return this._mapView;
     }
 
+
+    getBounds() {
+        return this._mapView.getBounds();
+    }
+
+    getCenter() {
+        return this._mapView.getCenter();
+    }
+
+
     setZoom(zoom: number) {
         this._mapView.setZoom(zoom);
     }
@@ -44,14 +54,21 @@ export class AMapComponent {
         this._mapView.setZoomAndCenter(zoom, center);
     }
 
-    click(callback: (ev) => void) {
-        this._mapView.on('click', callback);
+    /**
+     * 地图点击
+     */
+    onClick(clickCallBack?: (ev) => void) {
+        this._mapView.on('click', function (ev) {
+            if (clickCallBack) {
+                clickCallBack(ev);
+            }
+        })
     }
 
     /**
      * 增加地理/反地理编码插件
      */
-    addGeoCoderPlugin(): Observable<any> {
+    addGeoCoderPlugin() {
         return new Observable(observer => {
             AMap.service('AMap.Geocoder', () => {
                 observer.next(new AMap.Geocoder());
@@ -64,7 +81,7 @@ export class AMapComponent {
      *
      * @param option
      */
-    addSearchNearPlugin(option: SearchNearOption): Observable<any> {
+    addSearchNearPlugin(option: SearchNearOption) {
         return new Observable(observer => {
             this._mapView.plugin('AMap.PlaceSearch', () => {
                 let placeSearch = new AMap.PlaceSearch({
@@ -74,14 +91,29 @@ export class AMapComponent {
                     pageSize: option.pageSize || 20,
                     extensions: option.extensions || 'base',
                     pageIndex: option.pageIndex || 1,
-                    panel: option.panel || 'panel',
+                    panel: option.panel, // || 'panel',  不传值的时候自行定义结果显示
                     atuoFitView: option.atuoFitView || true,
-                    map: this._mapView
+                    map: option.map
                 });
                 observer.next(placeSearch);
             });
         });
     }
+
+
+
+    /*
+     *  计算两点间的距离
+     */
+    static getPointsDistance(point1: { lng: number, lat: number }, point2: { lng: number, lat: number }): number {
+        const lnglat1 = new AMap.LngLat(point1.lng, point1.lat);
+        const lnglat2 = new AMap.LngLat(point2.lng, point2.lat);
+        return lnglat1.distance(lnglat2);
+    }
+
+
+
+
 
     /**
      * 增加地图控件组件
@@ -251,10 +283,9 @@ export class AMapComponent {
      * 增加标记物
      *
      * @param option
-     * @param labelOption
      * @param clickCallBack 点击回调
      */
-    getMaker(option: MakerOption, labelOption?: LabelOption, clickCallBack?: (e) => void) {
+    getMaker(option: MakerOption, clickCallBack?: (e) => void) {
         let icon = option.icon && option.icon instanceof IconOption ? new AMap.Icon({
             size: option.icon.size,
             imageOffset: option.icon.imageOffset,
@@ -287,21 +318,16 @@ export class AMapComponent {
             marker.on("click", clickCallBack);
         }
 
-        if (labelOption) {
-            marker.setLabel(labelOption);
-        }
-
         return marker;
     }
 
     /**
     * 添加单个点
     * @param option
-    * @param labelOption
     * @param clickCallBack
     */
-    addMaker(option: MakerOption, labelOption?: LabelOption, clickCallBack?: (e) => void) {
-        this.add(this.getMaker(option, labelOption, clickCallBack))
+    addMaker(option: MakerOption, clickCallBack?: (e) => void) {
+        this.add(this.getMaker(option, clickCallBack))
     }
 
     /**
@@ -463,7 +489,7 @@ export class AMapComponent {
      *
      * @param option
      */
-    showAdvancedInfoWindow(option: AdvancedInfoWindowOption): Observable<any> {
+    showAdvancedInfoWindow(option: AdvancedInfoWindowOption) {
         return new Observable(observer => {
             this._mapView.plugin('AMap.AdvancedInfoWindow', () => {
                 let advancedInfoWindow = new AMap.AdvancedInfoWindow({
@@ -515,13 +541,17 @@ export class AMapComponent {
      * @param type
      * @param callback
      */
-    private covert(resultList: number[][], positionList: number[][], index: number, type: 'gps' | 'baidu' | 'mapbar', callback: () => void) {
+    private covert(resultList: any[],
+        positionList: number[][],
+        index: number, type: 'gps' | 'baidu' | 'mapbar',
+        callback: () => void) {
         let size = positionList.length - index > 40 ? 40 : positionList.length - index;
         if (size > 0) {
             let array = positionList.slice(index, index + size);
             AMap.convertFrom(array, type || 'gps', (status, result) => {
                 if (status === 'complete' && result.info === 'ok') {
-                    resultList.push(result.locations)
+                    let locations: number[][] = result.locations.map((value) => [value.lat, value.lng]);
+                    resultList.push(...locations);
                     this.covert(resultList, positionList, index + array.length, type, callback);
                 } else {
                     console.log(result.info)

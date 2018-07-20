@@ -21,7 +21,7 @@ export class HomePage {
         }, 1000);
     }
 
-    reload(){
+    reload() {
         this.isReload = false;
     }
 
@@ -101,7 +101,7 @@ export class HomePage {
     }
 
     onFileSelected(src) {
-        this.imgsrc = src;
+        this.imgsrc = src.map((value) => value.content);
     }
 
 }
