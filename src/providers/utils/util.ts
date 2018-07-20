@@ -7,19 +7,19 @@ export class Util {
      * @param value
      */
     static isValid(value: any): boolean {
-        return !(value == undefined || value == null || isNaN(value));
+        return !((typeof value === 'number' && isNaN(value)) || value == undefined || value == null);
     }
 
     /**
      * 值是否未定义
-     * @param value 
+     * @param value
      */
     static isUndefinde(value: any): boolean {
-        return value == undefined || isNaN(value);
+        return value == undefined || (typeof value === 'number' && isNaN(value)) ;
     }
     /**
      * Url是否合法
-     * @param value 
+     * @param value
      */
     static isValidateUrl(value): boolean {
         let v = new RegExp('^((https|http|ftp|rtsp|mms)?://)'
@@ -40,7 +40,7 @@ export class Util {
     }
     /**
      * 获取url传入的参数
-     * @param key 
+     * @param key
      */
     static getQueryParam(key: string): string {
         let query = window.location.search.substring(1);
