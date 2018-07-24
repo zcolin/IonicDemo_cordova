@@ -1,16 +1,20 @@
 z-select {
     .th-select-option {
-        padding: 10px;
-        min-width: 10px;
-        color: color($colors, primary);
+        //color: color($colors, primary);
         vertical-align: middle;
         display: flex;
+        flex-direction: row;
         border: 1px solid #ccc;
         border-radius: 2px;
     }
+    .th-select-option-no-outline {
+        //color: color($colors, primary);
+        vertical-align: middle;
+        display: flex;
+    }
     .th-type-name {
         display: flex;
-        flex-grow: 1;
+        margin-right: 10px;
     }
     .th-arrow {
         width: 20px;

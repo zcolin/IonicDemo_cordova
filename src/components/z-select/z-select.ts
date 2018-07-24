@@ -14,9 +14,8 @@ export class ZSelectComponent {
     @Input() allSelected: boolean;
     @Input() allText: string;
     @Input() outLine: boolean = true;
-    @Input() minWidth: number;
+    @Input() minWidth: string;
     @Output() onSubmit = new EventEmitter();
-    @ViewChild('thSelectOption') container: ElementRef;
     defText: string;
 
     constructor(private uiService: UiService) {
@@ -28,16 +27,6 @@ export class ZSelectComponent {
     }
 
     private refresh() {
-        if (this.container) {
-            if (this.minWidth) {
-                this.container.nativeElement.style.minWidth = this.minWidth + 'px';
-            }
-
-            if (this.outLine != true) {
-                this.container.nativeElement.style.borderWidth = '0px';
-            }
-        }
-
         if (this.arrText) {
             if (this.multi) {
                 if (this.arrText && this.selectedPos != undefined && typeof this.selectedPos != 'number' && this.arrText.length == this.selectedPos.length) {

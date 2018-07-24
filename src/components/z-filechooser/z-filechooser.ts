@@ -43,7 +43,7 @@ export class ZFilechooserComponent {
 
             this.loadFiles(files).subscribe((imageEntities) => {
                 if (this.toSize) {
-                    ImageUtil.compressImages(imageEntities.map(value => value.content), this.toSize, imageEntities.map(value=>value.type)).subscribe((compressSrc) => {
+                    ImageUtil.compressImages(imageEntities.map(value => value.content), this.toSize, imageEntities.map(value => value.type)).subscribe((compressSrc) => {
                         for (let i = 0; i < compressSrc.length; i++) {
                             imageEntities[i].content = compressSrc[i];
                         }
@@ -78,6 +78,7 @@ export class ZFilechooserComponent {
                     entity.content = (e.target as any).result;
                     entity.name = file.name;
                     entity.type = file.type;
+                    entity.file = file;
                     imageEntities.push(entity);
 
                     /*最后一条加载完成后，回调完成*/
