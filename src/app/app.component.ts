@@ -1,4 +1,4 @@
-import { IonicApp } from 'ionic-angular';
+import {IonicApp, Keyboard} from 'ionic-angular';
 import { Nav, Platform } from 'ionic-angular';
 import { Component, ViewChild } from '@angular/core';
 import { BrowserUtil } from '../providers/utils/browser.util';
@@ -6,6 +6,7 @@ import { HttpUrl } from '../providers/consts/http-url';
 import { UiService } from '../providers/ui.service';
 import { Util } from '../providers/utils/util';
 import { JsBridgeUtil } from '../providers/jsbridge/jsbridge.util';
+import {TabsPage} from "../pages/tabs/tabs";
 
 @Component({
     templateUrl: 'app.html'
@@ -19,7 +20,7 @@ export class MyApp {
     public static PLATFORM: string;
 
     isCanExit: boolean = false;  //用于判断返回键是否触发
-    constructor(public platform: Platform, private ionicApp: IonicApp, private uiService: UiService) {
+    constructor(public platform: Platform, private ionicApp: IonicApp, private uiService: UiService, public keyboard: Keyboard) {
         platform.ready().then(() => {
             try {
                 MyApp.ISTELCHINA = BrowserUtil.isTelchina(navigator.userAgent);
@@ -68,19 +69,37 @@ export class MyApp {
      * android端调用的返回事件
      */
     goBack(): boolean {
-        if (this.ionicApp._loadingPortal.getActive() || this.ionicApp._overlayPortal.getActive()) {
+        if (this.keyboard.isOpen()) {
+            this.keyboard.close();
             return true;
         }
-        const activePortal = this.ionicApp._modalPortal.getActive() || this.ionicApp._overlayPortal.getActive();
+
+        let loadingPortal = this.ionicApp._loadingPortal.getActive();
+        if (loadingPortal) {
+            return true;
+        }
+
+        /*modal 或者遮罩*/
+        let activePortal = this.ionicApp._modalPortal.getActive() || this.ionicApp._overlayPortal.getActive();
         if (activePortal) {
             activePortal.dismiss();
             return true;
         }
+
+        /*普通页面*/
+        let page = this.nav.getActive().instance;
+        if (!(page instanceof TabsPage)) {
+            if (this.nav.canGoBack()) {
+                this.nav.pop();
+                return true;
+            }
+        }
+
+        /*tabs页面*/
         const childNavs = this.nav.getActiveChildNavs();
         if (!childNavs || childNavs.length == 0) {
             return false;
         }
-
         for (const childNav of childNavs) {
             const tab = childNav.getSelected();  // 获取选中的tab
             const activeVC = tab.getActive();    // 通过当前选中的tab获取ViewController

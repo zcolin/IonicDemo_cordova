@@ -24,10 +24,15 @@ export class JsBridge {
      * @param data          传输数据
      * @param callback      调用完成回调，包含原生端返回的参数
      */
-    callHandler(methodName: string, data?: string, callback?: (returnData: string) => void) {
+    callHandler(methodName: string, data?: string, callback?: (returnData: string) => void): boolean {
         data = (data == undefined || data == null) ? "" : data;
-        callback = callback ? callback : (responseData) => { };
-        window['WebViewJavascriptBridge'].callHandler(methodName, data, callback);
+        callback = callback ? callback : (responseData) => {
+        };
+        if (window['WebViewJavascriptBridge']) {
+            window['WebViewJavascriptBridge'].callHandler(methodName, data, callback);
+            return true;
+        }
+        return false;
     }
 
     private setupWebViewJavascriptBridge(callback: (param: any) => void, platform?: string) {

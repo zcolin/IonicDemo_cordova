@@ -3,6 +3,10 @@
     text-transform: capitalize;
 }
 
+.action-sheet-group {
+    max-height: 70%;
+}
+
 //--------------------------ActionSheet item居中样式-----------------------
 .z-actionsheet-button {
     .button-inner {
@@ -21,6 +25,20 @@
     }
     .action-sheet-group:last-child {
         padding-bottom: 0px;
+    }
+}
+
+.action-sheet-ios {
+    .action-sheet-container {
+        padding: 0;
+    }
+    .action-sheet-group:last-child {
+        margin-bottom: 0;
+        border-radius: 0;
+    }
+    .action-sheet-button {
+        min-height: 4rem;
+        color: color($colors, 'dark');
     }
 }
 

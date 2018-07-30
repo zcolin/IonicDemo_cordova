@@ -1,10 +1,10 @@
-import { MyApp } from '../../app/app.component';
-import { JsBridge } from './jsbridge';
-import { JsStartPageReply, JsBaseReply, JsVesionReply, JsUUIDReply, JsLocationReply, JsImagesReply, JsScanQrCode, JsFileReply, JsHttpReply, JsGetStorateReply } from './jsbridge-option';
-import { HttpResult } from '../httpservice/http-result';
-import { ZErrorReply } from '../httpservice/zerror-reply';
-import { ZReply } from '../httpservice/ZReply';
-import { ZReplyDefault } from '../httpservice/zreply-default';
+import {MyApp} from '../../app/app.component';
+import {JsBridge} from './jsbridge';
+import {JsBaseReply, JsFileReply, JsGetStorateReply, JsImagesReply, JsLocationReply, JsScanQrCode, JsStartPageReply, JsUUIDReply, JsVesionReply} from './jsbridge-option';
+import {HttpResult} from '../httpservice/http-result';
+import {ZErrorReply} from '../httpservice/zerror-reply';
+import {ZReply} from '../httpservice/ZReply';
+import {ZReplyDefault} from '../httpservice/zreply-default';
 
 export class JsBridgeUtil {
     static jsbridge: JsBridge = new JsBridge();
@@ -40,17 +40,18 @@ export class JsBridgeUtil {
      *       "params":"xxx"          //根据业务制定
      *   }
      */
-    static startPage(pageName: string, title?: string, params?: any, responseCallback?: (returnData: JsStartPageReply) => void) {
+    static startPage(pageName: string, title?: string, params?: any, responseCallback?: (returnData: JsStartPageReply) => void): boolean {
         if (MyApp.ISTELCHINA) {
             let strTitle = title || null;
             params = params ? encodeURIComponent(JSON.stringify(params)) : params;
-            let strParam = params ? JSON.stringify({ pageName: pageName, title: strTitle, params: params }) : JSON.stringify({ pageName: pageName, title: strTitle, params: null });
-            this.jsbridge.callHandler("native_startPage", strParam, (returnData: string) => {
+            let strParam = params ? JSON.stringify({pageName: pageName, title: strTitle, params: params}) : JSON.stringify({pageName: pageName, title: strTitle, params: null});
+            return this.jsbridge.callHandler("native_startPage", strParam, (returnData: string) => {
                 if (responseCallback) {
                     responseCallback(JSON.parse(returnData));
                 }
             });
         }
+        return true;
     }
 
 
@@ -68,16 +69,17 @@ export class JsBridgeUtil {
      *       "params":"xxx"          //根据业务制定
      *   }
      */
-    static startWebPage(url: string, title?: string, responseCallback?: (returnData: JsStartPageReply) => void) {
+    static startWebPage(url: string, title?: string, responseCallback?: (returnData: JsStartPageReply) => void): boolean {
         if (MyApp.ISTELCHINA) {
             let strTitle = title || null;
-            let strParam = JSON.stringify({ url: url, title: strTitle });
-            this.jsbridge.callHandler("native_startWebPage", strParam, (returnData: string) => {
+            let strParam = JSON.stringify({url: url, title: strTitle});
+            return this.jsbridge.callHandler("native_startWebPage", strParam, (returnData: string) => {
                 if (responseCallback) {
                     responseCallback(JSON.parse(returnData));
                 }
             });
         }
+        return true;
     }
 
     /**
@@ -90,14 +92,15 @@ export class JsBridgeUtil {
      *       "msg":"xxx",            //成功可为空，失败填写失败原因
      *   }
      */
-    static finishPage(responseCallback?: (returnData: JsBaseReply) => void) {
+    static finishPage(responseCallback?: (returnData: JsBaseReply) => void): boolean {
         if (MyApp.ISTELCHINA) {
-            this.jsbridge.callHandler("native_finishPage", null, (returnData: string) => {
+            return this.jsbridge.callHandler("native_finishPage", null, (returnData: string) => {
                 if (responseCallback) {
                     responseCallback(JSON.parse(returnData));
                 }
             });
         }
+        return true;
     }
 
     /**
@@ -109,15 +112,16 @@ export class JsBridgeUtil {
      *       "msg":"xxx",            //成功可为空，失败填写失败原因
      *   }
      */
-    static toast(message: String, duration?: number, responseCallback?: (returnData: JsBaseReply) => void) {
+    static toast(message: String, duration?: number, responseCallback?: (returnData: JsBaseReply) => void): boolean {
         if (MyApp.ISTELCHINA) {
             duration = duration || 2000;
-            this.jsbridge.callHandler("native_toast", JSON.stringify({ message: message, duration: duration }), (returnData: string) => {
+            return this.jsbridge.callHandler("native_toast", JSON.stringify({message: message, duration: duration}), (returnData: string) => {
                 if (responseCallback) {
                     responseCallback(JSON.parse(returnData));
                 }
             });
         }
+        return true;
     }
 
     /**
@@ -130,14 +134,15 @@ export class JsBridgeUtil {
      *       "uuid":"xxx"            //UUID
      *   }
      */
-    static getVersion(responseCallback: (returnData: JsVesionReply) => void) {
+    static getVersion(responseCallback: (returnData: JsVesionReply) => void): boolean {
         if (MyApp.ISTELCHINA) {
-            this.jsbridge.callHandler("native_appVersion", null, (returnData: string) => {
+            return this.jsbridge.callHandler("native_appVersion", null, (returnData: string) => {
                 if (responseCallback) {
                     responseCallback(JSON.parse(returnData));
                 }
             });
         }
+        return true;
     }
 
     /**
@@ -149,32 +154,33 @@ export class JsBridgeUtil {
      *       "msg":"xxx",            //成功可为空，失败填写失败原因
      *   }
      */
-    static getUUID(responseCallback: (returnData: JsUUIDReply) => void) {
+    static getUUID(responseCallback: (returnData: JsUUIDReply) => void): boolean {
         if (MyApp.ISTELCHINA) {
-            this.jsbridge.callHandler("native_uuid", null, (returnData: string) => {
+            return this.jsbridge.callHandler("native_uuid", null, (returnData: string) => {
                 if (responseCallback) {
                     responseCallback(JSON.parse(returnData));
                 }
             });
         }
+        return true;
     }
 
     /**
-       * 分享
-       * @param responseCallback
-       * @param maxNumber         图片最大选择数量
-       * @param minPixel          最小像素
-       *
-       * 返回参数：
-       *  {
+     * 分享
+     * @param responseCallback
+     * @param maxNumber         图片最大选择数量
+     * @param minPixel          最小像素
+     *
+     * 返回参数：
+     *  {
        *       "cdoe":200,             //成功=200，失败为其他
        *       "msg":"xxx",            //成功可为空，失败填写失败原因
        *   }
-       */
-    static share(title: string, content?: string, targetUrl?: string, imageUrl?: string, responseCallback?: (returnData: JsBaseReply) => void) {
+     */
+    static share(title: string, content?: string, targetUrl?: string, imageUrl?: string, responseCallback?: (returnData: JsBaseReply) => void): boolean {
         if (MyApp.ISTELCHINA) {
-            let option = { title: title, content: content, targetUrl: targetUrl, imageUrl: imageUrl };
-            this.jsbridge.callHandler("native_share", JSON.stringify(option), (returnData: string) => {
+            let option = {title: title, content: content, targetUrl: targetUrl, imageUrl: imageUrl};
+            return this.jsbridge.callHandler("native_share", JSON.stringify(option), (returnData: string) => {
                 if (responseCallback) {
                     responseCallback(JSON.parse(returnData));
                 }
@@ -193,14 +199,15 @@ export class JsBridgeUtil {
      *       "result":"xxx"          //扫描结果，扫描过程中如果扫描结果未获取到，重新扫描不回调
      *   }
      */
-    static scanQrCode(responseCallback?: (returnData: JsScanQrCode) => void) {
+    static scanQrCode(responseCallback?: (returnData: JsScanQrCode) => void): boolean {
         if (MyApp.ISTELCHINA) {
-            this.jsbridge.callHandler("native_scanQrCode", null, (returnData: string) => {
+            return this.jsbridge.callHandler("native_scanQrCode", null, (returnData: string) => {
                 if (responseCallback) {
                     responseCallback(JSON.parse(returnData));
                 }
             });
         }
+        return true;
     }
 
     /**
@@ -223,14 +230,15 @@ export class JsBridgeUtil {
      *       "country":"xxx"         //参照高德参数
      *   }
      */
-    static getLocation(responseCallback: (returnData: JsLocationReply) => void) {
+    static getLocation(responseCallback: (returnData: JsLocationReply) => void): boolean {
         if (MyApp.ISTELCHINA) {
-            this.jsbridge.callHandler("native_location", null, (returnData: string) => {
+            return this.jsbridge.callHandler("native_location", null, (returnData: string) => {
                 if (responseCallback) {
                     responseCallback(JSON.parse(returnData));
                 }
             });
         }
+        return true;
     }
 
     /**
@@ -252,15 +260,16 @@ export class JsBridgeUtil {
      *       ]
      *   }
      */
-    static selectImage(maxNumber?: number, minPixel?: number, responseCallback?: (returnData: JsImagesReply) => void) {
+    static selectImage(maxNumber?: number, minPixel?: number, responseCallback?: (returnData: JsImagesReply) => void): boolean {
         if (MyApp.ISTELCHINA) {
-            let option = { maxNumber: maxNumber, minPixel: minPixel };
-            this.jsbridge.callHandler("native_selectImage", JSON.stringify(option), (returnData: string) => {
+            let option = {maxNumber: maxNumber, minPixel: minPixel};
+            return this.jsbridge.callHandler("native_selectImage", JSON.stringify(option), (returnData: string) => {
                 if (responseCallback) {
                     responseCallback(JSON.parse(returnData));
                 }
             });
         }
+        return true;
     }
 
     /**
@@ -278,15 +287,16 @@ export class JsBridgeUtil {
      *        }
      *   }
      */
-    static selectFile(type?: string, responseCallback?: (returnData: JsFileReply) => void) {
+    static selectFile(type?: string, responseCallback?: (returnData: JsFileReply) => void): boolean {
         if (MyApp.ISTELCHINA) {
-            let option = { type: type || "*/*" };
-            this.jsbridge.callHandler("native_selectFile", JSON.stringify(option), (returnData: string) => {
+            let option = {type: type || "*/*"};
+            return this.jsbridge.callHandler("native_selectFile", JSON.stringify(option), (returnData: string) => {
                 if (responseCallback) {
                     responseCallback(JSON.parse(returnData));
                 }
             });
         }
+        return true;
     }
 
 
@@ -320,13 +330,13 @@ export class JsBridgeUtil {
      *       "result":"{"code":200,"message":"xxx","key1":"value1"}"  //服务器返回参数，服务器返回的code和message在params中
      * }
      */
-    static http<T>(url: string, httpoption: JsHttpOption, httpResult: HttpResult<T>) {
+    static http<T>(url: string, httpoption: JsHttpOption, httpResult: HttpResult<T>): boolean {
         if (MyApp.ISTELCHINA) {
             httpoption = httpoption || {};
             httpResult = httpResult || {};
             httpoption.zreply = httpoption.zreply || new ZReplyDefault();
-            let option = { url: url, method: httpoption.method || 'post', headers: httpoption.headers || null, params: httpoption.body || null, files: httpoption.files || null };
-            this.jsbridge.callHandler("native_http", JSON.stringify(option), (returnData: string) => {
+            let option = {url: url, method: httpoption.method || 'post', headers: httpoption.headers || null, params: httpoption.body || null, files: httpoption.files || null};
+            return this.jsbridge.callHandler("native_http", JSON.stringify(option), (returnData: string) => {
                 let reply = JSON.parse(returnData);
                 let errorReply = new ZErrorReply();
                 let successReply;
@@ -364,6 +374,7 @@ export class JsBridgeUtil {
                 httpResult.complete();
             });
         }
+        return true;
     }
 
     /**
@@ -380,15 +391,16 @@ export class JsBridgeUtil {
      *       "msg":"xxx"            //成功可为空，失败填写失败原因
      *   }
      */
-    static putStorage(params: object, responseCallback?: (returnData: JsBaseReply) => void) {
+    static putStorage(params: object, responseCallback?: (returnData: JsBaseReply) => void): boolean {
         if (MyApp.ISTELCHINA) {
             let option = params;
-            this.jsbridge.callHandler("native_put_storage", JSON.stringify(option), (returnData: string) => {
+            return this.jsbridge.callHandler("native_put_storage", JSON.stringify(option), (returnData: string) => {
                 if (responseCallback) {
                     responseCallback(JSON.parse(returnData));
                 }
             });
         }
+        return true;
     }
 
     /**
@@ -410,15 +422,16 @@ export class JsBridgeUtil {
      *        }
      *   }
      */
-    static getStorage(key: string, responseCallback?: (returnData: string) => void) {
+    static getStorage(key: string, responseCallback?: (returnData: string) => void): boolean {
         if (MyApp.ISTELCHINA) {
-            let option = { keys: [key] };
-            this.jsbridge.callHandler("native_get_storage", JSON.stringify(option), (returnData: string) => {
+            let option = {keys: [key]};
+            return this.jsbridge.callHandler("native_get_storage", JSON.stringify(option), (returnData: string) => {
                 if (responseCallback) {
                     responseCallback(JSON.parse(returnData).result[key]);
                 }
             });
         }
+        return true;
     }
 
     /**
@@ -440,15 +453,16 @@ export class JsBridgeUtil {
      *        }
      *   }
      */
-    static getMultiStorage(keys: string[], responseCallback?: (returnData: JsGetStorateReply) => void) {
+    static getMultiStorage(keys: string[], responseCallback?: (returnData: JsGetStorateReply) => void): boolean {
         if (MyApp.ISTELCHINA) {
-            let option = { keys: keys };
-            this.jsbridge.callHandler("native_get_storage", JSON.stringify(option), (returnData: string) => {
+            let option = {keys: keys};
+            return this.jsbridge.callHandler("native_get_storage", JSON.stringify(option), (returnData: string) => {
                 if (responseCallback) {
                     responseCallback(JSON.parse(returnData).result);
                 }
             });
         }
+        return true;
     }
 }
 

@@ -8,7 +8,7 @@
         <ion-title>{{title}}</ion-title>
         <ion-buttons right *ngIf="rightButtonIconName || rightButtonIconName2">
             <button ion-button icon-only (click.stop)="onRightButton2Click($event)" *ngIf="rightButtonIconName2">
-                <ion-icon [name]="rightButtonIconName2?rightButtonIconName2:'menu'"></ion-icon>
+                <ion-icon style="margin-right: 10px" [name]="rightButtonIconName2?rightButtonIconName2:'menu'"></ion-icon>
             </button>
             <button ion-button icon-only (click.stop)="onRightButtonClick($event)" *ngIf="rightButtonIconName">
                 <ion-icon [name]="rightButtonIconName?rightButtonIconName:'menu'"></ion-icon>
