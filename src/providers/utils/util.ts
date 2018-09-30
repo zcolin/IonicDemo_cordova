@@ -1,7 +1,17 @@
+/*
+ * *********************************************************
+ *   author   colin
+ *   company  telchina
+ *   email    wanglin2046@126.com
+ *   date     18-7-31 下午1:01
+ * ********************************************************
+ */
+
 /**
  * Utils类存放和业务无关的公共方法
  */
 export class Util {
+
     /**
      * 是否是可用字段，不是undefinde、null、NaN
      * @param value
@@ -15,29 +25,9 @@ export class Util {
      * @param value
      */
     static isUndefinde(value: any): boolean {
-        return value == undefined || (typeof value === 'number' && isNaN(value)) ;
+        return value == undefined || (typeof value === 'number' && isNaN(value));
     }
-    /**
-     * Url是否合法
-     * @param value
-     */
-    static isValidateUrl(value): boolean {
-        let v = new RegExp('^((https|http|ftp|rtsp|mms)?://)'
-            + "?(([0-9a-z_!~*'().&=+$%-]+: )?[0-9a-z_!~*'().&=+$%-]+@)?" // ftp的user@
-            + '(([0-9]{1,3}\.){3}[0-9]{1,3}' // IP形式的URL- 199.194.52.184
-            + '|' // 允许IP和DOMAIN（域名）
-            + "([0-9a-z_!~*'()-]+\.)*" // 域名- www.
-            + "([0-9a-z][0-9a-z-]{0,61})?[0-9a-z]\.'" // 二级域名
-            + '[a-z]{2,6})' // first level domain- .com or .museum
-            + '(:[0-9]{1,4})?' // 端口- :80
-            + '((/?)|' // a slash isn't required if there is no file name
-            + "(/[0-9a-z_!~*'().;?:@&=+$,%#-]+)+/?)$");
-        if (v.test(value)) {
-            return true;
-        } else {
-            return false;
-        }
-    }
+
     /**
      * 获取url传入的参数
      * @param key
@@ -53,4 +43,21 @@ export class Util {
         }
         return "";
     }
+
+    /**
+     * 去掉所有的html标记
+     * @param {string} str
+     * @returns {string}
+     */
+    static delHtmlTag(str: string) {
+        str = str.replace(/(\n)/g, "");
+        str = str.replace(/(\t)/g, "");
+        str = str.replace(/(\r)/g, "");
+        str = str.replace(/<\/?[^>]*>/g, "");
+        str = str.replace(/\s*/g, "");
+        str = str.replace(/&nbsp;/ig, ''); //去掉nbsp
+        str = str.replace(/&npsp;/ig, ''); //去掉nbsp
+        return str;
+    }
 }
+

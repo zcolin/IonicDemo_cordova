@@ -9,7 +9,6 @@ export class JsBridge {
     /**
      * 注册jsbridge监听
      * @param methodName    注册接口方法名称
-     * @param data          传输数据
      * @param callback      被调用后执行回调，可携带参数返回原生端
      */
     registerHandler(methodName: string, callback: (data: string, responseCallback: (returnData: string) => void) => void) {

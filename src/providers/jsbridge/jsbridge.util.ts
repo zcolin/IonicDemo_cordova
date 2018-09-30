@@ -405,7 +405,7 @@ export class JsBridgeUtil {
 
     /**
      * 获取本地存储
-     * @param params
+     * @param key
      * @param responseCallback
      *
      *  请求参数：{

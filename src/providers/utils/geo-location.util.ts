@@ -1,5 +1,15 @@
-import { Injectable } from "@angular/core";
-import { Util } from "./util";
+/*
+ * *********************************************************
+ *   author   colin
+ *   company  telchina
+ *   email    wanglin2046@126.com
+ *   date     18-7-31 下午1:01
+ * ********************************************************
+ */
+
+import {Injectable} from "@angular/core";
+import {Util} from "./util";
+import {LogUtil} from "./log.util";
 
 /**
  * 定位服务
@@ -85,7 +95,7 @@ export class GeolocationUtil {
                 });
             return id;
         } else {
-            console.log("不支持定位");
+            LogUtil.log("不支持定位");
         }
         return null;
     }

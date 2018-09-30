@@ -1,24 +1,34 @@
-import { Observable } from "rxjs";
+/*
+ * *********************************************************
+ *   author   colin
+ *   company  telchina
+ *   email    wanglin2046@126.com
+ *   date     18-7-31 下午1:01
+ * ********************************************************
+ */
+
+import {Observable} from "rxjs";
 
 /**
  * 图片相关的工具类
  */
 export class ImageUtil {
+
     /**
      * 等比压缩多张图片
+     * @param imageSrc          图片文件
      * @param minPixel          最小像素，如1920*1080， 输入mixPixel =100，则返回177.7*100像素的图片
-     * @param quality           压缩质量
      * @param imgType           图片类型，默认jpg
-     * @param compressComplete  压缩完回调，返回base64图片 
+     * @param quality           压缩质量
      */
-    static compressImages(imgScr: string[], minPixel: number, imgType: string[], quality?: number): Observable<string[]> {
+    static compressImages(imageSrc: string[], minPixel: number, imgType: string[], quality?: number): Observable<string[]> {
         return new Observable(observer => {
             quality = quality || 0.95;
             quality = quality > 1 ? 1 : quality;
             quality = quality < 0 ? 0.95 : quality;
             let compressSrc: string[] = [];
-            for (let index = 0; index < imgScr.length; index++) {
-                const data = imgScr[index];
+            for (let index = 0; index < imageSrc.length; index++) {
+                const data = imageSrc[index];
                 let img = new Image();
                 img.src = data;
                 img.onload = () => {
@@ -33,12 +43,14 @@ export class ImageUtil {
                     compressSrc.push(base64);
 
                     /*最后一条加载完成后，回调完成*/
-                    if (index == imgScr.length - 1) {
-                        observer.next(compressSrc)
+                    if (index == imageSrc.length - 1) {
+                        observer.next(compressSrc);
+                        observer.complete();
                     }
-                }
+                };
                 img.onerror = () => {
-                    observer.next(null)
+                    observer.next(null);
+                    observer.error();
                 }
             }
         });
@@ -46,18 +58,18 @@ export class ImageUtil {
 
     /**
      * 等比压缩单张图片
+     * @param imageSrc
      * @param minPixel          最小像素，如1920*1080， 输入mixPixel =100，则返回177.7*100像素的图片
      * @param quality           压缩质量
      * @param imgType           图片类型，默认jpg
-     * @param compressComplete  压缩完回调，返回base64图片 
      */
-    static compressImage(imgScr: string, minPixel: number, imgType: string, quality?: number): Observable<string> {
+    static compressImage(imageSrc: string, minPixel: number, imgType: string, quality?: number): Observable<string> {
         return new Observable(observer => {
             quality = quality || 0.95;
             quality = quality > 1 ? 1 : quality;
             quality = quality < 0 ? 0.95 : quality;
             let img = new Image();
-            img.src = imgScr;
+            img.src = imageSrc;
             img.onload = () => {
                 let canvas = document.createElement('canvas');
                 let ctx = canvas.getContext('2d');
@@ -68,10 +80,12 @@ export class ImageUtil {
                 canvas.height = minPixel;
                 ctx.drawImage(img, 0, 0, canvas.width, canvas.height);
                 let base64 = canvas.toDataURL(imgType || 'image/jpeg', quality);
-                observer.next(base64)
-            }
+                observer.next(base64);
+                observer.complete();
+            };
             img.onerror = () => {
-                observer.next(null)
+                observer.next(null);
+                observer.error();
             }
         });
     }

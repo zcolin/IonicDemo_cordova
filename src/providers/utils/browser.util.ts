@@ -1,6 +1,14 @@
-import { Platform } from "ionic-angular";
-import { Injectable } from "@angular/core";
+/*
+ * *********************************************************
+ *   author   colin
+ *   company  telchina
+ *   email    wanglin2046@126.com
+ *   date     18-7-31 下午1:01
+ * ********************************************************
+ */
 
+import {Platform} from "ionic-angular";
+import {Injectable} from "@angular/core";
 
 /**
  * 浏览器相关工具类
@@ -37,6 +45,10 @@ export class BrowserUtil {
      */
     static isIos(platform: Platform): boolean {
         return this.isMobile(platform) && (platform.is('ios') || platform.is('ipad') || platform.is('iphone'));
+    }
+
+    static isIphoneX(userAgent: string): boolean {
+        return /iPhone X/.test(userAgent);
     }
 
     /**

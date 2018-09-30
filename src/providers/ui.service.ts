@@ -1,19 +1,17 @@
-import {
-    ActionSheet,
-    ActionSheetButton,
-    ActionSheetController,
-    Alert,
-    AlertController,
-    Loading,
-    LoadingController,
-    ToastController,
-    AlertOptions,
-    ModalController,
-} from "ionic-angular";
-import { Injectable } from "@angular/core";
-import { AlertInputOptions } from "ionic-angular/components/alert/alert-options";
-import { MyApp } from "../app/app.component";
-import { JsBridgeUtil } from "./jsbridge/jsbridge.util";
+/*
+ * *********************************************************
+ *   author   colin
+ *   company  telchina
+ *   email    wanglin2046@126.com
+ *   date     18-7-31 下午1:01
+ * ********************************************************
+ */
+
+import {ActionSheet, ActionSheetButton, ActionSheetController, Alert, AlertController, AlertOptions, Loading, LoadingController, ModalController, ToastController,} from "ionic-angular";
+import {Injectable} from "@angular/core";
+import {AlertInputOptions} from "ionic-angular/components/alert/alert-options";
+import {MyApp} from "../app/app.component";
+import {JsBridgeUtil} from "./jsbridge/jsbridge.util";
 
 /**
  * Ui相关服务类
@@ -93,25 +91,25 @@ export class UiService {
     }
 
     /**
-     * 显示Aler
-     * @param title         标题
-     * @param content       内容
-     * @param callback      回调
+     * 显示Alert
+     * @param title
+     * @param content
+     * @param callback
      * @returns {Alert}
      */
     public showAlert(title?: string, content?: string, callback?: () => void): Alert {
         let alert = this.alertCtrl.create();
         alert.setTitle(title)
-            .setMessage(content)
-            .addButton({
-                text: '确定',
-                handler: () => {
-                    if (callback) {
-                        callback();
-                    }
-                }
-            })
-            .present();
+             .setMessage(content)
+             .addButton({
+                 text: '确定',
+                 handler: () => {
+                     if (callback) {
+                         callback();
+                     }
+                 }
+             })
+             .present();
         return alert;
     }
 
@@ -128,28 +126,28 @@ export class UiService {
     public showConfirm(title?: string, content?: string, okCallback?: () => void, cancelCallback?: () => void, OkBtnText?: string, cancelBtnText?: string): Alert {
         let alert = this.alertCtrl.create();
         alert.setTitle(title)
-            .setMessage(content)
-            .addButton({
-                text: cancelBtnText ? cancelBtnText : '取消',
-                role: 'cancel',
-                handler: () => {
-                    if (cancelCallback) {
-                        cancelCallback();
-                    }
-                }
-            })
-            .addButton({
-                text: OkBtnText ? OkBtnText : '确定',
-                handler: () => {
-                    if (okCallback) {
-                        okCallback();
-                    }
-                }
-            })
-            .present();
+             .setMessage(content)
+             .setCssClass("th-app-alert")
+             .addButton({
+                 text: cancelBtnText ? cancelBtnText : '取消',
+                 role: 'cancel',
+                 handler: () => {
+                     if (cancelCallback) {
+                         cancelCallback();
+                     }
+                 }
+             })
+             .addButton({
+                 text: OkBtnText ? OkBtnText : '确定',
+                 handler: () => {
+                     if (okCallback) {
+                         okCallback();
+                     }
+                 }
+             })
+             .present();
         return alert;
     }
-
 
     /**
      * 显示CheckboxDialog
@@ -183,7 +181,7 @@ export class UiService {
                         for (let index = 0; index < option.inputs.length; index++) {
                             const element = option.inputs[index];
                             if (element.checked) {
-                                checkedValue.push({ index: index, label: element.label });
+                                checkedValue.push({index: index, label: element.label});
                             }
                         }
                         okCallback(checkedValue);
@@ -205,7 +203,42 @@ export class UiService {
         return alert;
     }
 
-
+    /**
+     * 显示RadioboxDialog
+     * @param title             标题
+     * @param okCallback        确定按钮回调, 回传position和label
+     * @param cancelCallback    取消按钮回调
+     * @param OkBtnText         确定按钮文字
+     * @param cancelBtnText     取消按钮文字
+     */
+    public showTextAreaDialog(title?: string, okCallback?: (string) => void, cancelCallback?: () => void, OkBtnText?: string, cancelBtnText?: string): Alert {
+        let input: AlertInputOptions = {
+            name: 'remark',
+            type: 'textarea'
+        };
+        let alert = this.alertCtrl.create();
+        alert.setTitle(title)
+             .addButton({
+                 text: cancelBtnText ? cancelBtnText : '取消',
+                 role: 'cancel',
+                 handler: () => {
+                     if (cancelCallback) {
+                         cancelCallback();
+                     }
+                 }
+             })
+             .addButton({
+                 text: OkBtnText ? OkBtnText : '确定',
+                 handler: () => {
+                     if (okCallback) {
+                         okCallback(input.value);
+                     }
+                 }
+             })
+             .addInput(input)
+             .present();
+        return alert;
+    }
 
     /**
      * 显示RadioboxDialog
@@ -262,14 +295,13 @@ export class UiService {
 
     /**
      * 显示单选下拉框
-     * @param event         触发事件
      * @param arrText       备选文字
      * @param selectedPos   默认选中项
      * @param okCallback    选中回调
      */
     public showSelect(arrText?: string[], selectedPos?: number, okCallback?: (number, string) => void) {
-        let popover = this.modalCtrl.create('SelectPage', { texts: arrText, selectPos: [selectedPos] },
-            { enterAnimation: 'modal-alert-enter', leaveAnimation: 'modal-alert-leave' });
+        let popover = this.modalCtrl.create('SelectPage', {texts: arrText, selectPos: [selectedPos]},
+            {enterAnimation: 'modal-alert-enter', leaveAnimation: 'modal-alert-leave'});
         popover.onDidDismiss(data => {
             if (data) {
                 okCallback(data.selectedPos, data.selectedText);
@@ -280,7 +312,6 @@ export class UiService {
 
     /**
      * 显示多选下拉框
-     * @param event         触发事件
      * @param arrText       备选文字
      * @param selectedPos   默认选中项
      * @param okCallback    点解确定回调
@@ -290,13 +321,48 @@ export class UiService {
      */
     public showMultiSelect(arrText?: string[], selectedPos?: number[], okCallback?: (selectedPos: number[], selectedText: string[], isAllSelected: boolean) => void, isAddAll?: boolean, isAllSelected?: boolean, allText?: string) {
         let modal = this.modalCtrl.create('SelectPage',
-            { texts: arrText, selectPos: selectedPos, isMulti: true, isAddAll: isAddAll, isAllSelected: isAllSelected, allText: allText },
-            { enterAnimation: 'modal-alert-enter', leaveAnimation: 'modal-alert-leave' });
+            {texts: arrText, selectPos: selectedPos, isMulti: true, isAddAll: isAddAll, isAllSelected: isAllSelected, allText: allText},
+            {enterAnimation: 'modal-alert-enter', leaveAnimation: 'modal-alert-leave'});
         modal.onDidDismiss(data => {
             if (data) {
                 okCallback(data.selectedPos, data.selectedText, isAllSelected);
             }
         });
         modal.present();
+    }
+
+    /**
+     * 显示table选择弹窗
+     * @param data        对象数组
+     * @param col      列数
+     * @param okCallback  选中回调
+     */
+    public showTableSelect(col: number, data?: any[], okCallback?: (data: any) => void) {
+        let popover = this.modalCtrl.create('TableSelectPage', {data: data, column: col},
+            {enterAnimation: 'modal-alert-enter', leaveAnimation: 'modal-alert-leave'});
+        popover.onDidDismiss(data => {
+            if (data) {
+                okCallback(data);
+            }
+        });
+        popover.present();
+    }
+
+    /**
+     * 显示自定义页面
+     * @param pageName
+     * @param param
+     * @param callback
+     * @returns {ActionSheet}
+     */
+    public showActionSheetPage(pageName: string, param?: any, callback?: (data: any) => void) {
+        let popover = this.modalCtrl.create(pageName, param,
+            {enterAnimation: 'modal-alert-enter', leaveAnimation: 'modal-alert-leave'});
+        popover.onDidDismiss(data => {
+            if (data) {
+                callback(data);
+            }
+        });
+        popover.present();
     }
 }

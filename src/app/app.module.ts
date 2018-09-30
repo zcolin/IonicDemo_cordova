@@ -16,11 +16,9 @@ import { ModalAlertEnter, ModalAlertLeave } from './zselect-modal-transitions';
         ProviderModule,
         ionicGalleryModal.GalleryModalModule,
         IonicModule.forRoot(MyApp, {
+            mode: 'md',
             backButtonText: '返回',
             tabsHideOnSubPages: true,
-            modalEnter: 'modal-slide-in',
-            modalLeave: 'modal-slide-out',
-            pageTransition: 'ios-transition',
         })
     ],
     bootstrap: [IonicApp],

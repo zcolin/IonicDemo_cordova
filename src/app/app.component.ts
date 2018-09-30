@@ -86,20 +86,23 @@ export class MyApp {
             return true;
         }
 
-        /*普通页面*/
-        let page = this.nav.getActive().instance;
-        if (!(page instanceof TabsPage)) {
-            if (this.nav.canGoBack()) {
+        //tabs直接push了页面
+        if (this.nav.canGoBack()) {
+            this.nav.pop();
+            return true;
+        }
+
+        //tabs内嵌页面的子页面
+        const childNavs = this.nav.getActiveChildNavs();
+        if (!childNavs || childNavs.length == 0) {
+            if (this.nav.canGoBack()) {//普通页面
                 this.nav.pop();
                 return true;
             }
-        }
-
-        /*tabs页面*/
-        const childNavs = this.nav.getActiveChildNavs();
-        if (!childNavs || childNavs.length == 0) {
             return false;
         }
+
+        //tabs页面
         for (const childNav of childNavs) {
             const tab = childNav.getSelected();  // 获取选中的tab
             const activeVC = tab.getActive();    // 通过当前选中的tab获取ViewController
@@ -111,5 +114,4 @@ export class MyApp {
         }
         return false;
     }
-
 }

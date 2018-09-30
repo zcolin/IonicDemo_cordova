@@ -1,8 +1,17 @@
+/*
+ * *********************************************************
+ *   author   colin
+ *   company  telchina
+ *   email    wanglin2046@126.com
+ *   date     18-7-31 下午1:01
+ * ********************************************************
+ */
 
 /**
  * 本地存储工具类
  */
 export class StorageUtil {
+
     public static get(key: string): Promise<string | null> {
         return new Promise((resolve, reject) => {
             let value = window.localStorage.getItem(key);
@@ -13,7 +22,7 @@ export class StorageUtil {
     public static setArray(key_values: { key: string, value: string }[]): Promise<any> {
         return new Promise((resolve, reject) => {
             if (key_values) {
-                key_values.forEach(({ key, value }, index) => {
+                key_values.forEach(({key, value}, index) => {
                     window.localStorage.setItem(key, value);
                 });
             }
@@ -44,7 +53,8 @@ export class StorageUtil {
 
     public static forEach(): Promise<(element: any) => void> {
         return new Promise((resolve, reject) => {
-            let callback = (element) => { };
+            let callback = (element) => {
+            };
             window.localStorage.forEach(callback);
             resolve(callback);
         });

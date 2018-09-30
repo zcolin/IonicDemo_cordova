@@ -1,12 +1,21 @@
-import { Directive, ElementRef, Renderer2 } from "@angular/core";
-import { Content, ScrollEvent } from "ionic-angular";
+/*
+ * *********************************************************
+ *   author   colin
+ *   company  telchina
+ *   email    wanglin2046@126.com
+ *   date     18-7-31 下午12:49
+ * ********************************************************
+ */
 
-@Directive({
-    selector: '[fixed-scroll]',
-})
+import {Directive, ElementRef, Renderer2} from "@angular/core";
+import {Content, ScrollEvent} from "ionic-angular";
+
 /**
  * 滚动时固定在顶部的指令，此指令只适用于ion-content的子view
  */
+@Directive({
+    selector: '[fixed-scroll]',
+})
 export class FixedScrollDirective {
     private _elRect: any;
 
@@ -44,7 +53,6 @@ export class FixedScrollDirective {
         if (!this._isFixed && d.scrollTop >= this._elRect.top) {
             return this._setFixed();
         }
-
 
         if (this._isFixed && d.scrollTop < this._elRect.top) {
             return this._removeFixed();
