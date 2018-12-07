@@ -44,7 +44,7 @@ export class HomePage {
         });
     }
     showConfirm() {
-        let str = DateUtil.getDate(new Date(), 'yyyy-MM-dd') + '<br/>';
+        let str = DateUtil.getDateStr(new Date(), 'yyyy-MM-dd') + '<br/>';
         str += DateUtil.getTimeAgo(new Date('2018-06-22')) + '<br/>';
 
         this.uiService.showConfirm('提示', str, () => {
