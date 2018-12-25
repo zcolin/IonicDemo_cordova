@@ -1,0 +1,13 @@
+.th_file_container {
+    position: relative;
+    display: inline-block;
+    overflow: hidden;
+}
+
+.th_file_container input {
+    position: absolute;
+    display: inline-block;
+    right: 0;
+    top: 0;
+    opacity: 0;
+}

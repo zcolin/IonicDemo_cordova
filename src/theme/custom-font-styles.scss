@@ -1,0 +1,138 @@
+/*
+ * *********************************************************
+ *   自定义字体样式(根据md规范定义)
+ * ********************************************************
+ */
+:root {
+    --th-font-color-primary: var(--ion-color-primary);
+    --th-font-color-light-54: rgba(255, 255, 255, 0.54);
+    --th-font-color-light-87: rgba(255, 255, 255, 0.87);
+    --th-font-color-dark-54: rgba(0, 0, 0, 0.54);
+    --th-font-color-dark-87: rgba(0, 0, 0, 0.87);
+}
+
+//主标题文字，亮色
+.th-font-headline-light {
+    font-size: 2.5rem !important;
+    color: var(--th-font-color-light-87) !important;
+}
+
+//主标题文字，暗色
+.th-font-headline-dark {
+    font-size: 2.4rem !important;
+    color: var(--th-font-color-dark-87) !important;
+}
+
+//主标题文字，主题
+.th-font-headline-primary {
+    font-size: 2.4rem !important;
+    color: var(--th-font-color-primary) !important;
+}
+
+//标题文字，亮色
+.th-font-title-light {
+    font-size: 2rem !important;
+    color: var(--th-font-color-light-87) !important;
+}
+
+//标题文字，暗色
+.th-font-title-dark {
+    font-size: 2rem !important;
+    color: var(--th-font-color-dark-87) !important;
+}
+
+//标题文字，主题
+.th-font-title-primary {
+    font-size: 2rem !important;
+    color: var(--th-font-color-primary) !important;
+}
+
+//副标题文字，亮色
+.th-font-subhead-light {
+    font-size: 1.6rem !important;
+    color: var(--th-font-color-light-87) !important;
+}
+
+//副标题文字，暗色
+.th-font-subhead-dark {
+    font-size: 1.6rem !important;
+    color: var(--th-font-color-dark-87) !important;
+}
+
+//副标题文字，主题
+.th-font-subhead-primary {
+    font-size: 1.6rem !important;
+    color: var(--th-font-color-primary) !important;
+}
+
+//普通文字，亮色
+.th-font-body-light {
+    font-size: 1.4rem !important;
+    color: var(--th-font-color-light-87) !important;
+}
+
+//普通文字，暗色
+.th-font-body-dark {
+    font-size: 1.4rem !important;
+    color: var(--th-font-color-dark-87) !important;
+}
+
+//普通文字，暗色
+.th-font-body-dark-54 {
+    font-size: 1.4rem !important;
+    color: var(--th-font-color-dark-54) !important;
+}
+
+//普通文字，主题
+.th-font-body-primary {
+    font-size: 1.4rem !important;
+    color: var(--th-font-color-primary) !important;
+}
+
+//说明文字/副文
+.th-font-caption-light {
+    font-size: 1.2rem !important;
+    color: var(--th-font-color-light-87)
+}
+
+//说明文字/副文
+.th-font-caption-dark {
+    font-size: 1.2rem !important;
+    color: var(--th-font-color-dark-54) !important;
+}
+
+//说明文字/副文
+.th-font-caption-dark-87 {
+    font-size: 1.2rem !important;
+    color: var(--th-font-color-dark-87) !important;
+}
+
+//说明文字/副文
+.th-font-caption-primary {
+    font-size: 1.2rem !important;
+    color: var(--th-font-color-primary) !important;
+}
+
+//最小文字
+.th-font-micro-light {
+    font-size: 1.0rem !important;
+    color: var(--th-font-color-light-87)
+}
+
+//最小文字
+.th-font-micro-dark {
+    font-size: 1.0rem !important;
+    color: var(--th-font-color-dark-54) !important;
+}
+
+//最小文字
+.th-font-micro-dark-87 {
+    font-size: 1.0rem !important;
+    color: var(--th-font-color-dark-87) !important;
+}
+
+//最小文字
+.th-font-micro-primary {
+    font-size: 1.0rem !important;
+    color: var(--th-font-color-primary) !important;
+}

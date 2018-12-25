@@ -1,0 +1,23 @@
+<z-toolbar title="JS桥接功能"></z-toolbar>
+<ion-content padding>
+    <ion-list>
+        <ion-button expand="block" (click)='getUUID()'>UUID</ion-button>
+        <ion-button expand="block" (click)='toast()'>Toast</ion-button>
+        <ion-button expand="block" (click)='startWebPage()'>启动外部链接</ion-button>
+        <ion-button expand="block" (click)='startPage()'>打开新页面</ion-button>
+        <ion-button expand="block" (click)='getVersion()'>获取版本号</ion-button>
+        <ion-button expand="block" (click)='scanQrCode()'>扫描二维码</ion-button>
+        <ion-button expand="block" (click)='finishPage()'>关闭页面</ion-button>
+        <ion-button expand="block" (click)='location()'>定位</ion-button>
+        <ion-button expand="block" (click)='share()'>分享</ion-button>
+        <ion-button expand="block" (click)='selectImage()'>选择图片</ion-button>
+        <ion-button expand="block" (click)='selectFile()'>选择文件</ion-button>
+        <ion-button expand="block" (click)='http()'>Http</ion-button>
+        <ion-button expand="block" (click)='putStorage()'>存储键值</ion-button>
+        <ion-button expand="block" (click)='getStorage()'>获取键值</ion-button>
+
+        <ion-list style="width: 100px" *ngFor="let img of imgsrc">
+            <img [src]='img'>
+        </ion-list>
+    </ion-list>
+</ion-content>

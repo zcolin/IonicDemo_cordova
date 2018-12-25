@@ -1,0 +1,219 @@
+/*
+ * *********************************************************
+ *   自定义业务样式
+ * ********************************************************
+ */
+:root {
+    --th-app-statusbar-height: 24px;
+    --th-app-statusbar-ios-height: 20px;
+    --th-app-statusbar-ios-iphonex-height: 44px;
+}
+
+
+//状态栏
+.th-app-statusbar {
+    height: var(--th-app-statusbar-height) !important;
+}
+
+//白色状态栏
+.th-app-statusbar-white {
+    height: var(--th-app-statusbar-height) !important;
+    background-color: white !important;
+}
+
+//主题色状态栏
+.th-app-statusbar-primary {
+    height: var(--th-app-statusbar-height) !important;
+    background-color: var(--ion-color-primary) !important;
+}
+
+//自定义的toolbar，默认为白色
+.th-app-toolbar {
+    background-color: white !important;
+    color: white !important;
+}
+
+//允许选择、复制
+.th-app-user-select {
+    user-select: text;
+}
+
+//ion-content 背景颜色
+ion-content {
+    color: var(--ion-color-dark);
+    background-color: white;
+}
+
+//分割线
+.th-app-bottom-border, ion-item.th-app-bottom-border {
+    border-bottom: 1px solid var(--th-color-divider) !important;
+}
+
+//白色背景
+.th-app-background-white, ion-content.th-app-background-white {
+    color: var(--ion-color-dark) !important;
+    background-color: white !important;
+}
+
+//带有起始标识的标题
+.th-app-title {
+    font-size: 1.4rem !important;
+    color: rgba(0, 0, 0, 0.87) !important;
+    padding: 10px 0px !important;
+    padding-left: 16px !important;
+    font-weight: bold !important;
+    border-bottom: 1px solid #f2f2f2 !important;
+}
+
+//带有起始标识的标题
+.th-app-title::before {
+    content: "";
+    float: left;
+    background-color: var(--ion-color-primary);
+    border-radius: 2px;
+    width: 8px;
+    height: 13px;
+    margin-right: 8px;
+    margin-top: 2px
+}
+
+//同行显示
+.th-app-line {
+    width: 100% !important;
+    display: flex !important;
+    p {
+        line-height: 120%;
+    }
+    align-items: baseline;
+}
+
+//多行文本输入框
+.th-app-textarea {
+    padding: 8px 16px !important;
+    width: 100% !important;
+}
+
+//通用margin
+.th-app-margin {
+    margin: 8px !important;
+}
+
+//通用padding
+.th-app-padding {
+    padding: 8px !important;
+}
+
+//行宽
+.th-app-margin-width {
+    width: calc(100% - 16px) !important;
+}
+
+//文本省略号
+.th-app-text-oneline-ellipsis {
+    white-space: nowrap !important;
+    text-overflow: ellipsis !important;
+    overflow: hidden !important;
+}
+
+//flex布局 居中
+.th-app-flex-center {
+    display: flex !important;;
+    justify-content: center !important;
+    align-items: center !important;
+}
+
+//flex垂直 居中
+.th-app-flex-ver-center {
+    display: flex !important;;
+    align-items: center !important;
+    height: 100%;
+}
+
+//flex水平 居中
+.th-app-flex-hor-center {
+    display: flex !important;;
+    justify-content: center !important;
+}
+
+//默认分割线
+.th-app-divider {
+    background: var(--th-color-divider) !important;
+    height: 1px !important;
+}
+
+//默认分割线-粗
+.th-app-divider-bold {
+    background: var(--th-color-divider) !important;
+    height: 8px !important;
+}
+
+//设置Alert的通用样式
+.th-app-alert {
+    .alert-message {
+        text-align: left !important;
+        line-height: 150% !important;;
+    }
+    .alert-title {
+        text-align: left !important;
+        line-height: 150% !important;;
+    }
+}
+
+//普通列表样式
+.th-app-list {
+    background-color: white;
+    margin: 1px 0 0;
+    padding-top: 8px;
+    .item {
+        --border-style: none;
+        --padding-bottom: 0;
+        --padding-top: 0;
+        --padding-start: 0;
+        --padding-end: 0;
+        --inner-padding-bottom: 0;
+        --inner-padding-top: 0;
+        --inner-padding-start: 0;
+        --inner-padding-end: 0;
+        border-bottom: 1px solid var(--th-color-divider);
+        margin: 0 var(--ion-padding);
+        padding: 0 var(--ion-padding);
+
+        img[slot=start] {
+            margin-right: var(--ion-padding);
+        }
+        img[slot=end] {
+            margin-left: var(--ion-padding);
+        }
+    }
+    .th-app-img-container {
+        width: 110px;
+        height: 80px;
+        overflow: hidden;
+        display: flex;
+        align-items: center;
+    }
+}
+
+//icon样式列表
+.th-app-icon-list {
+    padding-left: 26px;
+    .item-inner {
+        --border-style: none;
+        --padding-bottom: 0;
+        --padding-top: 0;
+        --padding-start: 0;
+        --padding-end: 0;
+        --inner-padding-bottom: 0;
+        --inner-padding-top: 0;
+        --inner-padding-start: 0;
+        --inner-padding-end: 0;
+        border-bottom: 1px solid var(--th-color-divider);
+    }
+
+    img[slot=start] {
+        padding-right: 20px;
+        background-position: right 8px center;
+        background-repeat: no-repeat;
+        background-size: 12px 12px
+    }
+}

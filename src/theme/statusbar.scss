@@ -1,0 +1,34 @@
+@mixin statusbar-height($statusbarHeight) {
+    .th-app-statusbar, .th-app-statusbar-white, .th-app-statusbar-primary {
+        height: $statusbarHeight !important;
+    }
+    .th-home-header-connecter {
+        height: calc(201px + #{$statusbarHeight } + 51px);
+        background-size: 100% calc(201px + #{$statusbarHeight } + 51px);
+    }
+    .th-home-header-leader {
+        height: calc(201px + #{$statusbarHeight } + 51px);
+        background-size: 100% calc(201px + #{$statusbarHeight } + 51px);
+    }
+    //.th-banner {
+    //    height: calc(56vw + #{$statusbarHeight } + 30px);
+    //}
+}
+
+.statusbar-browser {
+    @include statusbar-height(0px);
+}
+
+.statusbar-ios {
+    @include statusbar-height(var(--th-app-statusbar-ios-height));
+}
+
+.statusbar-ios-iphonex {
+    @include statusbar-height(var(--th-app-statusbar-ios-iphonex-height));
+}
+
+.statusbar-md {
+    @include statusbar-height(var(--th-app-statusbar-height));
+}
+
+

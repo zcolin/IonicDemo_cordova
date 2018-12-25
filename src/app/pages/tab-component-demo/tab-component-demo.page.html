@@ -1,0 +1,9 @@
+<z-toolbar [canGoBack]="false" title="独立组件" [isReload]=isReload (reload)="reload()"></z-toolbar>
+<ion-content padding>
+    <ion-list>
+        <ion-button expand="block" (click)='startECharts()'>echarts</ion-button>
+        <ion-button expand="block" (click)='startAMap()' color="secondary">amap</ion-button>
+        <ion-button expand="block" (click)='startArcgis()' color="tertiary">arcgis</ion-button>
+        <ion-button expand="block" (click)='startJSBridge()' color="tertiary">jsbridge</ion-button>
+    </ion-list>
+</ion-content>

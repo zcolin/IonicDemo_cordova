@@ -1,0 +1,28 @@
+<z-toolbar title="arcgis"></z-toolbar>
+<ion-content>
+    <arcgis-map #arcgismap id="mapDiv"></arcgis-map>
+
+    <div class="th-maptrade">
+        <ion-button size="small" (click)='switchToTianditu()'>
+            天地图
+        </ion-button>
+        <ion-button size="small" (click)='switchToBaidu()'>
+            百度
+        </ion-button>
+        <ion-button size="small" (click)='switchToGaode()'>
+            高德
+        </ion-button>
+        <ion-button size="small" (click)='switchToGoogle()'>
+            谷歌
+        </ion-button>
+    </div>
+
+    <div class="th-maptype">
+        <ion-button size="small" (click)='switchToVec()'>
+            地图
+        </ion-button>
+        <ion-button size="small" (click)='switchToImg()'>
+            影像
+        </ion-button>
+    </div>
+</ion-content>
