@@ -1,0 +1,122 @@
+<z-toolbar title="Item示例"></z-toolbar>
+<ion-content>
+    <z-banner [picData]="listPic"></z-banner>
+    <ion-list no-lines="true">
+        <ion-list-header>
+            Header
+        </ion-list-header>
+        <ion-item mode='ios' button lines="full" (click)="buttonClick()">
+            Item
+        </ion-item>
+        <ion-item [detail]="true" mode='ios'>
+            Item with Detail Arrow
+        </ion-item>
+        <ion-item button (click)="buttonClick()">
+            Button Item
+        </ion-item>
+        <ion-item-divider color='primary'>
+            Item Divider
+        </ion-item-divider>
+        <ion-item button [detail]="false" (click)="buttonClick()">
+            Button Item with no Detail Arrow
+        </ion-item>
+        <ion-item href="https://www.ionicframework.com">
+            Anchor Item
+        </ion-item>
+
+        <ion-item lines="none">
+            Item with no border
+        </ion-item>
+
+        <ion-item text-wrap>
+            Multiline text that should wrap when it is too long to fit on one line in the item. Multiline text that should wrap when
+            it is too long to fit on one line in the item.
+        </ion-item>
+
+        <!-- List header with buttons on each side -->
+        <ion-list-header>
+            <ion-button slot="start" (click)="buttonClick()">Button</ion-button>
+            List Header
+            <ion-button fill="outline" slot="end" (click)="buttonClick()">Outline</ion-button>
+        </ion-list-header>
+
+        <!-- Button item with an icon on the left -->
+        <ion-item button>
+            <ion-icon name="star" slot="start"></ion-icon>
+            Button Item
+        </ion-item>
+
+        <!-- Item with a label and content -->
+        <ion-item>
+            <ion-label>
+                Item Label
+            </ion-label>
+            <div>
+                Item Content next to the label
+            </div>
+        </ion-item>
+
+        <!-- Item with left and right buttons -->
+        <ion-item>
+            <ion-button slot="start" (click)="buttonClick()">Button</ion-button>
+            <ion-label>
+                Item
+            </ion-label>
+            <ion-button fill='outline' slot="end" (click)="buttonClick()">Outline</ion-button>
+        </ion-item>
+
+        <!-- Item divider with a right button -->
+        <ion-item-divider>
+            <ion-label>
+                Item Divider
+            </ion-label>
+            <ion-button slot="end">Button</ion-button>
+        </ion-item-divider>
+
+        <!-- Disabled button item with left and right buttons -->
+        <ion-item button disabled>
+            <ion-button slot="start" (click)="buttonClick()">
+                <ion-icon name="home"></ion-icon>
+                Left Icon
+            </ion-button>
+            Disabled Button Item
+            <ion-button fill="outline" slot="end" (click)="buttonClick()">
+                <ion-icon name="star"></ion-icon>
+                Right Icon
+            </ion-button>
+        </ion-item>
+
+        <!-- Item with an avatar on the left and button on the right -->
+        <ion-item>
+            <ion-avatar slot="start">
+                <img src="assets/img/icon_head.jpg">
+            </ion-avatar>
+            Avatar Item
+            <ion-button fill="outline" slot="end">View</ion-button>
+        </ion-item>
+
+        <!-- Item with a thumbnail on the right -->
+        <ion-item>
+            <ion-label>
+                <h2>Item</h2>
+                <h1>标题</h1>
+                <p>Item Paragraph</p>
+            </ion-label>
+            <ion-thumbnail slot="end">
+                <img src="assets/img/icon_head.jpg">
+            </ion-thumbnail>
+            <p slot="end">Item Paragraph2</p>
+        </ion-item>
+
+        <!-- Sliding item -->
+        <ion-item-sliding>
+            <ion-item>
+                Item
+            </ion-item>
+            <ion-item-options>
+                <ion-button color="primary" (click)="archive()">Archive</ion-button>
+                <ion-item-option color="primary" (click)="archive()">Archive</ion-item-option>
+            </ion-item-options>
+        </ion-item-sliding>
+    </ion-list>
+</ion-content>

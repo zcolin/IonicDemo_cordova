@@ -1,0 +1,22 @@
+<ion-header *ngIf="isShowHeader">
+    <div class="th-app-statusbar-white"></div>
+    <ion-toolbar [color]="toolBarColor">
+        <ion-buttons slot="start" *ngIf="startButtonIconName">
+            <ion-back-button style="display: inline" *ngIf="!overrideBack" [icon]="startButtonIconName"></ion-back-button>
+            <ion-button *ngIf="overrideBack" (zClickStop)="onStartButtonClick($event)">
+                <ion-icon slot="icon-only" [name]="startButtonIconName"></ion-icon>
+            </ion-button>
+        </ion-buttons>
+        <ion-title [ngStyle]="{'padding': '0px ' + titlePaddingHor}">{{title}}</ion-title>
+        <ion-buttons slot="end" *ngIf="endButtonIconName || endButtonIconName2">
+            <ion-button (zClickStop)="onEndButton2Click($event)" *ngIf="endButtonIconName2">
+                <ion-icon slot="icon-only" style="margin-right: 10px" [name]="endButtonIconName2?endButtonIconName2:'menu'"></ion-icon>
+            </ion-button>
+            <ion-button (zClickStop)="onEndButtonClick($event)" *ngIf="endButtonIconName">
+                <ion-icon slot="icon-only" [name]="endButtonIconName?endButtonIconName:'menu'"></ion-icon>
+            </ion-button>
+        </ion-buttons>
+    </ion-toolbar>
+    <ng-content select=".ztoolbar-header-content"></ng-content>
+</ion-header>
+<z-reload class="th-reload" (reload)='onReload()' [ngStyle]="{'display':isReload ? 'block': 'none','position': 'absolute', 'top': headerHeight}"></z-reload>

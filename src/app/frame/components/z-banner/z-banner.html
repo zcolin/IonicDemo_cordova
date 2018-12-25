@@ -1,0 +1,15 @@
+<div style="background-color: black" [ngStyle]="{'width':width, 'height':height}">
+    <ion-slides #zbanner id="zbanner" style="width: 100%;height: 100%" [options]="cusOptions" pager *ngIf="picData?.length > 0"
+                (ionSlideTap)="jumpBanner()" (ionSlideDidChange)="slideChange()">
+        <ion-slide *ngFor="let pic of picData">
+            <img src={{pic.image_path}} onerror="javascript:this.src='assets/common_imgs/th_error_banner.png';">
+            <div class="th-slide-text" *ngIf="pic.title">{{pic.title}}</div>
+            <div class="th-slide-pagination" [ngStyle]="{'top':paginationPositionTop, 'bottom':paginationPositionBottom, 'left':paginationPositionLeft, 'right':paginationPositionRight}">
+                {{currentPage + "/" + totalPage}}
+            </div>
+        </ion-slide>
+    </ion-slides>
+    <ion-button fill="clear" color="light" *ngIf="showBack" (click)="onBackButtonClick($event)" style="position: absolute;top: 0;z-index: 100">
+        <ion-icon slot="icon-only" name="arrow-back"></ion-icon>
+    </ion-button>
+</div>

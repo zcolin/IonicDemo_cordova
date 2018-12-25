@@ -1,0 +1,18 @@
+<z-toolbar title="滚动列表" [overrideBack]="true" (startButtonClick)="goback();"></z-toolbar>
+<ion-content>
+    <ion-refresher (ionRefresh)="doRefresh($event)" slot="fixed">
+        <z-refresher-content></z-refresher-content>
+    </ion-refresher>
+    <ion-list class="th-app-list">
+        <ion-item *ngFor="let poi of listPoi">
+            <ion-label>
+                <h3 style="line-height: 25px;" class="th-ellipse">{{poi.name}}</h3>
+                <p class="th-ellipse">{{poi.address}}</p>
+            </ion-label>
+            <img slot="start" [src]="poi.picUrl" style="width: 100px;"/>
+        </ion-item>
+    </ion-list>
+    <ion-infinite-scroll (ionInfinite)="doInfinite($event)" threshold="50px">
+        <z-infinite-scroll-content></z-infinite-scroll-content>
+    </ion-infinite-scroll>
+</ion-content>

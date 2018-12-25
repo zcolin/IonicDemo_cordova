@@ -1,0 +1,270 @@
+/*
+ * *********************************************************
+ *   系统样式覆写
+ * ********************************************************
+ */
+
+//修改默认不全部大写
+ion-button {
+    text-transform: capitalize;
+}
+
+//弹出框按钮,第一个按钮弱化颜色
+.alert-button:first-child {
+    color: var(--th-font-color-dark-54);
+}
+
+//修改系统进度条背景颜色
+.loading-wrapper {
+    background: rgba(0, 0, 0, 0.7) !important;
+    opacity: 0.7 !important;
+}
+
+//修改系统进度条旋转框颜色
+.loading-spinner {
+    ion-spinner {
+        color: white;
+    }
+}
+
+//系统toolbar样式，高度更改，文字对齐更改
+ion-toolbar {
+    --min-height: 48px;
+    ion-title {
+        text-align: center !important;
+        font-size: 16px;
+    }
+}
+
+//多选和单选弹出框分割线样式
+.alert-checkbox-group.sc-ion-alert-md, .alert-radio-group.sc-ion-alert-md {
+    border-top: 1px solid var(--th-color-divider);
+    border-bottom: 1px solid var(--th-color-divider);
+}
+
+//---------------------------------以下未验证-------------------------------------//
+
+//日期选择按钮
+.picker-toolbar-button:first-child {
+    .button-inner {
+        color: var(--th-font-color-dark-54);
+    }
+}
+
+.footer-md::before, .tabs-md[tabsPlacement="bottom"] > .tabbar::before {
+    top: -1px;
+    bottom: auto;
+    background-position: left 0 top 0;
+    height: 1px;
+}
+
+//segment的底部线覆写
+.segment-md .segment-button {
+    opacity: 0.5;
+    color: var(--ion-color-dark);
+}
+
+//segment的底部线覆写
+.segment-md .segment-button.segment-activated {
+    color: var(--ion-color-primary);
+}
+
+//segment的底部线覆写
+ion-header ion-segment {
+    border-top: 1px solid #f2f2f2;
+}
+
+//toolbar标题
+ion-title > .toolbar-title-md.toolbar-title {
+    font-size: 1.8rem;
+    color: var(--th-font-color-dark-87);
+}
+
+//移除输入框状态底线
+.item-md.item-input.ng-valid.item-input-has-value:not(.input-has-focus):not(.item-input-has-focus) .item-inner, .item-md.item-input.ng-valid.input-has-value:not(.input-has-focus):not(.item-input-has-focus) .item-inner {
+    border-bottom: none;
+    box-shadow: none;
+}
+
+//移除输入框状态底线
+.item-md.item-input.item-input-has-focus .item-inner, .item-md.item-input.input-input-has-focus .item-inner {
+    border-bottom: none;
+    box-shadow: none;
+}
+
+//输入框样式
+.text-input-ios, .text-input-md {
+    margin: 0;
+    width: 100%;
+}
+
+.tabs-ios .tabbar, .tabs-md .tabbar {
+    border-top: 0.15px solid #f2f2f2;
+}
+
+//标签文字大小样式
+.label {
+    h2 {
+        font-size: 1.4rem;
+        color: var(--th-font-color-dark-87);
+        line-height: 150%;
+    }
+    p {
+        font-size: 1.2rem;
+        color: var(--th-font-color-dark-87);
+    }
+    font-size: 1.4rem;
+    color: var(--th-font-color-dark-87);
+}
+
+//按钮文字
+.button-ios, .button-md {
+    font-size: 1.4rem;
+}
+
+/*-----------------------------------------ActionSheet样式 ----------------------------------------------------*/
+.z-actionsheet-button {
+    .action-sheet-button-inner {
+        justify-content: center !important;
+    }
+}
+
+.md {
+    .action-sheet-button {
+        margin: 0;
+        border-bottom: 0.55px solid #f2f2f2;
+        background: transparent;
+    }
+    .action-sheet-group:first-child {
+        padding-top: 0;
+    }
+    .action-sheet-group:last-child {
+        padding-bottom: 0;
+    }
+}
+
+.ios {
+    .action-sheet-container {
+        padding: 0;
+    }
+    .action-sheet-group:last-child {
+        margin-bottom: 0;
+        border-radius: 0;
+    }
+    .action-sheet-button {
+        min-height: 4rem;
+        color: var(--ion-color-dark);
+    }
+}
+
+.action-sheet-group {
+    max-height: 70%;
+}
+
+/*-----------------------------------------搜索框样式----------------------------------------------------*/
+
+.searchbar-md {
+    background-color: #F2F4F7;
+    height: 50px;
+    padding: 4px 8px 4px 8px;
+    .searchbar-input {
+        box-shadow: none;
+        border: #F2F4F7 solid 1px;
+        border-radius: 5px;
+        height: 34px;
+    }
+    .searchbar-search-icon {
+        left: 8px;
+        top: 8px;
+    }
+    .searchbar-input {
+        padding: 6px 35px;
+    }
+}
+
+/*----------------------------------------- listitem  START----------------------------------------------------*/
+.list-ios > .item-block:first-child, .list-md > .item-block:first-child {
+    border-top: none;
+}
+
+.list-ios > .item-block:last-child, .list-ios > .item-wrapper:last-child .item-block, .list-md > .item-block:last-child, .list-md > .item-wrapper:last-child .item-block {
+    border-bottom: none;
+}
+
+.item-ios [item-left], .item-ios [item-start] {
+    margin: 9px 8px 9px 0;
+}
+
+.ion-list {
+    .item-block:last-child {
+        border-bottom: none;
+    }
+}
+
+.item-md.item-block .item-inner {
+    border-bottom: none;
+}
+
+.item-ios.item-block, .item-md.item-block {
+    .item-inner {
+        padding-right: 0px;
+    }
+}
+
+.item-ios, .item-md {
+    padding-left: 8px;
+    padding-right: 8px;
+    font-size: 1.4rem;
+    color: var(--th-font-color-dark-87);
+    .item-block .item-inner {
+        padding-left: 0px;
+    }
+}
+
+//和左侧图标距离
+.item-ios ion-icon[item-left] + .item-inner, .item-ios ion-icon[item-left] + .item-input, .item-ios ion-icon[item-start] + .item-inner, .item-ios ion-icon[item-start] + .item-input {
+    margin-left: 24px;
+}
+
+.item-ios img[item-left] + .item-inner, .item-ios img[item-left] + .item-input, .item-ios img[item-start] + .item-inner, .item-ios img[item-start] + .item-input {
+    margin-left: 24px;
+}
+
+.item-md img[item-left] + .item-inner, .item-md img[item-left] + .item-input, .item-md img[item-start] + .item-inner, .item-md img[item-start] + .item-input {
+    margin-left: 24px;
+}
+
+//列表中最后一个输入控件不变色
+.list-md .item-input.ng-valid.item-input-has-value:not(.input-has-focus):not(.item-input-has-focus):last-child, .list-md .item-input.ng-valid.input-has-value:not(.input-has-focus):not(.item-input-has-focus):last-child {
+    border-bottom: none;
+    -webkit-box-shadow: none;
+    box-shadow: none;
+}
+
+//列表中最后一个输入控件不变色
+.list-md .item-input.item-input-has-focus:last-child, .list-md .item-input.input-has-focus:last-child {
+    border-bottom: none;
+    -webkit-box-shadow: none;
+    box-shadow: none;
+}
+
+//列表中最后一个输入控件不变色
+.list-md .item-input:last-child {
+    border-bottom: none;
+    -webkit-box-shadow: none;
+    box-shadow: none;
+}
+
+/*----------------------------------------- listitem END----------------------------------------------------*/
+
+//修复iOS输入框跳动的问题
+.input-cover {
+    position: static;
+}
+
+//iOS 禁用滚动效果 https://github.com/ionic-team/ionic/issues/11584
+.content-ios:not([no-bounce]) > .scroll-content::before {
+    bottom: 0;
+}
+
+

@@ -1,0 +1,44 @@
+.th-add-image {
+    border: 1px solid #f2f2f2;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 100%;
+}
+
+.th-choose-pic {
+    background-color: white;
+    display: flex;
+    flex-flow: row;
+    flex-wrap: wrap;
+}
+
+.th-pics {
+    height: 100%;
+    background-size: cover;
+    background-position: center center;
+}
+
+.th-picList {
+    margin: 10px 10px;
+    width: calc(25vw - 21px);
+    height: calc(25vw - 21px);
+    position: relative;
+    text-align: center;
+    vertical-align: middle;
+}
+
+.th-delete-pic {
+    position: absolute;
+    z-index: 100;
+    width: 15px;
+    height: 15px;
+    top: -8px;
+    right: -8px
+}
+
+.th-title {
+    background-color: white;
+    padding: 10px 15px 5px;
+}

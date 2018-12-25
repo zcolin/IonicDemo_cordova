@@ -1,0 +1,46 @@
+<z-toolbar [canGoBack]="false" title="常用功能演示" [isReload]=isReload (reload)="reload()"></z-toolbar>
+<ion-content padding>
+    <ion-refresher slot="fixed" (ionRefresh)="doRefresh($event)">
+        <z-refresher-content></z-refresher-content>
+    </ion-refresher>
+    <ion-list>
+        <ion-card>
+            <ion-card-header>Dialog</ion-card-header>
+            <ion-button expand="block" (click)='showAlert()'>Alert</ion-button>
+            <ion-button expand="block" (click)='showConfirm()' color="secondary">Confirm</ion-button>
+            <ion-button expand="block" (click)='showActionSheet()' color="tertiary">ActionSheet</ion-button>
+            <ion-button expand="block" (click)='showRadioAlert()' color="light">RadioAlert</ion-button>
+            <ion-button expand="block" (click)='showCheckboxAlert()' color="dark">CheckboxAlert</ion-button>
+            <ion-button expand="block" (click)='showProgressDialog()'>ProgressDialog</ion-button>
+            <ion-button expand="block" (click)='showPickerDialog()' color="dark">PickerDialog</ion-button>
+            <ion-button expand="block" (click)='showTextAreaDialog()' color="dark">TextAreaDialog</ion-button>
+            <ion-button expand="block" (click)='presentModal()' color="dark">PresentModal</ion-button>
+        </ion-card>
+
+        <ion-card>
+            <ion-card-header>NewPage</ion-card-header>
+            <ion-button expand="block" fill="outline" (click)='startItemPage()'>ItemPage</ion-button>
+            <ion-button expand="block" (click)='startListPage()'>ListPage</ion-button>
+            <ion-button expand="block" (click)='startInputPage()'>InputPage</ion-button>
+            <ion-button expand="block" (click)='startExternalWebPage()'>ExternalWeb</ion-button>
+            <ion-button expand="block" href="http://www.baidu.com" routerDirection="forward">百度外链</ion-button>
+        </ion-card>
+
+        <ion-card>
+            <ion-card-header>Other</ion-card-header>
+            <ion-button expand="block" (click)='showReload()' color="primary">Reload</ion-button>
+            <z-filechooser width="100px" height="100px" showProgress multiple="true" [addEXIF]="true" [toSize]="100" (fileSelected)="onFileSelected($event)">
+                <img src="assets/img/icon_head.jpg" style="width: 100%;height: 100%;">
+            </z-filechooser>
+
+            <ion-list style="width: 100%" *ngFor="let img of imgsrc">
+                <img [src]='img'>
+            </ion-list>
+
+            <z-filechooser-group></z-filechooser-group>
+        </ion-card>
+    </ion-list>
+    <ion-infinite-scroll (ionInfinite)="doInfinite($event)">
+        <z-infinite-scroll-content></z-infinite-scroll-content>
+    </ion-infinite-scroll>
+</ion-content>

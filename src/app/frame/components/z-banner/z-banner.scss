@@ -1,0 +1,23 @@
+.th-slide-text {
+    position: absolute;
+    width: 100%;
+    color: white;
+    font-size: 1.3rem;
+    text-align: left;
+    background-color: rgba(0, 0, 0, 0.5);
+    bottom: 0px;
+    padding: 10px 50px 10px 10px;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+}
+
+.th-slide-pagination {
+    position: absolute;
+    color: white;
+    font-size: 1.2rem;
+    padding: 10px;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+}
