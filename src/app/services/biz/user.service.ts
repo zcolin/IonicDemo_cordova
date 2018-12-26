@@ -7,7 +7,6 @@
  * ********************************************************
  */
 
-import {NavController} from '@ionic/angular';
 import {UserInfo} from '../../models/user-info';
 import {ZStorageUtil} from '../../frame/utils/z-storage.util';
 
@@ -19,10 +18,9 @@ export class UserService {
 
     /**
      * 重新登录
-     * @param navCtrl
      */
-    static reLogin(navCtrl: NavController) {
-        // navCtrl.setRoot('LoginPage');
+    static reLogin() {
+        // router.setRoot('LoginPage');
         ZStorageUtil.remove('lx_token');
     }
 

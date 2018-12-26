@@ -1,5 +1,5 @@
 import {AfterContentInit, Component, EventEmitter, Input, Output} from '@angular/core';
-import {NavController, Platform} from '@ionic/angular';
+import {Platform} from '@ionic/angular';
 import {BrowserUtil} from '../../utils/browser.util';
 
 /**
@@ -28,7 +28,7 @@ export class ZToolbarComponent implements AfterContentInit {
     headerHeight: string;                      // header高度，用于显示reload组件计算距离顶部距离
     titlePaddingHor = '8px';
 
-    constructor(private navCtrl: NavController, private paltform: Platform) {
+    constructor(private paltform: Platform) {
     }
 
     ngAfterContentInit() {

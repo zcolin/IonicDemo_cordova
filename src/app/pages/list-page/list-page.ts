@@ -1,11 +1,11 @@
 import {Component, Input, OnInit} from '@angular/core';
 import {PoiItem, PoisReply} from '../../models/pois-reply';
-import {NavController} from '@ionic/angular';
 import {ZHttpService} from '../../frame/httpservice/z-http.service';
 import {ZUtil} from '../../frame/utils/z.util';
 import {HttpUrl} from '../../services/consts/http-url';
 import {ZHttpOption} from '../../frame/httpservice/z-http-option';
 import {ZUiService} from '../../frame/services/z-ui.service';
+import {ActivatedRoute, Router} from '@angular/router';
 
 @Component({
     selector: 'page-list-page',
@@ -18,7 +18,7 @@ export class ListPage implements OnInit {
     page = 1;
     @Input() finishCallback: () => void;
 
-    constructor(public navCtrl: NavController, private http: ZHttpService, private uiService: ZUiService) {
+    constructor(public router: Router, public route: ActivatedRoute, private http: ZHttpService, private uiService: ZUiService) {
     }
 
     ngOnInit() {
@@ -29,7 +29,7 @@ export class ListPage implements OnInit {
         if (this.finishCallback) {
             this.finishCallback();
         } else {
-            this.navCtrl.goBack();
+            this.router.navigate(['../'], {relativeTo: this.route});
         }
     }
 

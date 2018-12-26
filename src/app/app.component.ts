@@ -1,9 +1,10 @@
 import {Component} from '@angular/core';
-import {NavController, Platform} from '@ionic/angular';
+import {Platform} from '@ionic/angular';
 import {HttpUrl} from './services/consts/http-url';
 import {JsBridgeUtil} from './frame/jsbridge/jsbridge.util';
 import {BrowserUtil} from './frame/utils/browser.util';
 import {ZUtil} from './frame/utils/z.util';
+import {Router} from '@angular/router';
 
 @Component({
     selector: 'app-root',
@@ -13,7 +14,7 @@ export class AppComponent {
     isCanExit = false;  // 用于判断返回键是否触发
     statusBarClass: string;
 
-    constructor(public platform: Platform, public navCtrl: NavController) {
+    constructor(public platform: Platform, public router: Router) {
         platform.ready().then(() => {
             this.statusBarClass = BrowserUtil.isTelchina() && BrowserUtil.isAndroid(platform) ? 'statusbar-md' : (BrowserUtil.isIos(platform) ? (BrowserUtil.isIphoneX() ? 'statusbar-ios-iphonex' : 'statusbar-ios') : 'statusbar-browser');
             try {
@@ -27,7 +28,7 @@ export class AppComponent {
 
                 const pageName = ZUtil.getQueryParam('pageName');
                 if (pageName) {
-                    this.navCtrl.navigateRoot('/' + pageName, false, {queryParams: params});
+                    this.router.navigateByUrl('/' + pageName, {queryParams: params});
                 }
             } catch (error) {
                 console.log(error);

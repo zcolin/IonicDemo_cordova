@@ -1,5 +1,5 @@
 import {Component, ViewChild} from '@angular/core';
-import {Content, NavController} from '@ionic/angular';
+import {Content} from '@ionic/angular';
 import {ZUiService} from '../../frame/services/z-ui.service';
 import {JsBridgeUtil} from '../../frame/jsbridge/jsbridge.util';
 
@@ -13,7 +13,7 @@ export class JsBridgePage {
 
     @ViewChild(Content) content: Content;
 
-    constructor(public navCtrl: NavController, public uiService: ZUiService) {
+    constructor(public uiService: ZUiService) {
     }
 
     getUUID() {

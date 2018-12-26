@@ -1,6 +1,5 @@
 import {Component, OnInit} from '@angular/core';
-import {PageUtil} from '../../frame/utils/page.util';
-import {NavController} from '@ionic/angular';
+import {Router} from '@angular/router';
 
 @Component({
     selector: 'app-tab-component-demo',
@@ -9,25 +8,25 @@ import {NavController} from '@ionic/angular';
 })
 export class TabComponentDemoPage implements OnInit {
 
-    constructor(private navCtrl: NavController) {
+    constructor(private router: Router) {
     }
 
     ngOnInit() {
     }
 
     startECharts() {
-        PageUtil.startPage(this.navCtrl, '/echarts');
+        this.router.navigate(['/echarts']);
     }
 
     startAMap() {
-        PageUtil.startPage(this.navCtrl, '/amap');
+        this.router.navigate(['/amap']);
     }
 
     startArcgis() {
-        PageUtil.startPage(this.navCtrl, '/arcgis');
+        this.router.navigate(['/arcgis']);
     }
 
     startJSBridge() {
-        PageUtil.startPage(this.navCtrl, '/jsbridge');
+        this.router.navigate(['/jsbridge']);
     }
 }

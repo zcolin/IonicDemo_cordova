@@ -1,7 +1,6 @@
 import {Component, ViewChild} from '@angular/core';
 import {AMapComponent} from '../../frame/components/a-map/a-map';
 import {LocationPluginOption, MakerOption} from '../../frame/components/a-map/a-map.option';
-import {NavController} from '@ionic/angular';
 import {ZUiService} from '../../frame/services/z-ui.service';
 
 @Component({
@@ -15,7 +14,7 @@ export class AMapPage {
     geolocation;
     path: number[][] = [];
 
-    constructor(public navCtrl: NavController, private uiService: ZUiService) {
+    constructor(private uiService: ZUiService) {
     }
 
     ionViewDidEnter() {

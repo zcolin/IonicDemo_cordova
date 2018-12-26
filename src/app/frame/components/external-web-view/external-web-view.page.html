@@ -1,0 +1,10 @@
+<z-toolbar title="{{title}}" [overrideBack]="true" (startButtonClick)="back()" startButtonIconName="close"></z-toolbar>
+<ion-content class="content">
+    <div class="progress" [hidden]="isLoaded">
+        <div class="progress-inner" id="progress"></div>
+    </div>
+
+    <iframe #iframe id="iframe" class="iframe" sandbox="allow-scripts allow-top-navigation allow-pointer-lock allow-same-origin allow-popups allow-forms allow-modals"
+            [src]="secUrl" (load)="loaded()">
+    </iframe>
+</ion-content>

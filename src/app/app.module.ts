@@ -6,6 +6,7 @@ import {AppRoutingModule} from './app-routing.module';
 import {NgModule} from '@angular/core';
 import {ZProviderModule} from './frame/services/z-provider.module';
 import {ProviderModule} from './services/provider.module';
+import {ExternalWebViewPageModule} from './frame/components/external-web-view/external-web-view.module';
 
 @NgModule({
     declarations: [AppComponent],
@@ -15,6 +16,7 @@ import {ProviderModule} from './services/provider.module';
         ZProviderModule,
         AppRoutingModule,
         ProviderModule,
+        ExternalWebViewPageModule,
         IonicModule.forRoot({
             mode: 'md',
             backButtonText: '返回',

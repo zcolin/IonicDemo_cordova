@@ -1,10 +1,11 @@
 import {Component} from '@angular/core';
-import {ModalController, NavController, PickerController} from '@ionic/angular';
+import {ModalController, PickerController} from '@ionic/angular';
 import {ZUiService} from '../../frame/services/z-ui.service';
 import {BrowserUtil} from '../../frame/utils/browser.util';
 import {DateUtil} from '../../frame/utils/date.util';
 import {PageUtil} from '../../frame/utils/page.util';
 import {ListPage} from '../list-page/list-page';
+import {Router} from '@angular/router';
 
 @Component({
     selector: 'page-tab-ui-demo',
@@ -16,7 +17,7 @@ export class TabUiDemoPage {
     imgsrc: string[] = [];
     isReload = false;
 
-    constructor(public navCtrl: NavController, private uiService: ZUiService, private  pickerCtrl: PickerController, private modalController: ModalController) {
+    constructor(public router: Router, private uiService: ZUiService, private  pickerCtrl: PickerController, private modalController: ModalController) {
     }
 
     reload() {
@@ -125,8 +126,7 @@ export class TabUiDemoPage {
     }
 
     async presentModal() {
-        let modal;
-        const modalOption = {
+        const modal = await this.modalController.create({
             component: ListPage,
             componentProps: {
                 value: 123,
@@ -134,25 +134,24 @@ export class TabUiDemoPage {
                     modal.dismiss();
                 }
             }
-        };
-        modal = await this.modalController.create(modalOption);
+        });
         await modal.present();
     }
 
     startItemPage() {
-        PageUtil.startPage(this.navCtrl, '/item');
+        this.router.navigate(['/item']);
     }
 
     startListPage() {
-        PageUtil.startPage(this.navCtrl, '/list-page');
+        this.router.navigate(['/list-page']);
     }
 
     startExternalWebPage() {
-        PageUtil.startWebPage(this.navCtrl, 'http://www.qq.com/', '腾讯');
+        PageUtil.startWebPage(this.modalController, 'http://www.qq.com/', '腾讯');
     }
 
     startInputPage() {
-        PageUtil.startPage(this.navCtrl, '/input');
+        this.router.navigate(['/input']);
     }
 
     onFileSelected(src) {
