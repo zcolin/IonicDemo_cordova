@@ -1,6 +1,6 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, Input, OnInit} from '@angular/core';
 import {PoiItem, PoisReply} from '../../models/pois-reply';
-import {NavController, NavParams} from '@ionic/angular';
+import {NavController} from '@ionic/angular';
 import {ZHttpService} from '../../frame/httpservice/z-http.service';
 import {ZUtil} from '../../frame/utils/z.util';
 import {HttpUrl} from '../../services/consts/http-url';
@@ -16,10 +16,9 @@ export class ListPage implements OnInit {
     totalCount: number;
     listPoi: PoiItem[] = [];
     page = 1;
-    finishCallback: () => void;
+    @Input() finishCallback: () => void;
 
-    constructor(public navCtrl: NavController, private http: ZHttpService, private uiService: ZUiService, private navParam: NavParams) {
-        this.finishCallback = navParam.get('finishCallback');
+    constructor(public navCtrl: NavController, private http: ZHttpService, private uiService: ZUiService) {
     }
 
     ngOnInit() {
