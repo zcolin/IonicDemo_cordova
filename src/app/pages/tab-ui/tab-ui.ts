@@ -8,12 +8,12 @@ import {ListPage} from '../list-page/list-page';
 import {Router} from '@angular/router';
 
 @Component({
-    selector: 'page-tab-ui-demo',
-    templateUrl: 'tab-ui-demo.html',
-    styleUrls: ['tab-ui-demo.scss']
+    selector: 'page-tab-ui',
+    templateUrl: 'tab-ui.html',
+    styleUrls: ['tab-ui.scss']
 })
 
-export class TabUiDemoPage {
+export class TabUiPage {
     imgsrc: string[] = [];
     isReload = false;
 

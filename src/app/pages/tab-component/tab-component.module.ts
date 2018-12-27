@@ -3,7 +3,7 @@ import {CommonModule} from '@angular/common';
 import {FormsModule} from '@angular/forms';
 import {RouterModule} from '@angular/router';
 import {IonicModule} from '@ionic/angular';
-import {TabComponentDemoPage} from './tab-component-demo.page';
+import {TabComponentPage} from './tab-component.page';
 import {EchartsPageModule} from '../echarts/echarts.module';
 import {JsBridgePageModule} from '../js-bridge/js-bridge.module';
 import {AMapPageModule} from '../amap/amap.module';
@@ -23,12 +23,12 @@ import {ZComponentsModule} from '../../frame/components/z-components.module';
         RouterModule.forChild([
             {
                 path: '',
-                component: TabComponentDemoPage
+                component: TabComponentPage
             }
         ])
     ],
-    declarations: [TabComponentDemoPage],
-    exports: [TabComponentDemoPage]
+    declarations: [TabComponentPage],
+    exports: [TabComponentPage]
 })
-export class TabComponentDemoPageModule {
+export class TabComponentPageModule {
 }

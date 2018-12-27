@@ -1,4 +1,4 @@
-import {TabUiDemoPage} from './tab-ui-demo';
+import {TabUiPage} from './tab-ui';
 import {NgModule} from '@angular/core';
 import {ZFilechooserModule} from '../../frame/components/z-filechooser/z-filechooser.module';
 import {ZComponentsModule} from '../../frame/components/z-components.module';
@@ -11,7 +11,7 @@ import {ZFilechooserGroupModule} from '../../frame/components/z-filechooser-grou
 
 @NgModule({
     declarations: [
-        TabUiDemoPage,
+        TabUiPage,
     ],
     imports: [
         CommonModule,
@@ -24,13 +24,13 @@ import {ZFilechooserGroupModule} from '../../frame/components/z-filechooser-grou
         RouterModule.forChild([
             {
                 path: '',
-                component: TabUiDemoPage,
+                component: TabUiPage,
             }
         ])
     ],
     exports: [
-        TabUiDemoPage
+        TabUiPage
     ]
 })
-export class TabUiDemoModule {
+export class TabUiModule {
 }

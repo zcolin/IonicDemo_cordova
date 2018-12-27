@@ -2,11 +2,11 @@ import {Component, OnInit} from '@angular/core';
 import {Router} from '@angular/router';
 
 @Component({
-    selector: 'app-tab-component-demo',
-    templateUrl: './tab-component-demo.page.html',
-    styleUrls: ['./tab-component-demo.page.scss'],
+    selector: 'app-tab-component',
+    templateUrl: './tab-component.page.html',
+    styleUrls: ['./tab-component.page.scss'],
 })
-export class TabComponentDemoPage implements OnInit {
+export class TabComponentPage implements OnInit {
 
     constructor(private router: Router) {
     }

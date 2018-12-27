@@ -4,8 +4,8 @@ import {TabsPage} from './tabs.page';
 import {JsBridgePage} from '../js-bridge/js-bridge';
 import {AMapPage} from '../amap/amap';
 import {ArcgisPage} from '../arcgis/arcgis';
-import {TabUiDemoPage} from '../tab-ui-demo/tab-ui-demo';
-import {TabComponentDemoPage} from '../tab-component-demo/tab-component-demo.page';
+import {TabUiPage} from '../tab-ui/tab-ui';
+import {TabComponentPage} from '../tab-component/tab-component.page';
 
 const routes: Routes = [
     {
@@ -14,18 +14,18 @@ const routes: Routes = [
         children: [
             {
                 path: '',
-                redirectTo: '/tabs/(tab-ui-demo:tab-ui-demo)',
+                redirectTo: '/tabs/(tab-ui:tab-ui)',
                 pathMatch: 'full',
             },
             {
-                path: 'tab-ui-demo',
-                outlet: 'tab-ui-demo',
-                component: TabUiDemoPage
+                path: 'tab-ui',
+                outlet: 'tab-ui',
+                component: TabUiPage
             },
             {
-                path: 'tab-component-demo',
-                outlet: 'tab-component-demo',
-                component: TabComponentDemoPage
+                path: 'tab-component',
+                outlet: 'tab-component',
+                component: TabComponentPage
             },
             {
                 path: 'jsbridge',
@@ -46,7 +46,7 @@ const routes: Routes = [
     },
     {
         path: '',
-        redirectTo: '/tabs/(tab-ui-demo:tab-ui-demo)',
+        redirectTo: '/tabs/(tab-ui:tab-ui)',
         pathMatch: 'full',
     }
 ];

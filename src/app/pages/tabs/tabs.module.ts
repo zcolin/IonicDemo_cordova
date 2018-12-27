@@ -5,8 +5,8 @@ import {TabsPage} from './tabs.page';
 import {IonicModule} from '@ionic/angular';
 import {CommonModule} from '@angular/common';
 import {FormsModule} from '@angular/forms';
-import {TabUiDemoModule} from '../tab-ui-demo/tab-ui-demo.module';
-import {TabComponentDemoPageModule} from '../tab-component-demo/tab-component-demo.module';
+import {TabUiModule} from '../tab-ui/tab-ui.module';
+import {TabComponentPageModule} from '../tab-component/tab-component.module';
 
 @NgModule({
     declarations: [
@@ -17,8 +17,8 @@ import {TabComponentDemoPageModule} from '../tab-component-demo/tab-component-de
         FormsModule,
         IonicModule,
         TabsPageRoutingModule,
-        TabUiDemoModule,
-        TabComponentDemoPageModule,
+        TabUiModule,
+        TabComponentPageModule,
     ]
 })
 export class TabsPageModule {
