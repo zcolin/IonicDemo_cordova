@@ -1,6 +1,7 @@
 import {Component, OnInit} from '@angular/core';
 import * as ECharts from 'echarts';
 import {DbapiProvider} from '../../services/dbapi/dbapi';
+import {Location} from '@angular/common';
 
 @Component({
     selector: 'page-echarts',

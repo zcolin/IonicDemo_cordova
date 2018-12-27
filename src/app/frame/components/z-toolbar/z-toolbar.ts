@@ -1,6 +1,7 @@
 import {AfterContentInit, Component, EventEmitter, Input, Output} from '@angular/core';
 import {Platform} from '@ionic/angular';
 import {BrowserUtil} from '../../utils/browser.util';
+import {Location} from '@angular/common';
 
 /**
  * 页面模版的基模版，定义一些公共的参数
@@ -28,7 +29,7 @@ export class ZToolbarComponent implements AfterContentInit {
     headerHeight: string;                      // header高度，用于显示reload组件计算距离顶部距离
     titlePaddingHor = '8px';
 
-    constructor(private paltform: Platform) {
+    constructor(private paltform: Platform, private location: Location) {
     }
 
     ngAfterContentInit() {
@@ -43,7 +44,11 @@ export class ZToolbarComponent implements AfterContentInit {
     }
 
     onStartButtonClick(event: Event) {
-        this.startButtonClick.emit(event);
+        if (this.canGoBack) {
+            this.location.back();
+        } else {
+            this.startButtonClick.emit(event);
+        }
     }
 
     onEndButtonClick(event: Event) {

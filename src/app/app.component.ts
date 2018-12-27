@@ -1,20 +1,20 @@
 import {Component} from '@angular/core';
-import {Platform} from '@ionic/angular';
+import {NavController, Platform} from '@ionic/angular';
 import {HttpUrl} from './services/consts/http-url';
 import {JsBridgeUtil} from './frame/jsbridge/jsbridge.util';
 import {BrowserUtil} from './frame/utils/browser.util';
 import {ZUtil} from './frame/utils/z.util';
 import {Router} from '@angular/router';
+import {Location} from '@angular/common';
 
 @Component({
     selector: 'app-root',
     templateUrl: 'app.component.html'
 })
 export class AppComponent {
-    isCanExit = false;  // 用于判断返回键是否触发
     statusBarClass: string;
 
-    constructor(public platform: Platform, public router: Router) {
+    constructor(public platform: Platform, public navCtrl: NavController, private router: Router, private location: Location) {
         platform.ready().then(() => {
             this.statusBarClass = BrowserUtil.isTelchina() && BrowserUtil.isAndroid(platform) ? 'statusbar-md' : (BrowserUtil.isIos(platform) ? (BrowserUtil.isIphoneX() ? 'statusbar-ios-iphonex' : 'statusbar-ios') : 'statusbar-browser');
             try {
@@ -28,7 +28,7 @@ export class AppComponent {
 
                 const pageName = ZUtil.getQueryParam('pageName');
                 if (pageName) {
-                    this.router.navigateByUrl('/' + pageName, {queryParams: params});
+                    this.navCtrl.navigateRoot('/' + pageName, false, {queryParams: params});
                 }
             } catch (error) {
                 console.log(error);
@@ -64,6 +64,22 @@ export class AppComponent {
      * android端调用的返回事件
      */
     goBack(): boolean {
+        // const loadingPortal = this.ionicApp._loadingPortal.getActive();
+        // if (loadingPortal) {
+        //     return true;
+        // }
+        //
+        // /*modal 或者遮罩*/
+        // const activePortal = this.ionicApp._modalPortal.getActive() || this.ionicApp._overlayPortal.getActive();
+        // if (activePortal) {
+        //     activePortal.dismiss();
+        //     return true;
+        // }
+
+        if (this.router.url !== '/home') {
+            this.location.back();
+            return true;
+        }
         return false;
     }
 }

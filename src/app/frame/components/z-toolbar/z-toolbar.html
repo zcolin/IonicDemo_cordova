@@ -2,8 +2,8 @@
     <div class="th-app-statusbar-white"></div>
     <ion-toolbar [color]="toolBarColor">
         <ion-buttons slot="start" *ngIf="startButtonIconName">
-            <ion-back-button style="display: inline" *ngIf="!overrideBack" [icon]="startButtonIconName"></ion-back-button>
-            <ion-button *ngIf="overrideBack" (zClickStop)="onStartButtonClick($event)">
+            <!--<ion-back-button style="display: inline" *ngIf="!overrideBack" [icon]="startButtonIconName"></ion-back-button>  ion-button在返回tab页面时，tab会选中第一个。此bug-->
+            <ion-button (zClickStop)="onStartButtonClick($event)">
                 <ion-icon slot="icon-only" [name]="startButtonIconName"></ion-icon>
             </ion-button>
         </ion-buttons>

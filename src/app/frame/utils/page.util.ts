@@ -4,11 +4,27 @@
 import {JsStartPageReply} from '../jsbridge/jsbridge-option';
 import {JsBridgeUtil} from '../jsbridge/jsbridge.util';
 import {BrowserUtil} from './browser.util';
-import {Router} from '@angular/router';
+import {NavigationExtras, Router, UrlTree} from '@angular/router';
 import {ModalController} from '@ionic/angular';
 import {ExternalWebViewPage} from '../components/external-web-view/external-web-view.page';
 
 export class PageUtil {
+
+    /**
+     * 导航到页面
+     * @param {Router} router
+     * @param {string | UrlTree | any[]} url
+     * @param {NavigationExtras} extras
+     * @returns {Promise<boolean>}
+     */
+    static navigate(router: Router, url: string | UrlTree | any[], extras?: NavigationExtras) {
+        if (Array.isArray(url)) {
+            return router.navigate(url, extras);
+        } else {
+            return router.navigateByUrl(url, extras);
+        }
+    }
+
     /**
      * 启动新页面，在手机浏览器会使用原生调用启动新页面
      * @param router
