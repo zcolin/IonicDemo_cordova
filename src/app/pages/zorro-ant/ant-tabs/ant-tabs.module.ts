@@ -5,13 +5,14 @@ import {RouterModule, Routes} from '@angular/router';
 
 import {IonicModule} from '@ionic/angular';
 
-import {InputPage} from './input.page';
-import {ZComponentsModule} from '../../frame/components/z-components.module';
+import {AntTabsPage} from './ant-tabs.page';
+import {NgZorroAntdMobileModule} from 'ng-zorro-antd-mobile';
+import {ZComponentsModule} from '../../../frame/components/z-components.module';
 
 const routes: Routes = [
     {
         path: '',
-        component: InputPage
+        component: AntTabsPage
     }
 ];
 
@@ -20,10 +21,11 @@ const routes: Routes = [
         CommonModule,
         FormsModule,
         IonicModule,
+        NgZorroAntdMobileModule,
         ZComponentsModule,
         RouterModule.forChild(routes)
     ],
-    declarations: [InputPage]
+    declarations: [AntTabsPage]
 })
-export class InputPageModule {
+export class AntTabsPageModule {
 }

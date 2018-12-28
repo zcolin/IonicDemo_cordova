@@ -1,10 +1,10 @@
 import {Component, Input, OnInit} from '@angular/core';
-import {PoiItem, PoisReply} from '../../models/pois-reply';
-import {ZHttpService} from '../../frame/httpservice/z-http.service';
-import {ZUtil} from '../../frame/utils/z.util';
-import {HttpUrl} from '../../services/consts/http-url';
-import {ZHttpOption} from '../../frame/httpservice/z-http-option';
-import {ZUiService} from '../../frame/services/z-ui.service';
+import {PoiItem, PoisReply} from '../../../models/pois-reply';
+import {ZHttpService} from '../../../frame/httpservice/z-http.service';
+import {ZUtil} from '../../../frame/utils/z.util';
+import {HttpUrl} from '../../../services/consts/http-url';
+import {ZHttpOption} from '../../../frame/httpservice/z-http-option';
+import {ZUiService} from '../../../frame/services/z-ui.service';
 import {ActivatedRoute, Router} from '@angular/router';
 
 @Component({

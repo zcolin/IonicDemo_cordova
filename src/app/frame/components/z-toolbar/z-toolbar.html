@@ -1,22 +1,34 @@
 <ion-header *ngIf="isShowHeader">
     <div class="th-app-statusbar-white"></div>
     <ion-toolbar [color]="toolBarColor">
-        <ion-buttons slot="start" *ngIf="startButtonIconName">
-            <!--<ion-back-button style="display: inline" *ngIf="!overrideBack" [icon]="startButtonIconName"></ion-back-button>  ion-button在返回tab页面时，tab会选中第一个。此bug-->
-            <ion-button (zClickStop)="onStartButtonClick($event)">
-                <ion-icon slot="icon-only" [name]="startButtonIconName"></ion-icon>
+        <ion-buttons slot="start" *ngIf="startButtonContent">
+            <!--<ion-back-button style="display: inline" *ngIf="!overrideBack" [icon]="startButtonContent"></ion-back-button>  ion-button在返回tab页面时，tab会选中第一个。此bug-->
+            <ion-button (click)="onStartButtonClick($event)">
+                <ng-template [ngTemplateOutlet]="isTemplete(startButtonContent) ?  startButtonContent:startButton"></ng-template>
             </ion-button>
         </ion-buttons>
         <ion-title [ngStyle]="{'padding': '0px ' + titlePaddingHor}">{{title}}</ion-title>
-        <ion-buttons slot="end" *ngIf="endButtonIconName || endButtonIconName2">
-            <ion-button (zClickStop)="onEndButton2Click($event)" *ngIf="endButtonIconName2">
-                <ion-icon slot="icon-only" style="margin-right: 10px" [name]="endButtonIconName2?endButtonIconName2:'menu'"></ion-icon>
+        <ion-buttons slot="end" *ngIf="endButtonContent || endButtonContent2">
+            <ion-button (click)="onEndButton2Click($event)" *ngIf="endButtonContent2">
+                <ng-template [ngTemplateOutlet]="isTemplete(endButtonContent2) ? endButtonContent2 : endButton2" *ngIf="endButtonContent2"></ng-template>
             </ion-button>
-            <ion-button (zClickStop)="onEndButtonClick($event)" *ngIf="endButtonIconName">
-                <ion-icon slot="icon-only" [name]="endButtonIconName?endButtonIconName:'menu'"></ion-icon>
+            <ion-button (click)="onEndButtonClick($event)" *ngIf="endButtonContent">
+                <ng-template [ngTemplateOutlet]="isTemplete(endButtonContent) ? endButtonContent : endButton" *ngIf="endButtonContent"></ng-template>
             </ion-button>
         </ion-buttons>
     </ion-toolbar>
-    <ng-content select=".ztoolbar-header-content"></ng-content>
+    <ng-content></ng-content>
 </ion-header>
 <z-reload class="th-reload" (reload)='onReload()' [ngStyle]="{'display':isReload ? 'block': 'none','position': 'absolute', 'top': headerHeight}"></z-reload>
+
+<ng-template #startButton>
+    <ion-icon slot="icon-only" [name]="startButtonContent"></ion-icon>
+</ng-template>
+
+<ng-template #endButton>
+    <ion-icon slot="icon-only" [name]="endButtonContent"></ion-icon>
+</ng-template>
+
+<ng-template #endButton2>
+    <ion-icon slot="icon-only" [name]="endButtonContent2"></ion-icon>
+</ng-template>

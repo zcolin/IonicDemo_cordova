@@ -28,6 +28,7 @@
     "core-js": "^2.5.4",
     "echarts": "^4.0.4",
     "esri-loader": "^2.3.0",
+    "ng-zorro-antd-mobile": "^0.10.1",
     "rxjs": "~6.3.3",
     "shadow-dom-inject-styles": "git+https://github.com/adamlacombe/Shadow-DOM-inject-styles.git",
     "zone.js": "~0.8.26"
@@ -42,7 +43,6 @@
     "@angular/compiler-cli": "~7.0.0",
     "@angular/language-service": "~7.0.0",
     "@ionic/angular-toolkit": "~1.2.0",
-    "@ionic/v4-migration-tslint": "^1.6.0",
     "@types/jasmine": "~2.8.8",
     "@types/jasminewd2": "~2.0.3",
     "@types/node": "~10.12.0",

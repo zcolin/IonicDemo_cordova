@@ -1,5 +1,5 @@
 import {Component} from '@angular/core';
-import {ZBannerEntity} from '../../frame/components/z-banner/z-banner-entity';
+import {ZBannerEntity} from '../../../frame/components/z-banner/z-banner-entity';
 
 @Component({
     selector: 'page-item',

@@ -1,0 +1,53 @@
+<z-toolbar title="Ant-tabs"></z-toolbar>
+<Tabs [activeTab]="index"
+      [page]="this.tabCount"
+      (onChange)="selectCard($event)"
+      (onTabClick)="selectCard($event)" [animated]="this.animation" [tabBarPosition]="this.position" [tabDirection]="this.direction">
+    <TabPane [title]="'1st Tab'">
+        <ion-content>
+            <WhiteSpace size="xl"></WhiteSpace>
+            <ion-item>
+                <ion-label text-wrap>Tabs 各种切换效果在加载完成之后在切换会发生样式丢失问题。</ion-label>
+            </ion-item>
+            <WhiteSpace size="xl"></WhiteSpace>
+
+            <div Button (click)="changeDirection()">方向切换</div>
+            <div Button (click)="changePosition()">位置切换</div>
+            <div Button (click)="changeTabCount()">标签个数切换</div>
+            <div Button (click)="changeAnimation()">动画开关切换</div>
+        </ion-content>
+    </TabPane>
+    <TabPane style="height: 100%;" [title]="'2nd Tab'">
+        <ion-content>
+            <ng-template [ngTemplateOutlet]="list"></ng-template>
+        </ion-content>
+    </TabPane>
+    <TabPane style="display: flex; background-color: #fff; align-items: center;justify-content: center;height: 150px;" [title]="'3rd Tab'">
+        <ion-content>
+            Content of 3 tab
+        </ion-content>
+    </TabPane>
+    <TabPane style="height: 550px;" [title]="'4th Tab'">
+        <ion-content>
+            <ng-template [ngTemplateOutlet]="list"></ng-template>
+        </ion-content>
+    </TabPane>
+    <TabPane style="display: flex; background-color: #fff; align-items: center;justify-content: center;height: 150px;" [title]="'5th Tab'">
+        <ion-content>
+            Content of 5 tab
+        </ion-content>
+    </TabPane>
+    <TabPane style="display: flex; background-color: #fff; align-items: center;justify-content: center;height: 150px;" [title]="'6th Tab'">
+        <ion-content>
+            <ng-template [ngTemplateOutlet]="list"></ng-template>
+        </ion-content>
+    </TabPane>
+</Tabs>
+
+<ng-template #list>
+    <List style="width: 100%;">
+        <ListItem *ngFor="let va of items">
+            {{va}}
+        </ListItem>
+    </List>
+</ng-template>

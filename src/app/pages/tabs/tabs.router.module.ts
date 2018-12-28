@@ -1,11 +1,9 @@
 import {NgModule} from '@angular/core';
 import {RouterModule, Routes} from '@angular/router';
 import {TabsPage} from './tabs.page';
-import {JsBridgePage} from '../js-bridge/js-bridge';
-import {AMapPage} from '../amap/amap';
-import {ArcgisPage} from '../arcgis/arcgis';
 import {TabUiPage} from '../tab-ui/tab-ui';
 import {TabComponentPage} from '../tab-component/tab-component.page';
+import {TabZorroAntPage} from '../tab-zorro-ant/tab-zorro-ant.page';
 
 const routes: Routes = [
     {
@@ -28,19 +26,9 @@ const routes: Routes = [
                 component: TabComponentPage
             },
             {
-                path: 'jsbridge',
-                outlet: 'jsbridge',
-                component: JsBridgePage
-            },
-            {
-                path: 'amap',
-                outlet: 'amap',
-                component: AMapPage
-            },
-            {
-                path: 'arcgis',
-                outlet: 'arcgis',
-                component: ArcgisPage
+                path: 'tab-zorro-ant',
+                outlet: 'tab-zorro-ant',
+                component: TabZorroAntPage
             }
         ]
     },

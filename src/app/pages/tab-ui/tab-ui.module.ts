@@ -6,7 +6,7 @@ import {RouterModule} from '@angular/router';
 import {IonicModule} from '@ionic/angular';
 import {FormsModule} from '@angular/forms';
 import {CommonModule} from '@angular/common';
-import {ListPageModule} from '../list-page/list-page.module';
+import {ListPageModule} from '../ionic/list-page/list-page.module';
 import {ZFilechooserGroupModule} from '../../frame/components/z-filechooser-group/z-filechooser-group.module';
 
 @NgModule({

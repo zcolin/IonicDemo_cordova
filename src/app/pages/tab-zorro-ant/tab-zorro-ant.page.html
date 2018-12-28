@@ -1,0 +1,91 @@
+<z-toolbar title="zorro" startButtonContent="menu" [overrideBack]="true" (startButtonClick)="openDraw()" endButtonContent="more" (endButtonClick)="showPopover(true)"></z-toolbar>
+<Drawer class="my-drawer"
+        [contentStyle]="{ color: '#A6A6A6', textAlign: 'center', paddingTop: '48px' }"
+        [enableDragHandle]="false"
+        [sidebar]="sidebar"
+        [open]="drawableOpen"
+        (onOpenChange)="openDraw($event)">
+    <ion-content padding>
+        <List>
+            <ng-template [ngTemplateOutlet]="popover"></ng-template>
+
+            <WhiteSpace size="xl"></WhiteSpace>
+            <Flex>
+                <FlexItem>
+                    <div Button type="primary" (onClick)="skipTabsPage()">flex button</div>
+                </FlexItem>
+                <WingBlank></WingBlank>
+                <FlexItem>
+                    <div Button type="primary" (onClick)="skipDateTimePage()">flex button</div>
+                </FlexItem>
+            </Flex>
+            <WhiteSpace></WhiteSpace>
+
+            <div Button type="warning" (onClick)="onClick()">default</div>
+            <WhiteSpace size="sm"></WhiteSpace>
+
+            <div Button [icon]="img">with custom icon</div>
+            <WhiteSpace></WhiteSpace>
+
+            <div Button icon="check-circle-o">with icon</div>
+            <WhiteSpace size="lg"></WhiteSpace>
+
+            <div Button [loading]="loading" [disabled]="loading" (click)="doLoad()">loading</div>
+            <WhiteSpace size="xl"></WhiteSpace>
+
+        </List>
+    </ion-content>
+</Drawer>
+
+<ng-template #sidebar>
+    <List>
+        <ListItem [multipleLine]="true"
+                  [thumb]="'https://zos.alipayobjects.com/rmsportal/eOZidTabPoEbPeU.png'">
+            Category
+        </ListItem>
+        <ListItem *ngFor="let num of this.nums ; let i = index"
+                  [thumb]="'https://zos.alipayobjects.com/rmsportal/eOZidTabPoEbPeU.png'">
+            Category_Demo{{i + 1}}
+        </ListItem>
+    </List>
+</ng-template>
+
+<ng-template #img>
+    <img src="https://gw.alipayobjects.com/zos/rmsportal/jBfVSpDwPbitsABtDDlB.svg" alt=""/>
+</ng-template>
+
+<ng-template #icon>
+    <Icon></Icon>
+</ng-template>
+
+<ng-template #popover>
+    <Icon Popover
+          [visible]="popoverShow"
+          [ngStyle]="{'height': '100%', 'display': 'flex', 'align-items': 'center'}"
+          [mask]="true"
+          [showArrow]="true"
+          [overlay]="overlay"
+          [placement]="'bottomRight'"
+          (onSelect)="clickPopoverItem($event)"
+          (onVisibleChange)="showPopover($event)"></Icon>
+</ng-template>
+
+<ng-template #overlay>
+    <PopoverItem [icon]="icon1">Scan</PopoverItem>
+    <PopoverItem [icon]="icon2" [ngStyle]="{'whiteSpace': 'nowrap'}">My Qrcode</PopoverItem>
+    <PopoverItem [icon]="icon3">
+        <span [ngStyle]="{'marginRight': 5}">Help</span>
+    </PopoverItem>
+</ng-template>
+
+<ng-template #icon1>
+    <Icon [src]="'https://gw.alipayobjects.com/zos/rmsportal/tOtXhkIWzwotgGSeptou.svg'" [size]="'xs'"></Icon>
+</ng-template>
+
+<ng-template #icon2>
+    <Icon [src]="'https://gw.alipayobjects.com/zos/rmsportal/PKAgAqZWJVNwKsAJSmXd.svg'" [size]="'xs'"></Icon>
+</ng-template>
+
+<ng-template #icon3>
+    <Icon [src]="'https://gw.alipayobjects.com/zos/rmsportal/uQIYTFeRrjPELImDRrPt.svg'" [size]="'xs'"></Icon>
+</ng-template>

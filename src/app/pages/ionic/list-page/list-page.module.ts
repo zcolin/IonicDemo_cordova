@@ -1,6 +1,6 @@
 import {NgModule} from '@angular/core';
 import {RouterModule} from '@angular/router';
-import {ZComponentsModule} from '../../frame/components/z-components.module';
+import {ZComponentsModule} from '../../../frame/components/z-components.module';
 import {ListPage} from './list-page';
 import {IonicModule} from '@ionic/angular';
 import {CommonModule} from '@angular/common';

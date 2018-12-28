@@ -4,7 +4,7 @@ import {ZUiService} from '../../frame/services/z-ui.service';
 import {BrowserUtil} from '../../frame/utils/browser.util';
 import {DateUtil} from '../../frame/utils/date.util';
 import {PageUtil} from '../../frame/utils/page.util';
-import {ListPage} from '../list-page/list-page';
+import {ListPage} from '../ionic/list-page/list-page';
 import {Router} from '@angular/router';
 
 @Component({
