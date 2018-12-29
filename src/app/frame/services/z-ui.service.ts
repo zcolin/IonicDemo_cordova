@@ -6,7 +6,9 @@ import {BrowserUtil} from '../utils/browser.util';
 /**
  * Ui相关服务类
  */
-@Injectable()
+@Injectable({
+    providedIn: 'root'
+})
 export class ZUiService {
     constructor(
         private loadingCtrl: LoadingController,

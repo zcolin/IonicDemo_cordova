@@ -1,0 +1,28 @@
+.tag-container {
+    display: flex;
+    padding-top: 9px;
+    flex-direction: row;
+    flex-wrap: wrap;
+}
+
+.tag-container > tag {
+    margin-left: 9px;
+    margin-bottom: 9px;
+}
+
+.sub-title {
+    color: #888;
+    font-size: 14px;
+    padding: 30px 0 18px 0;
+    margin-left: 15px;
+}
+
+.spe .am-icon {
+    width: 60px;
+    height: 60px;
+}
+
+.spe {
+    width: 60px;
+    height: 60px;
+}

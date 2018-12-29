@@ -18,7 +18,9 @@ import {ZLogUtil} from '../utils/z-log.util';
 /**
  * http 服务类
  */
-@Injectable()
+@Injectable({
+    providedIn: 'root'
+})
 export class ZHttpService {
     constructor(private http: HttpClient, private uiService: ZUiService) {
     }

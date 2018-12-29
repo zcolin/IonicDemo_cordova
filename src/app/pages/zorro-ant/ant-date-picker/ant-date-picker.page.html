@@ -1,0 +1,41 @@
+<z-toolbar title="date-picker"></z-toolbar>
+<List [className]="'date-picker-list'">
+    <ListItem DatePicker
+              [extra]="name1"
+              [arrow]="'horizontal'"
+              [mode]="'datetime'"
+              [value]="value1"
+              (onOk)="onOk1($event)"
+              (onValueChange)="onValueChange($event)"
+    >
+        Datetime
+    </ListItem>
+    <ListItem DatePicker
+              [extra]="name2"
+              [arrow]="'horizontal'"
+              [mode]="'date'"
+              [value]="value2"
+              (onOk)="onOk2($event)"
+    >
+        Date
+    </ListItem>
+    <ListItem DatePicker
+              [extra]="name3"
+              [arrow]="'horizontal'"
+              [mode]="'time'"
+              [value]="value3"
+              (onOk)="onOk3($event)"
+    >
+        Time
+    </ListItem>
+    <ListItem DatePicker
+              [extra]="name4"
+              [arrow]="'horizontal'"
+              [mode]="'time'"
+              [locale]="locale"
+              [value]="value4"
+              (onOk)="onOk4($event)"
+    >
+        UTC Time
+    </ListItem>
+</List>

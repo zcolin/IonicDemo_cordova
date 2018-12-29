@@ -3,6 +3,7 @@ import {Router} from '@angular/router';
 import {ZUiService} from '../../frame/services/z-ui.service';
 import {ModalController, PickerController, PopoverController} from '@ionic/angular';
 import {PageUtil} from '../../frame/utils/page.util';
+import {ActionSheet, Toast} from 'ng-zorro-antd-mobile';
 
 @Component({
     selector: 'app-tab-zorro-ant',
@@ -16,7 +17,19 @@ export class TabZorroAntPage {
     drawableOpen = false;
     popoverShow = false;
 
-    constructor(public router: Router, private uiService: ZUiService, private  pickerCtrl: PickerController, private modalController: ModalController, private popoverCtrl: PopoverController) {
+    dataList = [
+        {url: 'OpHiXAcYzmPQHcdlLFrc', title: '发送给朋友'},
+        {url: 'wvEzCMiDZjthhAOcwTOu', title: '新浪微博'},
+        {url: 'cTTayShKtEIdQVEMuiWt', title: '生活圈'},
+        {url: 'umnHwvEgSyQtXlZjNJTt', title: '微信好友'},
+        {url: 'SxpunpETIwdxNjcJamwB', title: 'QQ'}
+    ].map(obj => ({
+        icon: `<img src="https://gw.alipayobjects.com/zos/rmsportal/${obj.url}.png" style="width:36px"/>`,
+        title: obj.title
+    }));
+
+    constructor(public router: Router, private uiService: ZUiService, private  pickerCtrl: PickerController, private modalController: ModalController, private popoverCtrl: PopoverController,
+        private _actionSheet: ActionSheet, private _toast: Toast) {
     }
 
     doLoad() {
@@ -42,7 +55,30 @@ export class TabZorroAntPage {
         PageUtil.navigate(this.router, '/ant-tabs');
     }
 
+    skipDatePicker() {
+        PageUtil.navigate(this.router, '/ant-date-picker');
+    }
+
     skipDateTimePage() {
         PageUtil.navigate(this.router, '/ant-datetime');
+    }
+
+    skipUiGather() {
+        PageUtil.navigate(this.router, '/ant-ui-gather');
+    }
+
+    showShareActionSheet() {
+        ActionSheet.showShareActionSheetWithOptions(
+            {
+                options: this.dataList,
+                message: 'I am description, description, description'
+            },
+            buttonIndex => {
+                return new Promise(resolve => {
+                    Toast.info('closed after 1000ms');
+                    setTimeout(resolve, 1000);
+                });
+            }
+        );
     }
 }

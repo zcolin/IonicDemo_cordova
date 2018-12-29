@@ -6,25 +6,29 @@
         [open]="drawableOpen"
         (onOpenChange)="openDraw($event)">
     <ion-content padding>
+        <NoticeBar [noticeBarcontent]="'我是小黄条，小黄条的小，小黄条的黄，小黄条的条，请多多关照！！！'"></NoticeBar>
+        <WhiteSpace></WhiteSpace>
         <List>
             <ng-template [ngTemplateOutlet]="popover"></ng-template>
 
             <WhiteSpace size="xl"></WhiteSpace>
+            <div Button (onClick)="skipTabsPage()">tabs</div>
+            <WhiteSpace></WhiteSpace>
             <Flex>
                 <FlexItem>
-                    <div Button type="primary" (onClick)="skipTabsPage()">flex button</div>
+                    <div Button type="ghost" (onClick)="skipDatePicker()">date picker</div>
                 </FlexItem>
                 <WingBlank></WingBlank>
                 <FlexItem>
-                    <div Button type="primary" (onClick)="skipDateTimePage()">flex button</div>
+                    <div Button type="primary" (onClick)="skipDateTimePage()">date time</div>
                 </FlexItem>
             </Flex>
             <WhiteSpace></WhiteSpace>
 
-            <div Button type="warning" (onClick)="onClick()">default</div>
+            <div Button type="warning" (onClick)="skipUiGather()">集合</div>
             <WhiteSpace size="sm"></WhiteSpace>
 
-            <div Button [icon]="img">with custom icon</div>
+            <div Button [icon]="img" (onClick)="showShareActionSheet()">showShareActionSheet</div>
             <WhiteSpace></WhiteSpace>
 
             <div Button icon="check-circle-o">with icon</div>

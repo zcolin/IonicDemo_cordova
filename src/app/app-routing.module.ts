@@ -12,6 +12,8 @@ const routes: Routes = [
     {path: 'arcgis', loadChildren: './pages/arcgis/arcgis.module#ArcgisPageModule'},
     {path: 'ant-tabs', loadChildren: './pages/zorro-ant/ant-tabs/ant-tabs.module#AntTabsPageModule'},
     {path: 'ant-datetime', loadChildren: './pages/zorro-ant/ant-datetime/ant-datetime.module#AntDatetimePageModule'},
+    {path: 'ant-date-picker', loadChildren: './pages/zorro-ant/ant-date-picker/ant-date-picker.module#AntDatePickerPageModule'},
+    {path: 'ant-ui-gather', loadChildren: './pages/zorro-ant/ant-ui-gather/ant-ui-gather.module#AntUiGatherPageModule'},
 
 ];
 

@@ -1,0 +1,64 @@
+<z-toolbar title="ant-ui-gather"></z-toolbar>
+<ion-content padding>
+    <Steps>
+        <Step [status]="'process'" [title]="'Finished'" [description]="'This is description'"></Step>
+        <Step [status]="'error'" [title]="'Error'" [description]="'This is description'"></Step>
+        <Step [title]="'Waiting'" [description]="'This is description'"></Step>
+    </Steps>
+
+    <WhiteSpace size="xl"></WhiteSpace>
+
+    <Accordion [accordion]="true"
+               [defaultActiveKey]="'0'"
+               [activeKey]="activeKey"
+               (onChange)="onChange($event)"
+    >
+        <AccordionPanel *ngFor="let item of accordions; let i = index;"
+                        [key]="i" [header]="item.title"
+                        [disabled]="item.inactive"
+        >
+            <List className="my-list">
+                <ListItem *ngFor="let content of item.child">
+                    {{content}}
+                </ListItem>
+            </List>
+        </AccordionPanel>
+    </Accordion>
+
+    <WhiteSpace size="xl"></WhiteSpace>
+
+    <div class="tag-container">
+        <Tag data-seed="logId">Basic</Tag>
+        <Tag [selected]="true">Selected</Tag>
+        <Tag [disabled]="true">Disabled</Tag>
+        <Tag (onChange)="onChange($event)">Callback</Tag>
+        <Tag [closable]="true" (onClose)="onClose()" (afterClose)="afterClose()"> Closable</Tag>
+        <Tag [small]="true">Small and Readonly</Tag>
+    </div>
+
+    <WhiteSpace size="xl"></WhiteSpace>
+    <Result [img]="img4"
+            [title]="'等待处理'"
+            [message]="'已提交申请，等待银行处理'"
+    >
+        <ng-template #img4>
+            <img src="https://gw.alipayobjects.com/zos/rmsportal/HWuSTipkjJRfTWekgTUG.svg" class="spe am-icon am-icon-md" alt=""/>
+        </ng-template>
+    </Result>
+
+    <WhiteSpace size="xl"></WhiteSpace>
+    <SwipeAction style="background-color: gray"
+                 [autoClose]="true"
+                 [right]="right"
+                 [left]="left"
+                 (onOpen)="open()"
+                 (onClose)="close()"
+    >
+        <ListItem [extra]="'More'"
+                  [arrow]="'horizontal'"
+                  (onClick)="click()"
+        >
+            Have left and right buttons
+        </ListItem>
+    </SwipeAction>
+</ion-content>
