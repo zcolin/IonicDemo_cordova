@@ -4,7 +4,6 @@ import {IonicModule, IonicRouteStrategy} from '@ionic/angular';
 import {AppComponent} from './app.component';
 import {AppRoutingModule} from './app-routing.module';
 import {NgModule} from '@angular/core';
-import {ZProviderModule} from './frame/services/z-provider.module';
 import {ProviderModule} from './services/provider.module';
 import {ExternalWebViewPageModule} from './frame/components/external-web-view/external-web-view.module';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';

@@ -18,6 +18,10 @@ export class TabComponentPage implements OnInit {
         this.router.navigate(['/echarts']);
     }
 
+    startF2Charts() {
+        this.router.navigate(['/f2_charts']);
+    }
+
     startAMap() {
         this.router.navigate(['/amap']);
     }
