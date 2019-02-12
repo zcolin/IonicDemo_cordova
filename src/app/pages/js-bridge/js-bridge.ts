@@ -1,5 +1,5 @@
 import {Component, ViewChild} from '@angular/core';
-import {Content} from '@ionic/angular';
+import {IonContent} from '@ionic/angular';
 import {ZUiService} from '../../frame/services/z-ui.service';
 import {JsBridgeUtil} from '../../frame/jsbridge/jsbridge.util';
 
@@ -10,8 +10,7 @@ import {JsBridgeUtil} from '../../frame/jsbridge/jsbridge.util';
 })
 export class JsBridgePage {
     imgsrc: string[];
-
-    @ViewChild(Content) content: Content;
+    @ViewChild(IonContent) content: IonContent;
 
     constructor(public uiService: ZUiService) {
     }

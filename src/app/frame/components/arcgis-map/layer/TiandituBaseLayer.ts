@@ -59,11 +59,11 @@ export class TiandituBaseLayer extends BaseLayer {
                 baseLayers: [
                     new WebTileLayer(
                         {
-                            urlTemplate: 'http://{subDomain}.tianditu.com/DataServer?T=vec_c&X={col}&Y={row}&L={level}',
+                            urlTemplate: 'http://{subDomain}.tianditu.com/DataServer?T=vec_c&X={col}&Y={row}&L={level}&tk=b5ca85bce62f83611e5b4135f4fe1bc5',
                             subDomains: ['t1', 't2', 't3', 't4', 't5'],
                         }),
                     new WebTileLayer({
-                        urlTemplate: 'http://{subDomain}.tianditu.com/DataServer?T=cva_c&X={col}&Y={row}&L={level}',
+                        urlTemplate: 'http://{subDomain}.tianditu.com/DataServer?T=cva_c&X={col}&Y={row}&L={level}&tk=b5ca85bce62f83611e5b4135f4fe1bc5',
                         subDomains: ['t1', 't2', 't3', 't4', 't5'],
                     })
                 ],

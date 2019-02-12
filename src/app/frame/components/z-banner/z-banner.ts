@@ -1,6 +1,6 @@
 import {Component, EventEmitter, Input, OnChanges, OnInit, Output, ViewChild} from '@angular/core';
 import {ZBannerEntity} from './z-banner-entity';
-import {Slides} from '@ionic/angular';
+import {IonSlides} from '@ionic/angular';
 
 /**
  * 轮播图
@@ -28,7 +28,7 @@ export class ZBannerComponent implements OnInit, OnChanges {
 
     cusOptions;                     // 本组件使用它的options\
 
-    @ViewChild('zbanner') slides: Slides;
+    @ViewChild('zbanner') slides: IonSlides;
     currentPage = 1;
     totalPage = 0;
 
@@ -75,7 +75,7 @@ export class ZBannerComponent implements OnInit, OnChanges {
     }
 
     async slideChange() {
-        this.currentPage = await  this.slides.getActiveIndex();
+        this.currentPage = await this.slides.getActiveIndex();
     }
 
     onBackButtonClick() {

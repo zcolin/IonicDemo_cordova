@@ -6,8 +6,6 @@ import {IonicModule} from '@ionic/angular';
 import {TabZorroAntPage} from './tab-zorro-ant.page';
 import {ZComponentsModule} from '../../frame/components/z-components.module';
 import {NgZorroAntdMobileModule} from 'ng-zorro-antd-mobile';
-import {AntTabsPageModule} from '../zorro-ant/ant-tabs/ant-tabs.module';
-import {AntDatetimePageModule} from '../zorro-ant/ant-datetime/ant-datetime.module';
 
 @NgModule({
     imports: [
@@ -16,8 +14,6 @@ import {AntDatetimePageModule} from '../zorro-ant/ant-datetime/ant-datetime.modu
         IonicModule,
         ZComponentsModule,
         NgZorroAntdMobileModule,
-        AntDatetimePageModule,
-        AntTabsPageModule,
         RouterModule.forChild([
             {
                 path: '',

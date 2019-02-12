@@ -28,7 +28,7 @@ export class AppComponent {
 
                 const pageName = ZUtil.getQueryParam('pageName');
                 if (pageName) {
-                    this.navCtrl.navigateRoot('/' + pageName, false, {queryParams: params});
+                    this.navCtrl.navigateRoot('/' + pageName, {queryParams: params});
                 }
             } catch (error) {
                 console.log(error);

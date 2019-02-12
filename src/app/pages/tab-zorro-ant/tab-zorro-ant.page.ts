@@ -28,8 +28,7 @@ export class TabZorroAntPage {
         title: obj.title
     }));
 
-    constructor(public router: Router, private uiService: ZUiService, private  pickerCtrl: PickerController, private modalController: ModalController, private popoverCtrl: PopoverController,
-        private _actionSheet: ActionSheet, private _toast: Toast) {
+    constructor(public router: Router, private uiService: ZUiService, private  pickerCtrl: PickerController, private modalController: ModalController, private popoverCtrl: PopoverController) {
     }
 
     doLoad() {
@@ -73,11 +72,10 @@ export class TabZorroAntPage {
                 options: this.dataList,
                 message: 'I am description, description, description'
             },
-            buttonIndex => {
-                return new Promise(resolve => {
+            (index, rowIndex) => {
+                setTimeout(() => {
                     Toast.info('closed after 1000ms');
-                    setTimeout(resolve, 1000);
-                });
+                }, 1000);
             }
         );
     }

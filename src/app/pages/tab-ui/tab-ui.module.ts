@@ -20,7 +20,6 @@ import {ZFilechooserGroupModule} from '../../frame/components/z-filechooser-grou
         ZComponentsModule,
         ZFilechooserModule,
         ZFilechooserGroupModule,
-        ListPageModule,
         RouterModule.forChild([
             {
                 path: '',

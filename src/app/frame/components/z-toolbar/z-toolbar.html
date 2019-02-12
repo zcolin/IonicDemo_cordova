@@ -4,16 +4,16 @@
         <ion-buttons slot="start" *ngIf="startButtonContent">
             <!--<ion-back-button style="display: inline" *ngIf="!overrideBack" [icon]="startButtonContent"></ion-back-button>  ion-button在返回tab页面时，tab会选中第一个。此bug-->
             <ion-button (click)="onStartButtonClick($event)">
-                <ng-template [ngTemplateOutlet]="isTemplete(startButtonContent) ?  startButtonContent:startButton"></ng-template>
+                <ng-template [ngTemplateOutlet]="isTemplate(startButtonContent) ?  startButtonContent:startButton"></ng-template>
             </ion-button>
         </ion-buttons>
         <ion-title [ngStyle]="{'padding': '0px ' + titlePaddingHor}">{{title}}</ion-title>
         <ion-buttons slot="end" *ngIf="endButtonContent || endButtonContent2">
             <ion-button (click)="onEndButton2Click($event)" *ngIf="endButtonContent2">
-                <ng-template [ngTemplateOutlet]="isTemplete(endButtonContent2) ? endButtonContent2 : endButton2" *ngIf="endButtonContent2"></ng-template>
+                <ng-template [ngTemplateOutlet]="isTemplate(endButtonContent2) ? endButtonContent2 : endButton2"></ng-template>
             </ion-button>
             <ion-button (click)="onEndButtonClick($event)" *ngIf="endButtonContent">
-                <ng-template [ngTemplateOutlet]="isTemplete(endButtonContent) ? endButtonContent : endButton" *ngIf="endButtonContent"></ng-template>
+                <ng-template [ngTemplateOutlet]="isTemplate(endButtonContent) ? endButtonContent : endButton"></ng-template>
             </ion-button>
         </ion-buttons>
     </ion-toolbar>

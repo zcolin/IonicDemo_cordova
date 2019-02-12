@@ -6,7 +6,7 @@ import {IonicModule} from '@ionic/angular';
 import {CommonModule} from '@angular/common';
 import {FormsModule} from '@angular/forms';
 import {TabUiModule} from '../tab-ui/tab-ui.module';
-import {TabComponentPageModule} from '../tab-component/tab-component.module';
+import {TabComponentModule} from '../tab-component/tab-component.module';
 import {TabZorroAntModule} from '../tab-zorro-ant/tab-zorro-ant.module';
 
 @NgModule({
@@ -19,7 +19,7 @@ import {TabZorroAntModule} from '../tab-zorro-ant/tab-zorro-ant.module';
         IonicModule,
         TabsPageRoutingModule,
         TabUiModule,
-        TabComponentPageModule,
+        TabComponentModule,
         TabZorroAntModule,
     ]
 })

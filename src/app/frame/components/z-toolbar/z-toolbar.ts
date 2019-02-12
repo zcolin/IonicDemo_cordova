@@ -45,7 +45,7 @@ export class ZToolbarComponent implements AfterContentInit {
     onStartButtonClick(event: Event) {
         if (!this.overrideBack) {
             if (this.canGoBack) {
-                this.navCtrl.goBack(true);
+                this.navCtrl.back();
             }
         } else {
             this.startButtonClick.emit(event);
@@ -64,7 +64,7 @@ export class ZToolbarComponent implements AfterContentInit {
         this.reload.emit();
     }
 
-    isTemplete(value: string | TemplateRef<any>) {
+    isTemplate(value: string | TemplateRef<any>) {
         return value instanceof TemplateRef;
     }
 }
