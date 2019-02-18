@@ -9,8 +9,8 @@ import PieLabel from '@antv/f2/lib/plugin/pie-label';
 })
 // demo: https://antv.alipay.com/zh-cn/f2/3.x/demo/gallery/simple-gauge.html
 export class F2ChartsPage implements OnInit {
-    private title: string;
-    private money: string;
+    title: string;
+    money: string;
 
     constructor() {
     }

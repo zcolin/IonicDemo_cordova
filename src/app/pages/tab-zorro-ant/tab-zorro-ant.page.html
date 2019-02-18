@@ -1,4 +1,4 @@
-<z-toolbar title="zorro" [canGoBack]="false" startButtonContent="menu" [overrideBack]="true" (startButtonClick)="openDraw()" endButtonContent="more" (endButtonClick)="showPopover(true)"></z-toolbar>
+<z-toolbar title="zorro" [canGoBack]="false" startButtonContent="menu" [overrideBack]="true" (startButtonClick)="openDraw($event)" endButtonContent="more" (endButtonClick)="showPopover(true)"></z-toolbar>
 <Drawer class="my-drawer"
         [contentStyle]="{ color: '#A6A6A6', textAlign: 'center', paddingTop: '48px' }"
         [enableDragHandle]="false"

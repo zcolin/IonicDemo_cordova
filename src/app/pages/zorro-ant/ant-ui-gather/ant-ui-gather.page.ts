@@ -56,4 +56,15 @@ export class AntUiGatherPage implements OnInit {
         console.log('clicked!');
     }
 
+    onChange(event) {
+        console.log('onChange!');
+    }
+
+    onClose() {
+        console.log('onClose!');
+    }
+
+    afterClose() {
+        console.log('afterClose!');
+    }
 }

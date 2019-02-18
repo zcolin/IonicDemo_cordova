@@ -15,6 +15,7 @@ export class AppComponent {
     statusBarClass: string;
 
     constructor(public platform: Platform, public navCtrl: NavController, private router: Router, private location: Location) {
+        console.log('-------------------------------------');
         platform.ready().then(() => {
             this.statusBarClass = BrowserUtil.isTelchina() && BrowserUtil.isAndroid(platform) ? 'statusbar-md' : (BrowserUtil.isIos(platform) ? (BrowserUtil.isIphoneX() ? 'statusbar-ios-iphonex' : 'statusbar-ios') : 'statusbar-browser');
             try {
@@ -28,7 +29,8 @@ export class AppComponent {
 
                 const pageName = ZUtil.getQueryParam('pageName');
                 if (pageName) {
-                    this.navCtrl.navigateRoot('/' + pageName, {queryParams: params});
+                    console.log(pageName);
+                    this.navCtrl.navigateRoot(pageName, {queryParams: params});
                 }
             } catch (error) {
                 console.log(error);
