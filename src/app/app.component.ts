@@ -6,6 +6,7 @@ import {BrowserUtil} from './frame/utils/browser.util';
 import {ZUtil} from './frame/utils/z.util';
 import {Router} from '@angular/router';
 import {Location} from '@angular/common';
+import {ZLogUtil} from './frame/utils/z-log.util';
 
 @Component({
     selector: 'app-root',
@@ -15,9 +16,9 @@ export class AppComponent {
     statusBarClass: string;
 
     constructor(public platform: Platform, public navCtrl: NavController, private router: Router, private location: Location) {
-        console.log('-------------------------------------');
         platform.ready().then(() => {
-            this.statusBarClass = BrowserUtil.isTelchina() && BrowserUtil.isAndroid(platform) ? 'statusbar-md' : (BrowserUtil.isIos(platform) ? (BrowserUtil.isIphoneX() ? 'statusbar-ios-iphonex' : 'statusbar-ios') : 'statusbar-browser');
+            // 沉浸式
+            // this.statusBarClass = BrowserUtil.isTelchina() && BrowserUtil.isAndroid(platform) ? 'statusbar-md' : (BrowserUtil.isIos(platform) ? (BrowserUtil.isIphoneX() ? 'statusbar-ios-iphonex' : 'statusbar-ios') : 'statusbar-browser');
             try {
                 const baseUrl = ZUtil.getQueryParam('baseUrl');
                 if (baseUrl) {
@@ -77,8 +78,8 @@ export class AppComponent {
         //     activePortal.dismiss();
         //     return true;
         // }
-
-        if (this.router.url !== '/home') {
+        ZLogUtil.log(this.router.url);
+        if (this.router.url !== '/tabs/tab-ui') {
             this.location.back();
             return true;
         }

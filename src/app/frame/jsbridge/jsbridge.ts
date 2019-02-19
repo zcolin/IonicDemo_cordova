@@ -10,7 +10,7 @@ export class JsBridge {
      */
     registerHandler(methodName: string, plaform: 'android' | 'ios' | null, callback: (data: string, responseCallback: (returnData: string) => void) => void) {
         this.setupWebViewJavascriptBridge((bridge) => {
-            bridge.registerHandler(methodName, plaform, callback);
+            bridge.registerHandler(methodName, callback);
         }, plaform);
     }
 
